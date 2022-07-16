@@ -15,6 +15,26 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "@interceptors/*": [
+        "./src/app/core/interceptors/*"
+      ],
+      "@services/*": [
+        "./src/app/core/services/*"
+      ],
+      "@guards/*": [
+        "./src/app/core/guards/*"
+      ],
+      "@constants/*": [
+        "./src/app/shared/constants/*"
+      ],
+      "@shared/*": [
+        "./src/app/shared/*"
+      ],
+      "@store/*": [
+        "./src/app/store/*"
+      ]
+    },
     "target": "es2017",
     "module": "es2020",
     "lib": [

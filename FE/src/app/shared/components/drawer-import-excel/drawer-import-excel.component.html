@@ -1,0 +1,53 @@
+<nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzMaskClosable]="false" [nzWidth]="400" [nzVisible]="visible"
+  nzWrapClassName="tone-2" nzTitle="{{'common.importExcel' | translate}}" (nzOnClose)="close()">
+  <div class="row import-excel-container">
+    <div class="col-12">
+      <div class="container" appDnd (fileDropped)="onFileDropped($event)">
+        <input type="file"
+          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+        <div>
+          <h3>{{'input.dragOrDropFileHere' | translate}} <br> {{'common.or' | translate}}</h3>
+          <button nz-button nzType="primary" class="warning" (click)="fileDropRef.click()">
+            <icon-factory iconName="upload"></icon-factory> {{('button.chooseFile' |translate) | titlecase}}
+          </button>
+        </div>
+      </div>
+      <div class="files-list">
+        <div class="single-file" *ngFor="let file of files; let i = index">
+          <icon-factory class="text-success" iconName="excel" size="24px"></icon-factory>
+          <div class="info">
+            <h4 class="name">
+              {{ file?.name }}
+            </h4>
+            <p class="size">
+              {{ formatBytes(file?.size) }}
+            </p>
+            <app-progress [progress]="file?.progress"></app-progress>
+          </div>
+          <icon-factory class="text-danger" iconName="delete" size="18px" (click)="deleteFile(i)"></icon-factory>
+        </div>
+      </div>
+      <small *ngIf="errorMessage" class="text-error text-danger">
+        {{'error.logsError' | translate}}:<br>
+        {{ (errorMessage | translate) || 'error'|translate}}
+      </small>
+    </div>
+  </div>
+  <div class="col-12 mt-2 bottom-container">
+    <hr>
+    <a class="mt-2" (click)="onDownloadTemplate()">
+      <h4 class="name">
+        <icon-factory class="text-primary" iconName="file-download" size="18px"></icon-factory>
+        {{'button.downloadTemplate'|translate}}
+      </h4>
+      <!-- <icon-factory color="#53a96a" iconName="excel" size="24px"></icon-factory> -->
+    </a>
+    <button nz-button nzType="primary" class="success mt-3" [nzLoading]="isLoading" (click)="onSubmit()">
+      <icon-factory iconName='save'></icon-factory>{{'button.save' |
+      translate}}
+    </button>
+
+  </div>
+
+</nz-drawer>
