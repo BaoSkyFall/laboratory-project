@@ -20,7 +20,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   constructor(
     private auth: AuthService,
     private translationService: TranslationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.user$ = this.auth.currentUserSubject.asObservable();
@@ -29,7 +29,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
   logout() {
     this.auth.logout();
-    document.location.reload();
+    // document.location.reload();
   }
 
   selectLanguage(lang: string) {

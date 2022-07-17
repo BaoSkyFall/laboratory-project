@@ -6,6 +6,7 @@ import express from 'express';
 
 import Logger from './loaders/logger';
 
+
 async function startServer() {
   const app = express();
 
@@ -16,7 +17,6 @@ async function startServer() {
    * So we are using good old require.
    **/
   await require('./loaders').default({ expressApp: app });
-
   app.listen(config.port, () => {
     Logger.info(`
       ################################################

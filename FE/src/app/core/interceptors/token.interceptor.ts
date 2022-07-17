@@ -28,6 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
     null
   );
+  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
 
   constructor(
     private injector: Injector,
@@ -39,45 +40,22 @@ export class TokenInterceptor implements HttpInterceptor {
     // private notificationService: NotificationService
   ) { }
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const viewport = this.meta.getTag("name=API");
-    var cloneRequest = environment.production ? request?.clone({
-      headers: request.headers,
-      url: request.url.replace(
-        "http://14.161.47.48:45200",
-        viewport?.content || ''
-      )
-    }) : request;
-    const accessExpired = this.credentialsService.isAccessTokenExpired();
-
-    if (accessExpired == false) {
-      cloneRequest = this.addToken(cloneRequest);
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // add auth header with jwt if account is logged in and request is to the api url
+    const authStorageData = localStorage?.getItem(this.authLocalStorageToken) || '';
+    let account: any = {};
+    if (authStorageData) {
+      account = JSON.parse(authStorageData) || null;
+    }
+    const isLoggedIn = account?.token;
+    const isApiUrl = request.url.startsWith(environment.API_URL);
+    if (isLoggedIn && isApiUrl) {
+      request = request.clone({
+        setHeaders: { Authorization: `Bearer ${account.token}` }
+      });
     }
 
-    return next.handle(cloneRequest).pipe(
-      takeUntil(this.httpCancelService.onCancelPendingRequests()),
-      catchError((err) => {
-        // Forbidden move to login
-        if (err.status === 401) {
-          return this.handleRenewToken(cloneRequest, next);
-        } else if ((err.status === 403) || (err.status === 9999)) {
-          this.credentialsService.logout().subscribe((res) => {
-            this.router.navigate(['/login']);
-          });
-        } else if (err.status != 200) {
-          // this.notificationService.showToastr(
-          //   `${err.name}: ${err.status}`,
-          //   'error'
-          // );
-          return throwError(err);
-        }
-        const error = err.message || err.statusText;
-        return throwError(error);
-      })
-    );
+    return next.handle(request);
   }
 
   private handleRenewToken(request: HttpRequest<any>, next: HttpHandler) {

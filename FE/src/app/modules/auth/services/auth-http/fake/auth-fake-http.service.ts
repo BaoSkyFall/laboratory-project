@@ -1,3 +1,4 @@
+import { API } from '@constants/api.constants';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -8,17 +9,18 @@ import { AuthModel } from '../../../models/auth.model';
 import { UsersTable } from '../../../../../_fake/users.table';
 import { environment } from '../../../../../../environments/environment';
 
-const API_USERS_URL = `${environment.apiUrl}/users`;
+const API_USERS_URL = `${environment.API_URL}/users`;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthHTTPService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // public methods
   login(email: string, password: string): Observable<any> {
     const notFoundError = new Error('Not Found');
+    console.log('password:', password)
     if (!email || !password) {
       return of(notFoundError);
     }

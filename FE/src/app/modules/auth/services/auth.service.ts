@@ -61,20 +61,40 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem(this.authLocalStorageToken);
-    this.router.navigate(['/auth/login'], {
-      queryParams: {},
-    });
-  }
+    this.isLoadingSubject.next(true);
+    console.log('"goto logout":')
+    this.authHttpService.logout().subscribe(response => {
+      console.log('response:', response)
+      this.router.navigate(['/auth/login'], {
+        queryParams: {},
+      })
+      localStorage.removeItem(this.authLocalStorageToken);
+      document.location.reload();
 
+
+    }, err => {
+      console.log('err:', err)
+      localStorage.removeItem(this.authLocalStorageToken);
+      this.router.navigate(['/auth/login'], {
+        queryParams: {},
+      })
+      // document.location.reload();
+
+    })
+
+
+  }
+  getInfoLocalStorage() {
+    return localStorage.getItem(this.authLocalStorageToken);
+  }
   getUserByToken(): Observable<UserType> {
     const auth = this.getAuthFromLocalStorage();
-    if (!auth || !auth.authToken) {
+    if (!auth || !auth.token) {
       return of(undefined);
     }
 
     this.isLoadingSubject.next(true);
-    return this.authHttpService.getUserByToken(auth.authToken).pipe(
+    return this.authHttpService.getUserByToken(auth.token).pipe(
       map((user: UserType) => {
         if (user) {
           this.currentUserSubject.next(user);
@@ -113,7 +133,7 @@ export class AuthService implements OnDestroy {
   // private methods
   private setAuthFromLocalStorage(auth: AuthModel): boolean {
     // store auth authToken/refreshToken/epiresIn in local storage to keep user logged in between page refreshes
-    if (auth && auth.authToken) {
+    if (auth && auth.token) {
       localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth));
       return true;
     }

@@ -14,8 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit, OnDestroy {
   // KeenThemes mock, change it to:
   defaultAuth: any = {
-    email: 'admin@demo.com',
-    password: 'demo',
+    email: 'baoit128@gmail.com',
+    password: '12345678@',
   };
   loginForm: FormGroup;
   hasError: boolean;
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initForm();
     // get return url from route parameters or default to '/'
+    this.authService.isLoadingSubject.next(false);
     this.returnUrl =
       this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
   }
@@ -78,6 +79,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe((user: UserModel | undefined) => {
+        console.log('user:', user)
         if (user) {
           this.router.navigate([this.returnUrl]);
         } else {
