@@ -20,7 +20,7 @@ export default class DoctorService {
 
   public async CreateDoctor(doctorInputDTO: IDoctorInputDTO): Promise<{ doctor: IDoctor }> {
     try {
-      this.logger.silly('Creating user db record');
+      this.logger.silly('Creating doctor db record');
       const doctorRecord = await this.doctorModel.create({
         ...doctorInputDTO,
 
