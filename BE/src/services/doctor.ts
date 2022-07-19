@@ -25,16 +25,11 @@ export default class DoctorService {
         ...doctorInputDTO,
 
       });
-      this.logger.silly('Generating JWT');
-      const token = this.generateToken(doctorRecord);
 
       if (!doctorRecord) {
-        throw new Error('User cannot be created');
+        throw new Error('Doctor cannot be created');
       }
-      this.logger.silly('Sending welcome email');
-      await this.mailer.SendWelcomeEmail(doctorRecord);
-
-      this.eventDispatcher.dispatch(events.user.signUp, { user: doctorRecord });
+      this.eventDispatcher.dispatch(events.doctor.create, { doctor: doctorRecord });
 
       /**
        * @TODO This is not the best way to deal with this
@@ -42,7 +37,7 @@ export default class DoctorService {
        * that transforms data from layer to layer
        * but that's too over-engineering for now
        */
-      const user = doctorRecord.toObject();
+      const doctor = doctorRecord.toObject();
       return { doctor };
     } catch (e) {
       this.logger.error(e);

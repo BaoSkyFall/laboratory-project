@@ -30,7 +30,7 @@ export default (app: Router) => {
         email: Joi.string().required(),
         level: Joi.string().required(),
         apartment: Joi.string().required(),
-        dob: Joi.string().required()
+        dob: Joi.number().required()
 
       }),
     }),
