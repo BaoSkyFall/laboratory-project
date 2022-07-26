@@ -12,12 +12,26 @@ import events from '@/subscribers/events';
 export default class DoctorService {
   constructor(
     @Inject('doctorModel') private doctorModel: Models.DoctorModel,
+    @Inject('specialistModel') private specialistModel: Models.SpecialistModel,
     private mailer: MailerService,
     @Inject('logger') private logger,
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
   ) {
   }
+  public async GetListDoctor(): Promise<{ doctor: any[] }> {
+    try {
+      this.logger.silly('Get list doctor DB Record');
+      const doctorList = await this.doctorModel.find().populate({ path: 'specialistVirtual', select: 'code', model: this.specialistModel })
+      // const doctorList = await this.specialistModel.find();
+      console.log('doctorList:', doctorList)
+      return doctorList;
+    }
 
+    catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
   public async CreateDoctor(doctorInputDTO: IDoctorInputDTO): Promise<{ doctor: IDoctor }> {
     try {
       this.logger.silly('Creating doctor db record');
@@ -44,32 +58,51 @@ export default class DoctorService {
       throw e;
     }
   }
+  public async EditDoctor(doctorInputDTO: IDoctorInputDTO): Promise<{ doctor: IDoctor }> {
+    try {
+      this.logger.silly('Edit doctor db record');
+      const { _id } = doctorInputDTO;
+      if (_id) {
+        const doctorRecord = await this.doctorModel.updateOne({
+          _id
+        }, {
+          $set: {
+            ...doctorInputDTO
+          }
+        })
+        if (!doctorRecord) {
+          throw new Error('Doctor cannot be update');
+        }
+        console.log('doctorRecord:', doctorRecord)
+        this.eventDispatcher.dispatch(events.doctor.edit, { doctor: doctorRecord });
+        const doctor = doctorRecord;
+        return { doctor };
+      }
 
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
+  public async DeleteDoctor(_id: string): Promise<{ doctor: IDoctor }> {
+    try {
+      this.logger.silly('Delete doctor db record');
+      if (_id) {
+        const doctorRecord = await this.doctorModel.deleteOne({
+          _id
+        })
+        if (!doctorRecord) {
+          throw new Error('Doctor cannot be deleted');
+        }
+        console.log('doctorRecord:', doctorRecord)
+        this.eventDispatcher.dispatch(events.doctor.edit, { doctor: doctorRecord });
+        const doctor = doctorRecord;
+        return { doctor };
+      }
 
-
-  private generateToken(user) {
-    const today = new Date();
-    const exp = new Date(today);
-    exp.setDate(today.getDate() + 60);
-
-    /**
-     * A JWT means JSON Web Token, so basically it's a json that is _hashed_ into a string
-     * The cool thing is that you can add custom properties a.k.a metadata
-     * Here we are adding the userId, role and name
-     * Beware that the metadata is public and can be decoded without _the secret_
-     * but the client cannot craft a JWT to fake a userId
-     * because it doesn't have _the secret_ to sign it
-     * more information here: https://softwareontheroad.com/you-dont-need-passport
-     */
-    this.logger.silly(`Sign JWT for userId: ${user._id}`);
-    return jwt.sign(
-      {
-        _id: user._id, // We are gonna use this in the middleware 'isAuth'
-        role: user.role,
-        name: user.name,
-        exp: exp.getTime() / 1000,
-      },
-      config.jwtSecret
-    );
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
   }
 }

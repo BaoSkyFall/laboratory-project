@@ -15,15 +15,19 @@ const Doctor = new mongoose.Schema(
       unique: true,
       index: true,
     },
-
     phoneNumber: String,
-    level: String,
-    apartment: String,
+    levelCode: String,
+    specialistCode: String,
     dob: Number,
 
 
   },
   { timestamps: true },
 );
-
+Doctor.virtual('specialistVirtual', {
+  ref: 'specialist',
+  localField: 'specialistCode',
+  foreignField: 'code',
+  justOne: true
+});
 export default mongoose.model<IDoctor & mongoose.Document>('Doctor', Doctor);

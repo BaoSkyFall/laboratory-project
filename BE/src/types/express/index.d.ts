@@ -1,6 +1,8 @@
 import { Document, Model } from 'mongoose';
 import { IUser } from '@/interfaces/IUser';
 import { IDoctor } from '@/interfaces/IDoctor';
+import { ISpecialist } from '@/interfaces/ISpecialist';
+
 declare global {
   namespace Express {
     export interface Request {
@@ -11,6 +13,7 @@ declare global {
   namespace Models {
     export type UserModel = Model<IUser & Document>;
     export type DoctorModel = Model<IDoctor & Document>;
+    export type SpecialistModel = Model<ISpecialist & Document>;
 
   }
 }

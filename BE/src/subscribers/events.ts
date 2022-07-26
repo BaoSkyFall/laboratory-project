@@ -4,6 +4,11 @@ export default {
     signIn: 'onUserSignIn',
   },
   doctor: {
-    create: 'onCreateDoctor'
+    create: 'onCreateDoctor',
+    edit: 'onEditDoctor',
+    viewList: 'onViewListDoctor',
+    viewDetail: 'onViewDetailDoctor',
+    delete: 'onDeleteDoctor',
+
   }
 };
