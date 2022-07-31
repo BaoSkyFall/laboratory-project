@@ -3,7 +3,7 @@ export interface IDoctor {
   name: string;
   email: string;
   levelCode: string;
-  specialistCode: string;
+  specialistId: string;
   phoneNumber: string;
   dob: number;
 }
@@ -13,6 +13,6 @@ export interface IDoctorInputDTO {
   name: string;
   email: string;
   levelCode: string;
-  specialistCode: string;
+  specialistId: string;
   dob: number;
 }

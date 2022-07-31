@@ -1,8 +1,10 @@
 import { ISpecialist } from '@/interfaces/ISpecialist';
 import mongoose from 'mongoose';
+var Schema = mongoose.Schema;
 
 const Specialist = new mongoose.Schema(
   {
+
     name: {
       type: String,
       required: [true, 'Please enter specialist name'],
@@ -15,6 +17,9 @@ const Specialist = new mongoose.Schema(
     },
 
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    collection: 'specialist'
+  },
 );
 export default mongoose.model<ISpecialist & mongoose.Document>('Specialist', Specialist);

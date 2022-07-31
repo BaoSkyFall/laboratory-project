@@ -17,7 +17,6 @@ export default (app: Router) => {
   app.use('/doctor', route);
   route.get('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
-    const DoctorModel = Container.get('doctorModel') as mongoose.Model<IDoctor & mongoose.Document>;
     const doctorServiceInstance = Container.get(DoctorService);
     const doctorList = await doctorServiceInstance.GetListDoctor()
     if (!doctorList) {

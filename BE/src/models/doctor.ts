@@ -1,5 +1,6 @@
 import { IDoctor } from '@/interfaces/IDoctor';
 import mongoose from 'mongoose';
+var Schema = mongoose.Schema;
 
 const Doctor = new mongoose.Schema(
   {
@@ -16,18 +17,22 @@ const Doctor = new mongoose.Schema(
       index: true,
     },
     phoneNumber: String,
-    levelCode: String,
-    specialistCode: String,
+    levelDoctor: {
+      type: String,
+      ref: 'LevelDoctor'
+    },
+    specialist: {
+      type: String,
+      ref: 'Specialist'
+    },
     dob: Number,
 
 
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    collection: 'doctors'
+  },
 );
-Doctor.virtual('specialistVirtual', {
-  ref: 'specialist',
-  localField: 'specialistCode',
-  foreignField: 'code',
-  justOne: true
-});
+
 export default mongoose.model<IDoctor & mongoose.Document>('Doctor', Doctor);

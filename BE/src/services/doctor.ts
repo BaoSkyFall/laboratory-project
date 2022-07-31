@@ -12,7 +12,6 @@ import events from '@/subscribers/events';
 export default class DoctorService {
   constructor(
     @Inject('doctorModel') private doctorModel: Models.DoctorModel,
-    @Inject('specialistModel') private specialistModel: Models.SpecialistModel,
     private mailer: MailerService,
     @Inject('logger') private logger,
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
@@ -21,9 +20,11 @@ export default class DoctorService {
   public async GetListDoctor(): Promise<{ doctor: any[] }> {
     try {
       this.logger.silly('Get list doctor DB Record');
-      const doctorList = await this.doctorModel.find().populate({ path: 'specialistVirtual', select: 'code', model: this.specialistModel })
+      this.doctorModel.find().populate('specialist').then(data => {
+        console.log('data:', data)
+      })
+      const doctorList = await this.doctorModel.find().populate('specialist').populate('levelDoctor')
       // const doctorList = await this.specialistModel.find();
-      console.log('doctorList:', doctorList)
       return doctorList;
     }
 
