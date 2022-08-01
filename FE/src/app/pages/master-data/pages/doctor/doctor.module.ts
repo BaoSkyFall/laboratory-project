@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DoctorComponent } from './doctor.component';
 import { RouterModule, Routes } from "@angular/router";
+import { InlineSVGModule } from 'ng-inline-svg';
+import { DropdownMenusModule, WidgetsModule } from 'src/app/_metronic/partials';
 
 
 
@@ -19,6 +21,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    InlineSVGModule,
+    DropdownMenusModule,
+    WidgetsModule,
   ]
 })
 

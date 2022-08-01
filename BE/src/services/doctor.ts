@@ -23,7 +23,8 @@ export default class DoctorService {
 
       const doctorList = await this.doctorModel.find().populate('specialist').populate('levelDoctor')
       // const doctorList = await this.specialistModel.find();
-      return doctorList;
+
+      return doctorList
     }
 
     catch (e) {

@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doctor.component.scss']
 })
 export class DoctorComponent implements OnInit {
-
+  data = {
+    total: 0,
+    list: []
+  }
   constructor() { }
 
   ngOnInit(): void {

@@ -201,11 +201,11 @@ export const DefaultLayoutConfig: ILayout = {
   },
   toolbar: {
     componentName: 'toolbar',
-    display: true, // Display toolbar
+    display: false, // Display toolbar
     width: 'fluid', // Set fixed|fluid to change width type,
     fixed: {
-      desktop: true,
-      tabletAndMobileMode: true,
+      desktop: false,
+      tabletAndMobileMode: false,
     },
     layout: 'toolbar1',
     layouts: {
