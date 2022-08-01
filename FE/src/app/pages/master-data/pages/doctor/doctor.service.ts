@@ -1,65 +1,41 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BUNDLE_API_URL, MASTER_API_URL } from '../../../../../../../../client-portal/src/app/inside/master-data/_enums';
+import { API } from '@constants/api.constants';
+import { BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { BackListCardModel, BlackListSearchModel } from './doctor.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MasterBundleService {
+export class BlackListService {
+  // isEdit: boolean = false;
 
-  constructor(private api: APIService) { }
+  // public $$isBlackListDrawerVisible = new BehaviorSubject<boolean>(false);
+  // $isBlackListDrawerVisible = this.$$isBlackListDrawerVisible.asObservable();
 
-  getDivisions() {
-    return this.api.callApi(MASTER_API_URL.GET_USER_DIVISION, null);
+  constructor(private http: HttpClient) { }
+
+  getBlackList(searchModel: BlackListSearchModel) {
+    return this.http.post(API.URL.BLACK_LIST.SEARCH, searchModel).pipe(take(1));
+  }
+  searchEmployee(searchModel: BlackListSearchModel) {
+    return this.http.post(API.URL.MONTH_CARD.SEARCH, searchModel).pipe(take(1));
+  }
+  deleteItemOnBlackList(id: number) {
+    return this.http.delete(API.URL.BLACK_LIST.DELETE + id).pipe(take(1));
   }
 
-  getList(params: any) {
-    return this.api.callApi(BUNDLE_API_URL.SEARCH, params);
+  insertNewBlackList(blackList: BackListCardModel) {
+    return this.http.post(API.URL.BLACK_LIST.INSERT, blackList).pipe(take(1));
   }
 
-  getDetail(id: number) {
-    return this.api.callApi({
-      ...BUNDLE_API_URL.DETAIL,
-      url: `${BUNDLE_API_URL.DETAIL.url}${id}`
-    }, undefined);
+  updateBlackList(blackList: BackListCardModel) {
+    return this.http.put(API.URL.BLACK_LIST.UPDATE, blackList).pipe(take(1));
   }
 
-  delete(id: number) {
-    return this.api.callApi({
-      ...MASTER_API_URL.DELETE_PRODUCT_SET,
-      url: `${MASTER_API_URL.DELETE_PRODUCT_SET.url}${id}`
-    }, null);
-  }
-
-  saveBundleBasic(object: any) {
-    return this.api.callApi(BUNDLE_API_URL.SAVE_BASIC, object);
-  }
-
-  updateBundleBasic(object: any) {
-    return this.api.callApi(BUNDLE_API_URL.UPDATE_BASIC, object);
-  }
-
-  saveBundleDiscount(object: any) {
-    return this.api.callApi(BUNDLE_API_URL.SAVE_DISCOUNT, object);
-  }
-
-  updateBundleDiscount(object: any) {
-    return this.api.callApi(BUNDLE_API_URL.UPDATE_DISCOUNT, object);
-  }
-
-  getSoldTos(param: any) {
-    return this.api.callApi(MASTER_API_URL.SEARCH_COMMON_SOLD, param);
-  }
-
-  getProductDivision() {
-    return this.api.callApi(MASTER_API_URL.PRODUCT_DIVISION, undefined);
-  }
-
-  updateStatus(id: number, isActive: boolean = false) {
-    let param = {
-      "id": id,
-      "isAction": isActive
-    }
-    return this.api.callApi(BUNDLE_API_URL.UPDATE_STATUS, param);
+  getBlackListHistory(cardNo: string) {
+    return this.http.get(`${API.URL.BLACK_LIST.BLACK_LIST_HISTORIES}?cardNo=${cardNo}`).pipe(take(1));
   }
 
 }
