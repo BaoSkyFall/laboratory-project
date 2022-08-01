@@ -6,6 +6,10 @@ import { Logger } from 'winston';
 import { celebrate, Joi } from 'celebrate';
 import DoctorService from '@/services/doctor';
 import { IDoctor, IDoctorInputDTO } from '@/interfaces/IDoctor';
+import { join } from 'path';
+import { Helpers } from '../../config/helpers';
+import { DEFINED_CODE } from '../../config/enum';
+
 
 const route = Router();
 const specialistModel = {
@@ -22,8 +26,7 @@ export default (app: Router) => {
     if (!doctorList) {
       return res.sendStatus(401);
     }
-    console.log('doctorList:', doctorList);
-    return res.json({ doctorList: doctorList }).status(200);
+    return Helpers.response(res, DEFINED_CODE.GET_DATA_SUCCESS, doctorList, { total: doctorList.length || 0, pageSize: 10, pageIndex: 1 })
   });
   route.post(
     '/create',
@@ -31,10 +34,10 @@ export default (app: Router) => {
       body: Joi.object({
         name: Joi.string().required(),
         email: Joi.string().required(),
-        level: Joi.string().required(),
-        apartment: Joi.string().required(),
-        dob: Joi.number().required()
-
+        phoneNumber: Joi.string().trim(),
+        dob: Joi.number().required(),
+        specialist: Joi.string().required(),
+        levelDoctor: Joi.string().required(),
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
@@ -43,7 +46,7 @@ export default (app: Router) => {
       try {
         const doctorServiceInstance = Container.get(DoctorService);
         const { doctor } = await doctorServiceInstance.CreateDoctor(req.body as IDoctorInputDTO);
-        return res.status(201).json({ doctor });
+        return Helpers.response(res, DEFINED_CODE.CREATED_DATA_SUCCESS, doctor)
       } catch (e) {
         logger.error('🔥 error: %o', e);
         return next(e);
@@ -57,9 +60,10 @@ export default (app: Router) => {
         _id: Joi.string().required(),
         name: Joi.string().required(),
         email: Joi.string().required(),
-        level: Joi.string().required(),
-        apartment: Joi.string().required(),
-        dob: Joi.number().required()
+        phoneNumber: Joi.string().required(),
+        dob: Joi.number().required(),
+        specialist: Joi.string().required(),
+        levelDoctor: Joi.string().required(),
 
       }),
     }),
@@ -69,7 +73,7 @@ export default (app: Router) => {
       try {
         const doctorServiceInstance = Container.get(DoctorService);
         const { doctor } = await doctorServiceInstance.EditDoctor(req.body as IDoctorInputDTO);
-        return res.status(201).json({ doctor });
+        return Helpers.response(res, DEFINED_CODE.INTERACT_DATA_SUCCESS, doctor)
       } catch (e) {
         logger.error('🔥 error: %o', e);
         return next(e);
@@ -89,7 +93,7 @@ export default (app: Router) => {
       try {
         const doctorServiceInstance = Container.get(DoctorService);
         const { doctor } = await doctorServiceInstance.DeleteDoctor(req.body as IDoctorInputDTO);
-        return res.status(201).json({ doctor });
+        return Helpers.response(res, DEFINED_CODE.INTERACT_DATA_SUCCESS, doctor)
       } catch (e) {
         logger.error('🔥 error: %o', e);
         return next(e);

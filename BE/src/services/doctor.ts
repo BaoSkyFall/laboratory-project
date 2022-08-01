@@ -20,9 +20,7 @@ export default class DoctorService {
   public async GetListDoctor(): Promise<{ doctor: any[] }> {
     try {
       this.logger.silly('Get list doctor DB Record');
-      this.doctorModel.find().populate('specialist').then(data => {
-        console.log('data:', data)
-      })
+
       const doctorList = await this.doctorModel.find().populate('specialist').populate('levelDoctor')
       // const doctorList = await this.specialistModel.find();
       return doctorList;
