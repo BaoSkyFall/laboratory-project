@@ -1,27 +1,15 @@
-<div
-  [ngClass]="headerContainerCssClasses"
-  class="d-flex align-items-stretch justify-content-between"
->
+<div [ngClass]="headerContainerCssClasses" class="d-flex align-items-stretch justify-content-between">
   <!-- begin::Aside mobile toggle -->
   <ng-container *ngIf="asideDisplay">
-    <div
-      class="d-flex align-items-center d-lg-none ms-n3 me-1"
-      title="Show aside menu"
-    >
-      <div
-        class="
+    <div class="d-flex align-items-center d-lg-none ms-n3 me-1" title="Show aside menu">
+      <div class="
           btn btn-icon btn-active-light-primary
           w-30px
           h-30px
           w-md-40px
           h-md-40px
-        "
-        id="kt_aside_mobile_toggle"
-      >
-        <span
-          [inlineSVG]="'./assets/media/icons/duotune/abstract/abs015.svg'"
-          class="svg-icon svg-icon-1"
-        ></span>
+        " id="kt_aside_mobile_toggle">
+        <span [inlineSVG]="'./assets/media/icons/duotune/abstract/abs015.svg'" class="svg-icon svg-icon-1"></span>
       </div>
     </div>
   </ng-container>
@@ -36,26 +24,15 @@
   <!-- end::Logo -->
 
   <!-- begin::Wrapper -->
-  <div
-    class="d-flex align-items-stretch justify-content-between flex-lg-grow-1"
-  >
+  <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
     <ng-container *ngIf="headerLeft === 'menu'">
       <div class="d-flex align-items-stretch" id="kt_header_nav">
-        <div
-          class="header-menu align-items-stretch"
-          data-kt-drawer="true"
-          data-kt-drawer-name="header-menu"
-          data-kt-drawer-activate="{default: true, lg: false}"
-          data-kt-drawer-overlay="true"
-          data-kt-drawer-width="{default:'200px', '300px': '250px'}"
-          data-kt-drawer-direction="end"
-          data-kt-drawer-toggle="#kt_header_menu_mobile_toggle"
-          data-kt-swapper="true"
-          data-kt-swapper-mode="prepend"
-          data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}"
-        >
-          <app-header-menu
-            class="
+        <div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu"
+          data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
+          data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="end"
+          data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend"
+          data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
+          <app-header-menu class="
               menu
               menu-lg-rounded
               menu-column
@@ -69,10 +46,7 @@
               fw-bold
               my-5 my-lg-0
               align-items-stretch
-            "
-            id="#kt_header_menu"
-            data-kt-menu="true"
-          ></app-header-menu>
+            " id="#kt_header_menu" data-kt-menu="true"></app-header-menu>
         </div>
       </div>
     </ng-container>
@@ -80,11 +54,7 @@
 
     <ng-container *ngIf="headerLeft === 'page-title'">
       <div class="d-flex align-items-center" id="kt_header_nav">
-        <app-page-title
-          #ktPageTitle
-          class="page-title d-flex"
-          [ngClass]="pageTitleCssClasses"
-        ></app-page-title>
+        <app-page-title #ktPageTitle class="page-title d-flex" [ngClass]="pageTitleCssClasses"></app-page-title>
       </div>
     </ng-container>
 
