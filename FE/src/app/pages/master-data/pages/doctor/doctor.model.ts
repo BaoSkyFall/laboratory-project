@@ -28,7 +28,7 @@ export class DoctorItem {
   _id?: string;
   name: string;
   email: string;
-  levelCode: {
+  levelDoctor: {
     code: string;
     name: string;
   };

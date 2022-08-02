@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NotificationService } from '@services/notification.service';
 import { DoctorItem } from './doctor.model';
 import { DoctorService } from './doctor.service';
@@ -13,7 +13,10 @@ export class DoctorComponent implements OnInit {
     total: 0,
     list: [] as DoctorItem[]
   }
+  dateFormat: string = 'DD/MM/YYYY';
+
   constructor(private doctorService: DoctorService,
+    private cdf: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +27,9 @@ export class DoctorComponent implements OnInit {
     this.doctorService.getDoctorList({}).subscribe((res: any) => {
       this.data.list = res?.data || [];
       this.data.total = res?.total;
-      console.log(this.data.list);
+      console.log('data.list', this.data.list);
+      this.cdf.detectChanges();
+
     }, err => {
       console.log('err:', err);
       // this.notificationService.showToastr('Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'success')
