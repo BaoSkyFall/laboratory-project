@@ -24,13 +24,20 @@ export class PermissionSearchResult {
   public avatar: string;
   public phone: string;
 }
-export class BlackListHistory {
-  public cardNo: string;
-  public reason: string;
-  public status: string;
-  public createdDate: string;
-  public deletedBy: string;
-  public deletedDate: string;
-  public id: number;
-  public updatedDate: string;
+export class DoctorItem {
+  _id?: string;
+  name: string;
+  email: string;
+  levelCode: {
+    code: string;
+    name: string;
+  };
+  specialist: {
+    code: string;
+    name: string;
+  };
+  dob: number;
+  phoneNumber: string;
+  gender: boolean;
+
 }

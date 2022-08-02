@@ -14,7 +14,7 @@ import { DEFINED_CODE } from '../../config/enum';
 const route = Router();
 export default (app: Router) => {
   app.use('/levelDoctor', route);
-  route.get('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
+  route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const levelDoctorServiceInstance = Container.get(LevelDoctorService);
     const levelDoctor = await levelDoctorServiceInstance.GetListLevelDoctor()

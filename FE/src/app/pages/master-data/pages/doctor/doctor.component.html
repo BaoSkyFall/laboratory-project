@@ -38,7 +38,7 @@
         <!-- end::Table head -->
         <!-- begin::Table body -->
         <tbody>
-          <tr>
+          <tr *ngFor="let item of data.list">
             <td>
               <div class="d-flex align-items-center">
                 <div class="symbol symbol-50px me-5">
@@ -48,32 +48,33 @@
                 </div>
                 <div class="d-flex justify-content-start flex-column">
                   <a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                    Brad Simmons
+                    {{item.name}}
                   </a>
                   <span class="text-muted fw-bold text-muted d-block fs-7">
-                    HTML, JS, ReactJS
+                    {{item.levelCode.name}}
                   </span>
                 </div>
               </div>
             </td>
             <td>
               <a href="#" class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">
-                $8,000,000
+                {{item.specialist.name}}
               </a>
               <span class="text-muted fw-bold text-muted d-block fs-7">Pending</span>
             </td>
             <td>
               <a href="#" class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">
-                $5,400
+                {{item.email}}
               </a>
               <span class="text-muted fw-bold text-muted d-block fs-7">Paid</span>
             </td>
             <td>
               <a href="#" class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">
-                Intertico
+                {{item.dob}}
+
               </a>
               <span class="text-muted fw-bold text-muted d-block fs-7">
-                Web, UI/UX Design
+                {{item.phoneNumber}}
               </span>
             </td>
             <td>

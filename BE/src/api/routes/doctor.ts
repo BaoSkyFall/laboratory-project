@@ -19,7 +19,7 @@ const specialistModel = {
 
 export default (app: Router) => {
   app.use('/doctor', route);
-  route.get('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
+  route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const doctorServiceInstance = Container.get(DoctorService);
     const doctorList = await doctorServiceInstance.GetListDoctor()

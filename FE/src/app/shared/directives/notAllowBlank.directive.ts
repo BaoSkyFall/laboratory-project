@@ -8,7 +8,7 @@ export class NotAllowBlankDirective {
   @Input() value: any;
   @Output() valueChange: EventEmitter<string>;
 
-  @HostListener('keyup') onKeyUp(value) {
+  @HostListener('keyup') onKeyUp(value: any) {
     this.value instanceof FormControl ?
       this.value.setValue(this.value.value.replace(/\s/g, '')) :
       this.valueChange.emit(this.value.replace(/\s/g, ''))

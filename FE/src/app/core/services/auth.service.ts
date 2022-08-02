@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   updateUserProfile(userInfo: any) {
-    return this.http.put(API.URL.USER.UPDATE_ACCOUNT_INFO, userInfo).pipe(take(1));
+    // return this.http.put(API.URL.USER.UPDATE_ACCOUNT_INFO, userInfo).pipe(take(1));
   }
 
 

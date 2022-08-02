@@ -4,6 +4,7 @@ import { DoctorComponent } from './doctor.component';
 import { RouterModule, Routes } from "@angular/router";
 import { InlineSVGModule } from 'ng-inline-svg';
 import { DropdownMenusModule, WidgetsModule } from 'src/app/_metronic/partials';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
     InlineSVGModule,
     DropdownMenusModule,
     WidgetsModule,
+    SharedModule
   ]
 })
 
