@@ -15,7 +15,7 @@ export const API = {
       DELETE: `${environment.API_URL}/api/doctor/delete`,
 
     },
-    LEVEL_CODE: {
+    LEVEL_DOCTOR: {
       LIST: `${environment.API_URL}/api/levelDoctor/list`,
       CREATE: `${environment.API_URL}/api/levelDoctor/create`,
       EDIT: `${environment.API_URL}/api/levelDoctor/edit`,

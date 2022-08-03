@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { IconFactoryComponent } from './components/icon-factory/icon-factory.component';
 import { NotAllowBlankDirective } from './directives/notAllowBlank.directive';
+import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { NotAllowBlankDirective } from './directives/notAllowBlank.directive';
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    LabNgZorroAntdModule
   ],
   exports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { NotAllowBlankDirective } from './directives/notAllowBlank.directive';
     TranslateModule,
     IconFactoryComponent,
     NotAllowBlankDirective,
+    LabNgZorroAntdModule
   ]
 })
 export class SharedModule { }

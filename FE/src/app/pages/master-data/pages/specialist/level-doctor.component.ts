@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DoctorItem } from '../doctor/doctor.model';
-import { LevelDoctorItem } from './level-doctor.model';
-import { LevelDoctorService } from './level-doctor.service';
+import { LevelDoctorItem } from './specialist.model';
+import { LevelDoctorService } from './specialist.service';
 
 @Component({
   selector: 'app-level-Doctor',

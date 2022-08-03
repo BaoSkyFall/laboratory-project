@@ -7,20 +7,20 @@ import { take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DoctorService {
+export class LevelDoctorService {
   constructor(private http: HttpClient) { }
 
-  getDoctorList(payload: any) {
-    return this.http.post(API.URL.DOCTOR.LIST, payload).pipe(take(1));
+  getLevelDoctorList(payload: any) {
+    return this.http.post(API.URL.LEVEL_DOCTOR.LIST, payload).pipe(take(1));
   }
-  createDoctorList() {
-    return this.http.post(API.URL.DOCTOR.CREATE, {}).pipe(take(1));
+  createLevelDoctorList() {
+    return this.http.post(API.URL.LEVEL_DOCTOR.CREATE, {}).pipe(take(1));
   }
-  editDoctorList() {
-    return this.http.post(API.URL.DOCTOR.EDIT, {}).pipe(take(1));
+  editLevelDoctorList() {
+    return this.http.post(API.URL.LEVEL_DOCTOR.EDIT, {}).pipe(take(1));
   }
-  deleteDoctorList() {
-    return this.http.post(API.URL.DOCTOR.DELETE, {}).pipe(take(1));
+  deleteLevelDoctorList() {
+    return this.http.post(API.URL.LEVEL_DOCTOR.DELETE, {}).pipe(take(1));
   }
 
 

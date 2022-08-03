@@ -1,14 +1,7 @@
 <!--begin::Exolore drawer-->
-<div
-  id="kt_engage_demos"
-  class="bg-body"
-  data-kt-drawer="true"
-  data-kt-drawer-name="explore"
-  data-kt-drawer-activate="true"
-  data-kt-drawer-overlay="true"
-  data-kt-drawer-width="{default:'350px', 'lg': '475px'}"
-  data-kt-drawer-direction="end"
-  data-kt-drawer-toggle="#kt_engage_demos_toggle"
+<div id="kt_engage_demos" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="explore"
+  data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'350px', 'lg': '475px'}"
+  data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_engage_demos_toggle"
   data-kt-drawer-close="#kt_engage_demos_close">
 
   <!--begin::Card-->
@@ -19,10 +12,7 @@
 
       <div class="card-toolbar">
         <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="kt_engage_demos_close">
-          <span
-            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"
-            class="svg-icon svg-icon-2"
-          ></span>
+          <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-2"></span>
         </button>
       </div>
     </div>
@@ -31,13 +21,8 @@
     <!--begin::Body-->
     <div class="card-body" id="kt_explore_body">
       <!--begin::Content-->
-      <div
-        id="kt_explore_scroll"
-        class="scroll-y me-n5 pe-5"
-        data-kt-scroll="true"
-        data-kt-scroll-height="auto"
-        data-kt-scroll-wrappers="#kt_explore_body"
-        data-kt-scroll-dependencies="#kt_explore_header"
+      <div id="kt_explore_scroll" class="scroll-y me-n5 pe-5" data-kt-scroll="true" data-kt-scroll-height="auto"
+        data-kt-scroll-wrappers="#kt_explore_body" data-kt-scroll-dependencies="#kt_explore_header"
         data-kt-scroll-offset="5px">
 
         <!--begin::Wrapper-->
@@ -61,12 +46,9 @@
                 <div class="d-flex align-items-center mb-1">
                   <div class="fs-6 fw-bold text-gray-800 fw-bold mb-0 me-1">Regular License</div>
 
-                  <i class="text-gray-400 fas fa-exclamation-circle ms-1 fs-7"
-                     data-bs-toggle="popover"
-                     data-bs-custom-class="popover-dark"
-                     data-bs-trigger="hover"
-                     data-bs-placement="top"
-                     data-bs-content="Use, by you or one client in a single end product which end users are not charged for.">
+                  <i class="text-gray-400 fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="popover"
+                    data-bs-custom-class="popover-dark" data-bs-trigger="hover" data-bs-placement="top"
+                    data-bs-content="Use, by you or one client in a single end product which end users are not charged for.">
                   </i>
                 </div>
                 <div class="fs-7 text-muted">For single end product used by you or one client</div>
@@ -87,12 +69,9 @@
                 <div class="d-flex align-items-center mb-1">
                   <div class="fs-6 fw-bold text-gray-800 fw-bold mb-0 me-1">Extended License</div>
 
-                  <i class="text-gray-400 fas fa-exclamation-circle ms-1 fs-7"
-                     data-bs-toggle="popover"
-                     data-bs-custom-class="popover-dark"
-                     data-bs-trigger="hover"
-                     data-bs-placement="top"
-                     data-bs-content="Use, by you or one client, in a single end product which end users can be charged for.">
+                  <i class="text-gray-400 fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="popover"
+                    data-bs-custom-class="popover-dark" data-bs-trigger="hover" data-bs-placement="top"
+                    data-bs-content="Use, by you or one client, in a single end product which end users can be charged for.">
                   </i>
                 </div>
                 <div class="fs-7 text-muted">For single end product with paying users.</div>
@@ -141,17 +120,18 @@
                 <div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
                   <ng-container *ngIf="demo.value.published === true; else unpublished">
                     <div class="overlay-wrapper">
-                      <img src="{{ demo.value.thumbnail }}" alt="demo" class="w-100"/>
+                      <img src="{{ demo.value.thumbnail }}" alt="demo" class="w-100" />
                     </div>
 
                     <div class="overlay-layer bg-dark bg-opacity-10">
-                      <a href="https://preview.keenthemes.com/metronic8/angular/{{ demo.key }}" class="btn btn-sm btn-success shadow">{{ demo.value.title }}</a>
+                      <a href="https://preview.keenthemes.com/metronic8/angular/{{ demo.key }}"
+                        class="btn btn-sm btn-success shadow">{{ demo.value.title }}</a>
                     </div>
                   </ng-container>
 
                   <ng-template #unpublished>
                     <div class="overlay-wrapper">
-                      <img src="{{ demo.value.thumbnail }}" alt="demo" class="w-100 opacity-25"/>
+                      <img src="{{ demo.value.thumbnail }}" alt="demo" class="w-100 opacity-25" />
                     </div>
 
                     <div class="overlay-layer bg-dark bg-opacity-10">
@@ -177,4 +157,3 @@
   <!--end::Card-->
 </div>
 <!--end::Exolore drawer-->
-

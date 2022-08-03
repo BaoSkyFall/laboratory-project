@@ -7,20 +7,20 @@ import { take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DoctorService {
+export class SpecialistService {
   constructor(private http: HttpClient) { }
 
-  getDoctorList(payload: any) {
-    return this.http.post(API.URL.DOCTOR.LIST, payload).pipe(take(1));
+  getSpecialistList(payload: any) {
+    return this.http.post(API.URL.SPECIALIST.LIST, payload).pipe(take(1));
   }
-  createDoctorList() {
-    return this.http.post(API.URL.DOCTOR.CREATE, {}).pipe(take(1));
+  createSpecialistList() {
+    return this.http.post(API.URL.SPECIALIST.CREATE, {}).pipe(take(1));
   }
-  editDoctorList() {
-    return this.http.post(API.URL.DOCTOR.EDIT, {}).pipe(take(1));
+  editSpecialistList() {
+    return this.http.post(API.URL.SPECIALIST.EDIT, {}).pipe(take(1));
   }
-  deleteDoctorList() {
-    return this.http.post(API.URL.DOCTOR.DELETE, {}).pipe(take(1));
+  deleteSpecialistList() {
+    return this.http.post(API.URL.SPECIALIST.DELETE, {}).pipe(take(1));
   }
 
 

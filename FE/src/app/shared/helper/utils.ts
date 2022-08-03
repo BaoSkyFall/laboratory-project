@@ -18,7 +18,7 @@ export default class Utils {
     }
   }
   static resetForm(formGroup: FormGroup) {
-    let control: AbstractControl = null;
+    let control: AbstractControl;
     formGroup.reset();
     formGroup.markAsUntouched();
     Object.keys(formGroup.controls).forEach((name) => {
@@ -26,7 +26,7 @@ export default class Utils {
       control.setErrors(null);
     });
   }
-  static getBase64(file) {
+  static getBase64(file: any) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);

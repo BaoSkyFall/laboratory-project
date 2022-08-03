@@ -14,7 +14,7 @@ import { DEFINED_CODE } from '../../config/enum';
 const route = Router();
 export default (app: Router) => {
   app.use('/specialist', route);
-  route.get('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
+  route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const specialistServiceInstance = Container.get(SpecialistService);
     const specialist = await specialistServiceInstance.GetListSpecialist()
