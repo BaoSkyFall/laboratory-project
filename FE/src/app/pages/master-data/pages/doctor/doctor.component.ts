@@ -9,6 +9,7 @@ import { ValidationService } from '@shared/services/validation.service';
 import { LevelDoctorItem } from '../level-doctor/level-doctor.model';
 import { SpecialistItem } from '../specialist/specialist.model';
 import Utils from '@shared/helper/utils';
+import { Helpers } from '@shared/helper';
 
 
 
@@ -72,7 +73,7 @@ export class DoctorComponent implements OnInit {
     this.levelDoctorService.getLevelDoctorList({}).subscribe((res: any) => {
       this.data.listLevelDoctor = res?.data || [];
       this.data.total = res?.total;
-      this.cdf.detectChanges();
+      // this.cdf.detectChanges();
 
     }, err => {
       console.log('err:', err);
@@ -83,7 +84,7 @@ export class DoctorComponent implements OnInit {
     this.specialistService.getSpecialistList({}).subscribe((res: any) => {
       this.data.listSpecialist = res?.data || [];
       this.data.total = res?.total;
-      this.cdf.detectChanges();
+      // this.cdf.detectChanges();
 
     }, err => {
       console.log('err:', err);
@@ -100,11 +101,24 @@ export class DoctorComponent implements OnInit {
     }
     // this.close()
   }
+  edit(item: DoctorItem) {
+    this.doctorFormControl.name.setValue(item.name);
+    this.doctorFormControl.phoneNumber.setValue(item.phoneNumber);
+    this.doctorFormControl.email.setValue(item.email);
+    this.doctorFormControl.dob.setValue(
+      Helpers.dateTime.getDateTimeFromNumber(item.dob));
+    this.doctorFormControl.gender.setValue(item.gender);
+    this.doctorFormControl.specialist.setValue(item.specialist.code);
+    this.doctorFormControl.levelDoctor.setValue(item.levelDoctor.code);
+    this.open();
+  }
+
   open(): void {
     this.data.visible = true;
   }
 
   close(): void {
+    this.doctorForm.reset();
     this.data.visible = false;
   }
 }

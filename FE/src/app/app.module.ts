@@ -17,6 +17,8 @@ import { CoreModule } from './core/core.module';
 // #fake-end#
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 registerLocaleData(en);
 
 function appInitializer(authService: AuthService) {
@@ -55,6 +57,7 @@ function appInitializer(authService: AuthService) {
       multi: true,
       deps: [AuthService],
     },
+    { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent],
 })

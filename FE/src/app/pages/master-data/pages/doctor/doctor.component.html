@@ -82,7 +82,7 @@
             </td>
             <td class="text-end">
 
-              <a (click)="open()" class="
+              <a (click)="edit(item)" class="
                 btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
                 px-4 me-3
               ">
@@ -107,7 +107,7 @@
   <!-- begin::Body -->
 </div>
 <nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzWidth]="720" [nzVisible]="data.visible" [nzTitle]="data.titleDrawer"
-  [nzFooter]="footerTpl">
+  [nzFooter]="footerTpl" (nzOnClose)="close()">
   <form nz-form [formGroup]="doctorForm" *nzDrawerContent>
     <div nz-row [nzGutter]="8">
       <div nz-col nzSpan="24">
