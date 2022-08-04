@@ -20,6 +20,13 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./extra-webpack.config.js",
+              "mergeStrategies": {
+                "module.rules": "append"
+              },
+              "replaceDuplicatePlugins": true
+            },
             "outputPath": "dist/demo1",
             "allowedCommonJsDependencies": [
               "object-path",
@@ -74,7 +81,7 @@
               "namedChunks": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "production",
         },
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
