@@ -15,6 +15,9 @@ import { environment } from 'src/environments/environment';
 import { FakeAPIService } from './_fake/fake-api.service';
 import { CoreModule } from './core/core.module';
 // #fake-end#
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+registerLocaleData(en);
 
 function appInitializer(authService: AuthService) {
   return () => {

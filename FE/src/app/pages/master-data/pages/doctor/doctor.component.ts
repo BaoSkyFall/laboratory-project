@@ -40,7 +40,7 @@ export class DoctorComponent implements OnInit {
     this.doctorForm = this.fb.group({
       name: this.fb.control('', Validators.required),
       email: this.fb.control('', [Validators.required, Validators.email]),
-      phoneNumber: this.fb.control('', [ValidationService.patternValidatorPhone]),
+      phoneNumber: this.fb.control('', [Validators.required, ValidationService.patternValidatorPhone]),
       dob: this.fb.control('', Validators.required),
       gender: this.fb.control('', Validators.required),
       specialist: this.fb.control('', Validators.required),
@@ -53,7 +53,8 @@ export class DoctorComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getListDoctor();
-    this.getListLevelDoctor()
+    this.getListLevelDoctor();
+    this.getListSpecialist()
 
   }
   getListDoctor() {
@@ -91,7 +92,9 @@ export class DoctorComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.doctorForm);
+
     if (this.doctorForm.invalid) {
+      // this.doctorForm.markAllAsTouched();
       Utils.validateAllFormFields(this.doctorForm);
       return;
     }

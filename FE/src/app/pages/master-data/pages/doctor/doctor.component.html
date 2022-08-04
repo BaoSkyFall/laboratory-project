@@ -112,77 +112,24 @@
     <div nz-row [nzGutter]="8">
       <div nz-col nzSpan="24">
         <nz-form-item>
-          <nz-form-label [nzSm]="8" [nzXs]="24">Tên</nz-form-label>
-          <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="usernameErr">
+          <nz-form-label [nzSpan]="4">Tên</nz-form-label>
+          <nz-form-control [nzSpan]="20" [nzErrorTip]="usernameErr">
             <input formControlName="name" nz-input placeholder="Tên bác sĩ" />
             <ng-template #usernameErr let-control>
-              <app-error-messages [control]="doctorFormControl['name']"></app-error-messages>
+              <app-error-messages [control]="doctorFormControl['name']" [messageObject]="{labelName:'Tên bác sĩ'}">
+              </app-error-messages>
             </ng-template>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col nzSpan="24">
         <nz-form-item>
-          <nz-form-label [nzSm]="8" [nzXs]="24">Email</nz-form-label>
-          <nz-form-control [nzErrorTip]="emailErr" [nzSm]="16" [nzXs]="24">
+          <nz-form-label [nzSpan]="4">Email</nz-form-label>
+          <nz-form-control [nzErrorTip]="emailErr" [nzSpan]="20">
             <input formControlName="email" nz-input placeholder="Địa chỉ email" />
             <ng-template #emailErr let-control>
-              <app-error-messages [control]="doctorFormControl['email']"></app-error-messages>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-    <div nz-row [nzGutter]="8">
-      <div nz-col nzSpan="12">
-        <nz-form-item>
-          <nz-form-label>Số điện thoại</nz-form-label>
-          <nz-form-control [nzErrorTip]="phoneNumberErr">
-            <input formControlName="phoneNumber" nz-input placeholder="Nhập thông tin SĐT" />
-            <ng-template #phoneNumberErr let-control>
-              <app-error-messages [control]="doctorFormControl['phoneNumber']"></app-error-messages>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col nzSpan="12">
-        <nz-form-item>
-          <nz-form-label>Ngày Sinh</nz-form-label>
-          <nz-form-control [nzErrorTip]="dobErr">
-            <nz-input-group>
-              <nz-date-picker [nzFormat]="'dd/MM/yyyy'" formControlName="dob"></nz-date-picker>
-            </nz-input-group>
-            <ng-template #dobErr let-control>
-              <app-error-messages [control]="doctorFormControl['dob']"></app-error-messages>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-    <div nz-row [nzGutter]="8">
-      <div nz-col nzSpan="12">
-        <nz-form-item>
-          <nz-form-label>Giới Tính</nz-form-label>
-          <nz-form-control [nzErrorTip]="genderErr">
-            <nz-select nzPlaceHolder="Chọn giới tính" formControlName="gender">
-              <nz-option [nzValue]="true">Nam</nz-option>
-              <nz-option [nzValue]="false">Nữ</nz-option>
-            </nz-select>
-            <ng-template #genderErr let-control>
-              <app-error-messages [control]="doctorFormControl['gender']"></app-error-messages>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col nzSpan="12">
-        <nz-form-item>
-          <nz-form-label>Trình Độ</nz-form-label>
-          <nz-form-control [nzErrorTip]="levelDoctorErr">
-            <nz-select nzPlaceHolder="Chọn trình độ" formControlName="levelDoctor">
-              <nz-option *ngFor="let level of data.listLevelDoctor" [nzValue]="level?.code">{{level?.name}}</nz-option>
-            </nz-select>
-            <ng-template #levelDoctorErr let-control>
-              <app-error-messages [control]="doctorFormControl['levelDoctor']"></app-error-messages>
+              <app-error-messages [control]="doctorFormControl['email']" [messageObject]="{labelName:'Địa chỉ email'}">
+              </app-error-messages>
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -191,15 +138,77 @@
     <div nz-row [nzGutter]="8">
       <div nz-col nzSpan="24">
         <nz-form-item>
-          <nz-form-label>Chuyên Khoa</nz-form-label>
-          <nz-form-control [nzErrorTip]="specialistErr">
-            <nz-select nzPlaceHolder="Chọn chuyên khoa" formControlName="specialist">
-              <nz-option *ngFor="let level of data.listSpecialist" [nzValue]="level?.code">{{level?.name}}</nz-option>
-            </nz-select>
-            <ng-template #specialistErr let-control>
-              <app-error-messages [control]="doctorFormControl['specialist']"></app-error-messages>
+          <nz-form-label [nzSpan]="4">Số điện thoại</nz-form-label>
+          <nz-form-control [nzErrorTip]="phoneNumberErr" [nzSpan]="20">
+            <input formControlName="phoneNumber" nz-input placeholder="Nhập thông tin SĐT" />
+            <ng-template #phoneNumberErr let-control>
+              <app-error-messages [control]="doctorFormControl['phoneNumber']"
+                [messageObject]="{labelName:'Số điện thoại'}"></app-error-messages>
             </ng-template>
           </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24">
+        <nz-form-item nzSpan="24">
+          <nz-form-label [nzSpan]="4">Giới Tính</nz-form-label>
+          <nz-form-control [nzErrorTip]="genderErr" [nzSpan]="20">
+            <nz-select nzPlaceHolder="Chọn giới tính" formControlName="gender">
+              <nz-option [nzValue]="true" [nzLabel]="'Nam'"></nz-option>
+              <nz-option [nzValue]="false" [nzLabel]="'Nữ'"></nz-option>
+            </nz-select>
+            <ng-template #genderErr let-control>
+              <app-error-messages [control]="doctorFormControl['gender']" [messageObject]="{labelName:'Giới Tính'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+          <nz-form-label [nzSpan]="4">Ngày Sinh</nz-form-label>
+          <nz-form-control [nzErrorTip]="dobErr" [nzSpan]="20">
+            <nz-input-group>
+              <nz-date-picker class="w-100" nzPlaceHolder="Chọn ngày sinh" [nzFormat]="'dd/MM/yyyy'"
+                formControlName="dob">
+              </nz-date-picker>
+            </nz-input-group>
+            <ng-template #dobErr let-control>
+              <app-error-messages [control]="doctorFormControl['dob']" [messageObject]="{labelName:'Ngày Sinh'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+
+
+        </nz-form-item>
+
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4">Trình Độ</nz-form-label>
+          <nz-form-control [nzErrorTip]="levelDoctorErr" [nzSpan]="20">
+            <nz-select nzPlaceHolder="Chọn trình độ" nzAllowClear="true" formControlName="levelDoctor">
+              <nz-option *ngFor="let level of data.listLevelDoctor" [nzValue]="level?.code" [nzLabel]="level.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #levelDoctorErr let-control>
+              <app-error-messages [control]="doctorFormControl['levelDoctor']" [messageObject]="{labelName:'Trình Độ'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4">Chuyên Khoa</nz-form-label>
+          <nz-form-control [nzErrorTip]="specialistErr" [nzSpan]="20">
+            <nz-select nzPlaceHolder="Chọn chuyên khoa" formControlName="specialist">
+              <nz-option *ngFor="let level of data.listSpecialist" [nzValue]="level?.code" [nzLabel]="level.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #specialistErr let-control>
+              <app-error-messages [control]="doctorFormControl['specialist']"
+                [messageObject]="{labelName:'Chuyên Khoa'}"></app-error-messages>
+            </ng-template>
+          </nz-form-control>
+
         </nz-form-item>
       </div>
     </div>

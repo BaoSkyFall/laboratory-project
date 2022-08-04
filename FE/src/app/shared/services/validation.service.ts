@@ -9,10 +9,10 @@ export class ValidationService {
 
   public static getValidationErrorMessage(validatorName: string, validatorValue?: any, labelName?: string, labelCompare?: string): any {
     const config = {
-      email: `wrong format`,
-      required: `required`,
+      email: `sai định dạng`,
+      required: `bắt buộc`,
       invalidPassword: 'invalid password. Password must be at least 6 characters long, and contain a number.',
-      invalidPhone: 'invalid phone number',
+      invalidPhone: 'sai định dạng',
       maxLength: `the field can't contain more than ${validatorValue.requiredLength} characters.`,
       mustMatch: `Those ${labelCompare} didn’t match`,
       greaterThan: `must be greater than ${labelCompare}`,

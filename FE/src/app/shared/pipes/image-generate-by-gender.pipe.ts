@@ -17,21 +17,17 @@ export class ImageGenerateByGenderPipe implements PipeTransform {
   generateImageByKey(gender: boolean, key: string) {
     const arrImg = gender ? this.imageDataBoy : this.imageDataGirl;
     let lengthKey = key.length;
-    console.log('lengthKey:', lengthKey)
     let indexArrImg = 0;
     while (lengthKey >= 0) {
       indexArrImg = lengthKey;
       lengthKey = lengthKey - arrImg.length
     }
-    console.log('indexArrImg:', indexArrImg)
 
     return this.strUrl + arrImg[indexArrImg]
 
   }
   transform(value: boolean, key: string, args?: any): string {
     let urlImage: string = './assets/media/svg/avatars/001-boy.svg';
-    console.log(this.imageDataBoy.length);
-    console.log(this.imageDataGirl.length);
 
     return this.generateImageByKey(value, key);
   }

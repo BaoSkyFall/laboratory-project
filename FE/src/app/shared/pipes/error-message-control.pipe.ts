@@ -8,13 +8,13 @@ import { ValidationService } from '@shared/services/validation.service';
 export class ErrorMessageControlPipe implements PipeTransform {
 
   transform(control: FormControl | AbstractControl, messageObject: any, ...args: unknown[]): string {
-    // todo handle common fails control error
+    // todo handle common fails control error\
     for (const propertyName in control.errors) {
       return messageObject?.hasOwnProperty(propertyName) ? messageObject[propertyName] : ValidationService.getValidationErrorMessage(
         propertyName,
-        control.errors[propertyName],
-        messageObject.labelName,
-        messageObject.labelCompare,
+        control?.errors[propertyName],
+        messageObject?.labelName,
+        messageObject?.labelCompare,
       );
 
     }
