@@ -92,7 +92,7 @@
               btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
               px-4
             ">
-                Delete
+                Xóa
               </a>
             </td>
           </tr>
@@ -186,7 +186,7 @@
           <nz-form-label [nzSpan]="4">Trình Độ</nz-form-label>
           <nz-form-control [nzErrorTip]="levelDoctorErr" [nzSpan]="20">
             <nz-select nzPlaceHolder="Chọn trình độ" nzAllowClear="true" formControlName="levelDoctor">
-              <nz-option *ngFor="let level of data.listLevelDoctor" [nzValue]="level?.code" [nzLabel]="level.name">
+              <nz-option *ngFor="let level of data.listLevelDoctor" [nzValue]="level?._id" [nzLabel]="level.name">
               </nz-option>
             </nz-select>
             <ng-template #levelDoctorErr let-control>
@@ -200,7 +200,7 @@
           <nz-form-label [nzSpan]="4">Chuyên Khoa</nz-form-label>
           <nz-form-control [nzErrorTip]="specialistErr" [nzSpan]="20">
             <nz-select nzPlaceHolder="Chọn chuyên khoa" formControlName="specialist">
-              <nz-option *ngFor="let level of data.listSpecialist" [nzValue]="level?.code" [nzLabel]="level.name">
+              <nz-option *ngFor="let level of data.listSpecialist" [nzValue]="level?._id" [nzLabel]="level.name">
               </nz-option>
             </nz-select>
             <ng-template #specialistErr let-control>

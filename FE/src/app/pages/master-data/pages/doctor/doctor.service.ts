@@ -13,14 +13,14 @@ export class DoctorService {
   getDoctorList(payload: any) {
     return this.http.post(API.URL.DOCTOR.LIST, payload).pipe(take(1));
   }
-  createDoctorList() {
-    return this.http.post(API.URL.DOCTOR.CREATE, {}).pipe(take(1));
+  createDoctorList(payload: any) {
+    return this.http.post(API.URL.DOCTOR.CREATE, payload).pipe(take(1));
   }
-  editDoctorList() {
-    return this.http.post(API.URL.DOCTOR.EDIT, {}).pipe(take(1));
+  editDoctorList(payload: any) {
+    return this.http.post(API.URL.DOCTOR.EDIT, payload).pipe(take(1));
   }
-  deleteDoctorList() {
-    return this.http.post(API.URL.DOCTOR.DELETE, {}).pipe(take(1));
+  deleteDoctorList(payload: any) {
+    return this.http.post(API.URL.DOCTOR.DELETE, payload).pipe(take(1));
   }
 
 

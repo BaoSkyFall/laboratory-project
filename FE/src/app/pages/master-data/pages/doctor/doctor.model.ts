@@ -6,10 +6,12 @@ export class DoctorItem {
   name: string;
   email: string;
   levelDoctor: {
+    _id: string;
     code: string;
     name: string;
   };
   specialist: {
+    _id: string;
     code: string;
     name: string;
   };

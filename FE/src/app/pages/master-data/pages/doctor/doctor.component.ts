@@ -26,6 +26,7 @@ export class DoctorComponent implements OnInit {
     listLevelDoctor: [] as LevelDoctorItem[],
     listSpecialist: [] as SpecialistItem[],
     visible: false,
+    isCreate: true,
     titleDrawer: ''
   }
   dateFormat: string = 'DD/MM/YYYY';
@@ -39,6 +40,7 @@ export class DoctorComponent implements OnInit {
     private cdf: ChangeDetectorRef
   ) {
     this.doctorForm = this.fb.group({
+      _id: this.fb.control(''),
       name: this.fb.control('', Validators.required),
       email: this.fb.control('', [Validators.required, Validators.email]),
       phoneNumber: this.fb.control('', [Validators.required, ValidationService.patternValidatorPhone]),
@@ -99,26 +101,49 @@ export class DoctorComponent implements OnInit {
       Utils.validateAllFormFields(this.doctorForm);
       return;
     }
+    const value = this.doctorForm.value;
+    value.dob = Helpers.dateTime.getUnixFromDate(value.dob);
+    console.log('value:', value)
+    //Create
+    if (this.data.isCreate) {
+      this.doctorService.createDoctorList(this.doctorForm.value).subscribe(res => {
+        console.log('res:', res)
+      })
+    }
+    //Edit
+    else {
+      this.doctorService.editDoctorList(this.doctorForm.value).subscribe(res => {
+        console.log('res:', res)
+      })
+    }
     // this.close()
   }
   edit(item: DoctorItem) {
+    this.doctorFormControl._id.setValue(item._id);
     this.doctorFormControl.name.setValue(item.name);
     this.doctorFormControl.phoneNumber.setValue(item.phoneNumber);
     this.doctorFormControl.email.setValue(item.email);
     this.doctorFormControl.dob.setValue(
       Helpers.dateTime.getDateTimeFromNumber(item.dob));
     this.doctorFormControl.gender.setValue(item.gender);
-    this.doctorFormControl.specialist.setValue(item.specialist.code);
-    this.doctorFormControl.levelDoctor.setValue(item.levelDoctor.code);
-    this.open();
+    this.doctorFormControl.specialist.setValue(item.specialist._id);
+    this.doctorFormControl.levelDoctor.setValue(item.levelDoctor._id);
+    this.data.titleDrawer = `Bác sĩ ${item.name}`
+    this.data.visible = true;
+    this.data.isCreate = false;
   }
 
   open(): void {
     this.data.visible = true;
+    this.data.titleDrawer = 'Thêm Bác sĩ';
+    this.data.isCreate = true;
   }
 
   close(): void {
     this.doctorForm.reset();
     this.data.visible = false;
   }
+
+
+
 }
