@@ -7,6 +7,7 @@ import { DropdownMenusModule, WidgetsModule } from 'src/app/_metronic/partials';
 import { SharedModule } from '@shared/shared.module';
 import { PipeModule } from '@shared/pipes/pipe.module';
 import { ErrorMessagesModule } from '@shared/components/error-message/error-messages.module';
+import { NotificationService } from '@services/notification.service';
 
 
 
@@ -30,7 +31,8 @@ const routes: Routes = [
     PipeModule,
     ErrorMessagesModule,
     SharedModule
-  ]
+  ], providers: [NotificationService]
+
 })
 
 export class DoctorModule { }

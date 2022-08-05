@@ -20,7 +20,7 @@ export class DoctorService {
     return this.http.post(API.URL.DOCTOR.EDIT, payload).pipe(take(1));
   }
   deleteDoctorList(payload: any) {
-    return this.http.post(API.URL.DOCTOR.DELETE, payload).pipe(take(1));
+    return this.http.post(API.URL.DOCTOR.DELETE, { _id: payload._id }).pipe(take(1));
   }
 
 
