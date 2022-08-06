@@ -22,6 +22,7 @@ export default class SpecialistService {
       this.logger.silly('Get list specialist DB Record');
 
       const specialistList = await this.specialistModel.find()
+
       // const specialistList = await this.specialistModel.find();
       return specialistList;
     }

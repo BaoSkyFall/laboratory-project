@@ -13,14 +13,14 @@ export class SpecialistService {
   getSpecialistList(payload: any) {
     return this.http.post(API.URL.SPECIALIST.LIST, payload).pipe(take(1));
   }
-  createSpecialistList() {
-    return this.http.post(API.URL.SPECIALIST.CREATE, {}).pipe(take(1));
+  createSpecialistList(payload: any) {
+    return this.http.post(API.URL.SPECIALIST.CREATE, payload).pipe(take(1));
   }
-  editSpecialistList() {
-    return this.http.post(API.URL.SPECIALIST.EDIT, {}).pipe(take(1));
+  editSpecialistList(payload: any) {
+    return this.http.post(API.URL.SPECIALIST.EDIT, payload).pipe(take(1));
   }
-  deleteSpecialistList() {
-    return this.http.post(API.URL.SPECIALIST.DELETE, {}).pipe(take(1));
+  deleteSpecialistList(payload: any) {
+    return this.http.post(API.URL.SPECIALIST.DELETE, { _id: payload?._id }).pipe(take(1));
   }
 
 

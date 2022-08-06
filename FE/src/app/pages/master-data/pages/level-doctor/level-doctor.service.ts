@@ -13,14 +13,14 @@ export class LevelDoctorService {
   getLevelDoctorList(payload: any) {
     return this.http.post(API.URL.LEVEL_DOCTOR.LIST, payload).pipe(take(1));
   }
-  createLevelDoctorList() {
-    return this.http.post(API.URL.LEVEL_DOCTOR.CREATE, {}).pipe(take(1));
+  createLevelDoctorList(payload: any) {
+    return this.http.post(API.URL.LEVEL_DOCTOR.CREATE, payload).pipe(take(1));
   }
-  editLevelDoctorList() {
-    return this.http.post(API.URL.LEVEL_DOCTOR.EDIT, {}).pipe(take(1));
+  editLevelDoctorList(payload: any) {
+    return this.http.post(API.URL.LEVEL_DOCTOR.EDIT, payload).pipe(take(1));
   }
-  deleteLevelDoctorList() {
-    return this.http.post(API.URL.LEVEL_DOCTOR.DELETE, {}).pipe(take(1));
+  deleteLevelDoctorList(payload: any) {
+    return this.http.post(API.URL.LEVEL_DOCTOR.DELETE, { _id: payload?._id }).pipe(take(1));
   }
 
 

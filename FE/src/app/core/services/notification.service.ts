@@ -14,19 +14,19 @@ export class NotificationService {
   showToastr(subTitle: string, type: string) {
     switch (type) {
       case 'success': {
-        this.notification.blank('Thành Công', subTitle, {
+        this.notification.success('Thành Công', subTitle, {
           nzClass: 'alert alert-success'
         })
         break;
       }
       case 'error': {
-        this.notification.blank('Lỗi', subTitle, {
+        this.notification.error('Lỗi', subTitle, {
           nzClass: 'alert alert-danger'
         })
         break;
       }
       case 'warning': {
-        this.notification.blank('Thông báo', subTitle, {
+        this.notification.warning('Thông báo', subTitle, {
           nzClass: 'alert alert-warning'
         })
         break;

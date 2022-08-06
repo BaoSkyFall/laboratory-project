@@ -43,11 +43,11 @@ export class DoctorComponent implements OnInit {
   ) {
     this.doctorForm = this.fb.group({
       _id: this.fb.control(''),
-      name: this.fb.control('LÊ QUANG ĐÌNH', Validators.required),
-      email: this.fb.control('lequangdinh@gmail.com', [Validators.required, Validators.email]),
-      phoneNumber: this.fb.control('0909901456', [Validators.required, ValidationService.patternValidatorPhone]),
+      name: this.fb.control('', Validators.required),
+      email: this.fb.control('', [Validators.required, Validators.email]),
+      phoneNumber: this.fb.control('', [Validators.required, ValidationService.patternValidatorPhone]),
       dob: this.fb.control('', Validators.required),
-      gender: this.fb.control('true', Validators.required),
+      gender: this.fb.control('', Validators.required),
       specialist: this.fb.control('', Validators.required),
       levelDoctor: this.fb.control('', Validators.required),
     })
@@ -110,7 +110,6 @@ export class DoctorComponent implements OnInit {
     if (this.data.isCreate) {
       value._id = undefined;
       this.doctorService.createDoctorList(this.doctorForm.value).subscribe((res: any) => {
-        console.log('res:', res)
         if (res?.code == DEFINED_CODE.CREATED_DATA_SUCCESS) {
           this.notificationService.showToastr('Thêm mới Bác Sĩ thành công', 'success')
 
@@ -132,7 +131,6 @@ export class DoctorComponent implements OnInit {
     //Edit
     else {
       this.doctorService.editDoctorList(this.doctorForm.value).subscribe((res: any) => {
-        console.log('res:', res)
         if (res?.code == DEFINED_CODE.INTERACT_DATA_SUCCESS) {
           this.notificationService.showToastr('Cập nhật Bác Sĩ thành công', 'success')
         }
@@ -168,7 +166,6 @@ export class DoctorComponent implements OnInit {
   }
   delete(item: DoctorItem) {
     this.doctorService.deleteDoctorList(item).subscribe((res: any) => {
-      console.log('res:', res)
       if (res?.code == DEFINED_CODE.INTERACT_DATA_SUCCESS) {
         this.notificationService.showToastr('Xóa Bác Sĩ thành công', 'success')
       }

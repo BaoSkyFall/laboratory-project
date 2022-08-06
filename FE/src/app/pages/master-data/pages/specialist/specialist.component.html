@@ -1,1 +1,126 @@
-<p>specialist works!</p>
+<div class="card mb-5 mb-xl-8">
+  <!-- begin::Header -->
+  <div class="card-header border-0 pt-5">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label fw-bolder fs-3 mb-1">Danh sách Chuyên khoa</span>
+      <span class="text-muted mt-1 fw-bold fs-7">Có {{data.total}} chuyên khoa </span>
+    </h3>
+    <div class="">
+      <!-- begin::Menu -->
+      <a (click)="open()" type="button"
+        class="btn btn-bg-primary btn-color-light btn-hover-light  btn-active-color-light btn-sm px-4">
+        <span>Thêm mới</span>
+      </a>
+      <!-- begin::Menu 2 -->
+      <!-- end::Menu 2 -->
+      <!-- end::Menu -->
+    </div>
+  </div>
+  <!-- end::Header -->
+  <!-- begin::Body -->
+  <div class="card-body py-3">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table class="table align-middle gs-0 gy-4">
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th class="ps-4 min-w-150px">Chuyên Khoa</th>
+            <th class="min-w-140px">Mã</th>
+            <th class="min-w-140px">Ngày Tạo</th>
+            <th class="min-w-100px"></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr *ngFor="let item of data.listSpecialist">
+
+            <td class="ps-4">
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.name}}
+              </span>
+
+            </td>
+            <td>
+
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.code}}
+              </span>
+
+            </td>
+            <td>
+
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.createdAt | date: 'dd/MM/YYYY'}}
+              </span>
+
+            </td>
+            <td class="text-end">
+
+              <a (click)="edit(item)" class="
+                btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
+                px-4 me-3
+              ">
+                Edit
+              </a>
+              <a (click)="delete(item)" class="
+              btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
+              px-4
+
+            ">
+                Xóa
+              </a>
+            </td>
+          </tr>
+
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+  <!-- begin::Body -->
+</div>
+<nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzWidth]="720" [nzVisible]="data.visible" [nzTitle]="data.titleDrawer"
+  [nzFooter]="footerTpl" (nzOnClose)="close()">
+  <form nz-form [formGroup]="specialistForm" *nzDrawerContent>
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4">Chuyên Khoa</nz-form-label>
+          <nz-form-control [nzSpan]="20" [nzErrorTip]="usernameErr">
+            <input formControlName="name" nz-input placeholder="Nhập chuyên khoa" />
+            <ng-template #usernameErr let-control>
+              <app-error-messages [control]="specialistFormControl['name']" [messageObject]="{labelName:'Chuyên Khoa'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4">Mã</nz-form-label>
+          <nz-form-control [nzErrorTip]="codeErr" [nzSpan]="20">
+            <input formControlName="code" nz-input placeholder="VD: PTTM" />
+            <ng-template #codeErr let-control>
+              <app-error-messages [control]="specialistFormControl['code']"
+                [messageObject]="{labelName:'Mã chuyên khoa'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+  </form>
+
+  <ng-template #footerTpl>
+    <div style="float: right">
+      <button nz-button style="margin-right: 8px;" (click)="close()">Hủy Bỏ</button>
+      <button nz-button nzType="primary" (click)="onSubmit()">Tạo</button>
+    </div>
+  </ng-template>
+</nz-drawer>
