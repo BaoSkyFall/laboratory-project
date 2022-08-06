@@ -24,6 +24,13 @@ export default {
     viewList: 'onViewListSpecialist',
     viewDetail: 'onViewDetailSpecialist',
     delete: 'onDeleteSpecialist',
+  },
+  unitCompany: {
+    create: 'onCreateUnitCompany',
+    edit: 'onEditUnitCompany',
+    viewList: 'onViewListUnitCompany',
+    viewDetail: 'onViewDetailUnitCompany',
+    delete: 'onDeleteUnitCompany',
 
   }
 };

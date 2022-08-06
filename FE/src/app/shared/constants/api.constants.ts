@@ -29,7 +29,13 @@ export const API = {
       DELETE: `${environment.API_URL}/api/specialist/delete`,
 
     },
+    UNIT_COMPANY: {
+      LIST: `${environment.API_URL}/api/unitCompany/list`,
+      CREATE: `${environment.API_URL}/api/unitCompany/create`,
+      EDIT: `${environment.API_URL}/api/unitCompany/edit`,
+      DELETE: `${environment.API_URL}/api/unitCompany/delete`,
 
+    },
 
 
     // ACCOUNTS: {
