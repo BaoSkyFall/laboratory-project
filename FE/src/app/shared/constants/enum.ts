@@ -1,0 +1,44 @@
+export const DEFINED_CODE = {
+  /* Token errors */
+  INVALID_TOKEN: '-001',
+  NULL_TOKEN: '-002',
+  /* Login, signup, user error */
+  WRONG_LOGIN_INFO: '-101',
+  PASSWORD_NOT_MATCH: '-102',
+  USERNAME_EXISTED: '-103',
+  ACTIVATE_FAIL: '-104',
+  CHANGE_PASSWORD_FAIL: '-105',
+  EDIT_PERSONAL_FAIL: '-106',
+  EDIT_COMPANY_FAIL: '-107',
+  PASSWORD_RECOVERY_FAIL: '-108',
+
+  //Get Fail
+  GET_DATA_FAIL: '-200',
+  /* DB error... */
+  SAVE_TOKEN_FAIL: '-201',
+  // Missing ID params
+  ERROR_ID: '-202',
+  // Interact Data Fail
+  INTERACT_DATA_FAIL: '-203',
+  // Create Data Fail
+  CREATE_DATA_FAIL: '-204',
+  // Missing body field or params
+  MISSING_FIELD_OR_PARAMS: '-205',
+
+
+
+  /* Mailing error */
+  SEND_MAIL_FAIL: '-301',
+  /* OK */
+  LOGIN_SUCCESS: '101',
+  SIGNUP_SUCCESS: '102',
+  ACTIVATE_SUCCESS: '104',
+  CHANGE_PASSWORD_SUCCESS: '105',
+  EDIT_PERSONAL_SUCCESS: '106',
+  EDIT_COMPANY_SUCCESS: '107',
+  PASSWORD_RECOVERY_SUCCESS: '108',
+  GET_DATA_SUCCESS: '200',
+  CREATED_DATA_SUCCESS: '201',
+  INTERACT_DATA_SUCCESS: '202',
+  SEND_MAIL_SUCCESS: '301',
+};;

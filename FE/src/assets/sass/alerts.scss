@@ -1,0 +1,54 @@
+.alert {
+  border: 0;
+  color: $default-white;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  position: relative;
+
+  &.alert-success {
+    background-color: $medium-green;
+    color: $white-color;
+  }
+
+  &.alert-danger {
+    background-color: $high-red;
+    color: $white-color;
+
+  }
+
+  &.alert-warning {
+    background-color: $default-gold;
+    color: $white-color;
+
+  }
+
+  &.alert-info {
+    background-color: $default-blue;
+    color: $white-color;
+
+  }
+
+  &.alert-primary {
+    background-color: $high-blue;
+    color: $white-color;
+
+  }
+}
+
+.ant-notification-notice-message {
+  color: $white-color !important;
+}
+
+nz-alert {
+  border: none !important;
+
+  .ant-alert {
+    background-color: $default-black !important;
+    border: none !important;
+    padding: 10px 20px;
+
+    .ant-alert-message {
+      color: $default-white !important;
+    }
+  }
+}

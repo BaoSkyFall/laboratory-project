@@ -1,0 +1,251 @@
+<div class="card mb-5 mb-xl-8">
+  <!-- begin::Header -->
+  <div class="card-header border-0 pt-5">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label fw-bolder fs-3 mb-1">Danh sách Bác Sĩ</span>
+      <span class="text-muted mt-1 fw-bold fs-7">Có {{data.total}} bác sĩ</span>
+    </h3>
+    <div class="">
+      <!-- begin::Menu -->
+      <a (click)="open()" type="button"
+        class="btn btn-bg-primary btn-color-light btn-hover-light  btn-active-color-light btn-sm px-4">
+        <span>Thêm mới</span>
+      </a>
+      <!-- begin::Menu 2 -->
+      <!-- end::Menu 2 -->
+      <!-- end::Menu -->
+    </div>
+  </div>
+  <!-- end::Header -->
+  <!-- begin::Body -->
+  <div class="card-body py-3">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table class="table align-middle gs-0 gy-4">
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th class="ps-4 min-w-300px rounded-start">Tên</th>
+            <th class="min-w-125px">Chuyên Khoa</th>
+            <th class="min-w-125px">Đơn vị / Bệnh viện</th>
+            <th class="min-w-125px">Email</th>
+            <th class="min-w-200px">Ngày Sinh</th>
+            <th class="min-w-150px">Số Điện Thoại</th>
+            <th class="min-w-200px text-end rounded-end"></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr *ngFor="let item of data.listDoctor">
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-5">
+                  <span class="symbol-label bg-light">
+                    <img [src]="item.gender|imageGenerateByGender:item.name" class="h-75 align-self-end" alt="" />
+                  </span>
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                  <a class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                    {{item.name}}
+                  </a>
+                  <span class="text-muted fw-bold text-muted d-block fs-7">
+                    {{item.levelDoctor.name}}
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.specialist?.name}}
+              </span>
+
+            </td>
+            <td>
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.unitCompany?.name}}
+              </span>
+
+            </td>
+            <td>
+
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.email}}
+              </span>
+
+            </td>
+            <td>
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.dob | dateTimeLabel:dateFormat}}
+              </span>
+
+
+            </td>
+            <td>
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.phoneNumber}}
+              </span>
+            </td>
+            <td class="text-end">
+
+              <a (click)="edit(item)" class="
+                btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
+                px-4 me-3
+              ">
+                Edit
+              </a>
+              <a (click)="delete(item)" class="
+              btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
+              px-4
+
+            ">
+                Xóa
+              </a>
+            </td>
+          </tr>
+
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+  <!-- begin::Body -->
+</div>
+<nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzWidth]="720" [nzVisible]="data.visible" [nzTitle]="data.titleDrawer"
+  [nzFooter]="footerTpl" (nzOnClose)="close()">
+  <form nz-form [formGroup]="doctorForm" *nzDrawerContent>
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5">Tên</nz-form-label>
+          <nz-form-control [nzSpan]="20" [nzErrorTip]="usernameErr">
+            <input formControlName="name" nz-input placeholder="Tên bác sĩ" />
+            <ng-template #usernameErr let-control>
+              <app-error-messages [control]="doctorFormControl['name']" [messageObject]="{labelName:'Tên bác sĩ'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5">Email</nz-form-label>
+          <nz-form-control [nzErrorTip]="emailErr" [nzSpan]="20">
+            <input formControlName="email" nz-input placeholder="Địa chỉ email" />
+            <ng-template #emailErr let-control>
+              <app-error-messages [control]="doctorFormControl['email']" [messageObject]="{labelName:'Địa chỉ email'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5">Số điện thoại</nz-form-label>
+          <nz-form-control [nzErrorTip]="phoneNumberErr" [nzSpan]="20">
+            <input formControlName="phoneNumber" nz-input placeholder="Nhập thông tin SĐT" />
+            <ng-template #phoneNumberErr let-control>
+              <app-error-messages [control]="doctorFormControl['phoneNumber']"
+                [messageObject]="{labelName:'Số điện thoại'}"></app-error-messages>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24">
+        <nz-form-item nzSpan="24">
+          <nz-form-label [nzSpan]="5">Giới Tính</nz-form-label>
+          <nz-form-control [nzErrorTip]="genderErr" [nzSpan]="20">
+            <nz-select nzPlaceHolder="Chọn giới tính" formControlName="gender">
+              <nz-option [nzValue]="true" [nzLabel]="'Nam'"></nz-option>
+              <nz-option [nzValue]="false" [nzLabel]="'Nữ'"></nz-option>
+            </nz-select>
+            <ng-template #genderErr let-control>
+              <app-error-messages [control]="doctorFormControl['gender']" [messageObject]="{labelName:'Giới Tính'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+          <nz-form-label [nzSpan]="5">Ngày Sinh</nz-form-label>
+          <nz-form-control [nzErrorTip]="dobErr" [nzSpan]="20">
+            <nz-input-group>
+              <nz-date-picker class="w-100" nzPlaceHolder="Chọn ngày sinh" [nzFormat]="'dd/MM/yyyy'"
+                formControlName="dob">
+              </nz-date-picker>
+            </nz-input-group>
+            <ng-template #dobErr let-control>
+              <app-error-messages [control]="doctorFormControl['dob']" [messageObject]="{labelName:'Ngày Sinh'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+
+
+        </nz-form-item>
+
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5">Trình Độ</nz-form-label>
+          <nz-form-control [nzErrorTip]="levelDoctorErr" [nzSpan]="20">
+            <nz-select nzPlaceHolder="Chọn trình độ" nzAllowClear="true" formControlName="levelDoctor">
+              <nz-option *ngFor="let level of data.listLevelDoctor" [nzValue]="level?._id" [nzLabel]="level.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #levelDoctorErr let-control>
+              <app-error-messages [control]="doctorFormControl['levelDoctor']" [messageObject]="{labelName:'Trình Độ'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5">Chuyên Khoa</nz-form-label>
+          <nz-form-control [nzErrorTip]="specialistErr" [nzSpan]="20">
+            <nz-select nzPlaceHolder="Chọn chuyên khoa" formControlName="specialist">
+              <nz-option *ngFor="let level of data.listSpecialist" [nzValue]="level?._id" [nzLabel]="level.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #specialistErr let-control>
+              <app-error-messages [control]="doctorFormControl['specialist']"
+                [messageObject]="{labelName:'Chuyên Khoa'}"></app-error-messages>
+            </ng-template>
+          </nz-form-control>
+
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5">Đơn vị / Bệnh viện</nz-form-label>
+          <nz-form-control [nzErrorTip]="unitCompanyErr" [nzSpan]="20">
+            <nz-select nzPlaceHolder="Chọn Đơn vị / Bệnh viện" nzAllowClear="true" formControlName="unitCompany">
+              <nz-option *ngFor="let level of data.listUnitCompany" [nzValue]="level?._id" [nzLabel]="level.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #unitCompanyErr let-control>
+              <app-error-messages [control]="doctorFormControl['unitCompany']"
+                [messageObject]="{labelName:'Đơn vị / Bệnh viện'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+
+  <ng-template #footerTpl>
+    <div style="float: right">
+      <button nz-button style="margin-right: 8px;" (click)="close()">Hủy Bỏ</button>
+      <button nz-button nzType="primary" (click)="onSubmit()">Tạo</button>
+    </div>
+  </ng-template>
+</nz-drawer>
