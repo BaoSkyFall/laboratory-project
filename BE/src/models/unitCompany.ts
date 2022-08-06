@@ -14,7 +14,7 @@ const UnitCompany = new mongoose.Schema(
       type: String,
       required: [true, 'Please enter Unit Company Address'],
       index: true,
-    },
+    }
 
   },
   {

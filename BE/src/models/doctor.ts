@@ -25,6 +25,10 @@ const Doctor = new mongoose.Schema(
       type: String,
       ref: 'Specialist'
     },
+    unitCompany: {
+      type: String,
+      ref: 'UnitCompany'
+    },
     gender: Boolean,
     dob: Number,
 

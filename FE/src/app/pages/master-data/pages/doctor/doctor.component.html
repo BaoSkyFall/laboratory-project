@@ -28,6 +28,7 @@
           <tr class="fw-bolder text-muted bg-light">
             <th class="ps-4 min-w-300px rounded-start">Tên</th>
             <th class="min-w-125px">Chuyên Khoa</th>
+            <th class="min-w-125px">Đơn vị / Bệnh viện</th>
             <th class="min-w-125px">Email</th>
             <th class="min-w-200px">Ngày Sinh</th>
             <th class="min-w-150px">Số Điện Thoại</th>
@@ -58,6 +59,12 @@
             <td>
               <span class="text-dark  fw-bolder d-block mb-1 fs-">
                 {{item.specialist?.name}}
+              </span>
+
+            </td>
+            <td>
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.unitCompany?.name}}
               </span>
 
             </td>
@@ -113,7 +120,7 @@
     <div nz-row [nzGutter]="8">
       <div nz-col nzSpan="24">
         <nz-form-item>
-          <nz-form-label [nzSpan]="4">Tên</nz-form-label>
+          <nz-form-label [nzSpan]="5">Tên</nz-form-label>
           <nz-form-control [nzSpan]="20" [nzErrorTip]="usernameErr">
             <input formControlName="name" nz-input placeholder="Tên bác sĩ" />
             <ng-template #usernameErr let-control>
@@ -125,7 +132,7 @@
       </div>
       <div nz-col nzSpan="24">
         <nz-form-item>
-          <nz-form-label [nzSpan]="4">Email</nz-form-label>
+          <nz-form-label [nzSpan]="5">Email</nz-form-label>
           <nz-form-control [nzErrorTip]="emailErr" [nzSpan]="20">
             <input formControlName="email" nz-input placeholder="Địa chỉ email" />
             <ng-template #emailErr let-control>
@@ -139,7 +146,7 @@
     <div nz-row [nzGutter]="8">
       <div nz-col nzSpan="24">
         <nz-form-item>
-          <nz-form-label [nzSpan]="4">Số điện thoại</nz-form-label>
+          <nz-form-label [nzSpan]="5">Số điện thoại</nz-form-label>
           <nz-form-control [nzErrorTip]="phoneNumberErr" [nzSpan]="20">
             <input formControlName="phoneNumber" nz-input placeholder="Nhập thông tin SĐT" />
             <ng-template #phoneNumberErr let-control>
@@ -151,7 +158,7 @@
       </div>
       <div nz-col nzSpan="24">
         <nz-form-item nzSpan="24">
-          <nz-form-label [nzSpan]="4">Giới Tính</nz-form-label>
+          <nz-form-label [nzSpan]="5">Giới Tính</nz-form-label>
           <nz-form-control [nzErrorTip]="genderErr" [nzSpan]="20">
             <nz-select nzPlaceHolder="Chọn giới tính" formControlName="gender">
               <nz-option [nzValue]="true" [nzLabel]="'Nam'"></nz-option>
@@ -162,7 +169,7 @@
               </app-error-messages>
             </ng-template>
           </nz-form-control>
-          <nz-form-label [nzSpan]="4">Ngày Sinh</nz-form-label>
+          <nz-form-label [nzSpan]="5">Ngày Sinh</nz-form-label>
           <nz-form-control [nzErrorTip]="dobErr" [nzSpan]="20">
             <nz-input-group>
               <nz-date-picker class="w-100" nzPlaceHolder="Chọn ngày sinh" [nzFormat]="'dd/MM/yyyy'"
@@ -184,7 +191,7 @@
     <div nz-row [nzGutter]="8">
       <div nz-col nzSpan="24">
         <nz-form-item>
-          <nz-form-label [nzSpan]="4">Trình Độ</nz-form-label>
+          <nz-form-label [nzSpan]="5">Trình Độ</nz-form-label>
           <nz-form-control [nzErrorTip]="levelDoctorErr" [nzSpan]="20">
             <nz-select nzPlaceHolder="Chọn trình độ" nzAllowClear="true" formControlName="levelDoctor">
               <nz-option *ngFor="let level of data.listLevelDoctor" [nzValue]="level?._id" [nzLabel]="level.name">
@@ -198,7 +205,7 @@
 
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSpan]="4">Chuyên Khoa</nz-form-label>
+          <nz-form-label [nzSpan]="5">Chuyên Khoa</nz-form-label>
           <nz-form-control [nzErrorTip]="specialistErr" [nzSpan]="20">
             <nz-select nzPlaceHolder="Chọn chuyên khoa" formControlName="specialist">
               <nz-option *ngFor="let level of data.listSpecialist" [nzValue]="level?._id" [nzLabel]="level.name">
@@ -207,6 +214,26 @@
             <ng-template #specialistErr let-control>
               <app-error-messages [control]="doctorFormControl['specialist']"
                 [messageObject]="{labelName:'Chuyên Khoa'}"></app-error-messages>
+            </ng-template>
+          </nz-form-control>
+
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5">Đơn vị / Bệnh viện</nz-form-label>
+          <nz-form-control [nzErrorTip]="unitCompanyErr" [nzSpan]="20">
+            <nz-select nzPlaceHolder="Chọn Đơn vị / Bệnh viện" nzAllowClear="true" formControlName="unitCompany">
+              <nz-option *ngFor="let level of data.listUnitCompany" [nzValue]="level?._id" [nzLabel]="level.name">
+              </nz-option>
+            </nz-select>
+            <ng-template #unitCompanyErr let-control>
+              <app-error-messages [control]="doctorFormControl['unitCompany']"
+                [messageObject]="{labelName:'Đơn vị / Bệnh viện'}">
+              </app-error-messages>
             </ng-template>
           </nz-form-control>
 

@@ -22,6 +22,7 @@ export default class DoctorService {
       this.logger.silly('Get list doctor DB Record');
 
       const doctorList = await this.doctorModel.find().populate('specialist').populate('levelDoctor')
+        .populate('unitCompany')
       // const doctorList = await this.specialistModel.find();
 
       return doctorList

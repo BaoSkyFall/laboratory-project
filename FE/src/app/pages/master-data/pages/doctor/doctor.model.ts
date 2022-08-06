@@ -17,6 +17,11 @@ export class DoctorItem {
   };
   dob: number;
   phoneNumber: string;
+  unitCompany: {
+    _id: string;
+    address: string;
+    name: string;
+  };
   gender: boolean;
 
 }

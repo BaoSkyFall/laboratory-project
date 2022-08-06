@@ -1,3 +1,4 @@
+import { UnitCompanyService } from './../unitCompany/unitCompany.service';
 import { DEFINED_CODE } from './../../../../shared/constants/enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -11,6 +12,7 @@ import { LevelDoctorItem } from '../level-doctor/level-doctor.model';
 import { SpecialistItem } from '../specialist/specialist.model';
 import Utils from '@shared/helper/utils';
 import { Helpers } from '@shared/helper';
+import { UnitCompanyItem } from '../unitCompany/unitCompany.model';
 
 
 
@@ -26,6 +28,7 @@ export class DoctorComponent implements OnInit {
     listDoctor: [] as DoctorItem[],
     listLevelDoctor: [] as LevelDoctorItem[],
     listSpecialist: [] as SpecialistItem[],
+    listUnitCompany: [] as UnitCompanyItem[],
     visible: false,
     isCreate: true,
     titleDrawer: ''
@@ -37,6 +40,7 @@ export class DoctorComponent implements OnInit {
     private doctorService: DoctorService,
     private levelDoctorService: LevelDoctorService,
     private specialistService: SpecialistService,
+    private unitCompanyService: UnitCompanyService,
     private notificationService: NotificationService,
     private fb: FormBuilder,
     private cdf: ChangeDetectorRef
@@ -50,6 +54,8 @@ export class DoctorComponent implements OnInit {
       gender: this.fb.control('', Validators.required),
       specialist: this.fb.control('', Validators.required),
       levelDoctor: this.fb.control('', Validators.required),
+      unitCompany: this.fb.control('', Validators.required),
+
     })
 
   }
@@ -59,7 +65,8 @@ export class DoctorComponent implements OnInit {
   ngOnInit(): void {
     this.getListDoctor();
     this.getListLevelDoctor();
-    this.getListSpecialist()
+    this.getListSpecialist();
+    this.getListUnitCompany();
 
   }
   getListDoctor() {
@@ -88,6 +95,18 @@ export class DoctorComponent implements OnInit {
     this.specialistService.getSpecialistList({}).subscribe((res: any) => {
       this.data.listSpecialist = res?.data || [];
       this.data.total = res?.total;
+      // this.cdf.detectChanges();
+
+    }, err => {
+      console.log('err:', err);
+      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+    })
+  }
+  getListUnitCompany() {
+    this.unitCompanyService.getUnitCompanyList({}).subscribe((res: any) => {
+      this.data.listUnitCompany = res?.data || [];
+      this.data.total = res?.total;
+      this.cdf.detectChanges()
       // this.cdf.detectChanges();
 
     }, err => {
@@ -160,6 +179,7 @@ export class DoctorComponent implements OnInit {
     this.doctorFormControl.gender.setValue(item.gender);
     this.doctorFormControl.specialist.setValue(item.specialist._id);
     this.doctorFormControl.levelDoctor.setValue(item.levelDoctor._id);
+    this.doctorFormControl.unitCompany.setValue(item.unitCompany._id);
     this.data.titleDrawer = `Bác sĩ ${item.name}`
     this.data.visible = true;
     this.data.isCreate = false;

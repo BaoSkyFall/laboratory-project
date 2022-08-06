@@ -39,6 +39,7 @@ export default (app: Router) => {
         gender: Joi.boolean().required(),
         specialist: Joi.string().required(),
         levelDoctor: Joi.string().required(),
+        unitCompany: Joi.string().required()
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
@@ -66,6 +67,7 @@ export default (app: Router) => {
         dob: Joi.number().required(),
         specialist: Joi.string().required(),
         levelDoctor: Joi.string().required(),
+        unitCompany: Joi.string().required()
 
       }),
     }),
