@@ -1,4 +1,4 @@
-import { ISpecialist } from '@/interfaces/ISpecialist';
+import { ISpecialist } from '../interfaces/ISpecialist';
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 

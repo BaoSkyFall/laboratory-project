@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 import { Container } from 'typedi';
 import { Logger } from 'winston';
 import { celebrate, Joi } from 'celebrate';
-import SpecialistService from '@/services/specialist';
-import { ISpecialist, ISpecialistInputDTO } from '@/interfaces/ISpecialist';
+import SpecialistService from '../../services/specialist';
+import { ISpecialist, ISpecialistInputDTO } from '../../interfaces/ISpecialist';
 import { join } from 'path';
 import { Helpers } from '../../config/helpers';
 import { DEFINED_CODE } from '../../config/enum';
@@ -14,6 +14,7 @@ import { DEFINED_CODE } from '../../config/enum';
 const route = Router();
 export default (app: Router) => {
   app.use('/specialist', route);
+  //Get Specialist List
   route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const specialistServiceInstance = Container.get(SpecialistService);

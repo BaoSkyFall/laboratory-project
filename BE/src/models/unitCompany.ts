@@ -1,4 +1,4 @@
-import { IUnitCompany } from '@/interfaces/IUnitCompany';
+import { IUnitCompany } from '../interfaces/IUnitCompany';
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 

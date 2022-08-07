@@ -1,9 +1,9 @@
-import { ILevelDoctor } from '@/interfaces/ILevelDoctor';
+import { ILevelDoctor } from '../interfaces/ILevelDoctor';
 import { Document, Model } from 'mongoose';
-import { IUser } from '@/interfaces/IUser';
-import { IDoctor } from '@/interfaces/IDoctor';
-import { ISpecialist } from '@/interfaces/ISpecialist';
-import { IUnitCompany } from '@/interfaces/IUnitCompany';
+import { IUser } from '../../interfaces/IUser';
+import { IDoctor } from '../../interfaces/IDoctor';
+import { ISpecialist } from '../../interfaces/ISpecialist';
+import { IUnitCompany } from '../../interfaces/IUnitCompany';
 
 
 declare global {

@@ -1,4 +1,4 @@
-import { IDoctor } from '@/interfaces/IDoctor';
+import { IDoctor } from '../interfaces/IDoctor';
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 

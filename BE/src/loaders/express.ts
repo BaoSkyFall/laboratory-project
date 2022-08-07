@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { OpticMiddleware } from '@useoptic/express-middleware';
-import routes from '@/api';
-import config from '@/config';
+import routes from '../api';
+import config from '../config';
 export default ({ app }: { app: express.Application }) => {
   /**
    * Health Check endpoints
@@ -36,7 +36,7 @@ export default ({ app }: { app: express.Application }) => {
 
   // API Documentation
   app.use(OpticMiddleware({
-      enabled: process.env.NODE_ENV !== 'production',
+    enabled: process.env.NODE_ENV !== 'production',
   }));
 
   /// catch 404 and forward to error handler

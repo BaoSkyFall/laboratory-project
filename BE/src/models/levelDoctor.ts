@@ -1,4 +1,4 @@
-import { ILevelDoctor } from '@/interfaces/ILevelDoctor';
+import { ILevelDoctor } from '../interfaces/ILevelDoctor';
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 

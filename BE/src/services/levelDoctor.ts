@@ -1,12 +1,11 @@
 import { Service, Inject } from 'typedi';
 import jwt from 'jsonwebtoken';
 import MailerService from './mailer';
-import config from '@/config';
 import argon2 from 'argon2';
 import { randomBytes } from 'crypto';
-import { ILevelDoctor, ILevelDoctorInputDTO } from '@/interfaces/ILevelDoctor';
-import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
-import events from '@/subscribers/events';
+import { ILevelDoctor, ILevelDoctorInputDTO } from '../interfaces/ILevelDoctor';
+import { EventDispatcher, EventDispatcherInterface } from '../decorators/eventDispatcher';
+import events from '../subscribers/events';
 
 @Service()
 export default class LevelDoctorService {
