@@ -23,7 +23,7 @@ export default class UnitCompanyService {
 
       const unitCompanyList = await this.unitCompanyModel.find()
       // const unitCompanyList = await this.unitCompanyModel.find();
-      return unitCompanyList;
+      return unitCompanyList as any;
     }
 
     catch (e) {
@@ -51,7 +51,7 @@ export default class UnitCompanyService {
        * but that's too over-engineering for now
        */
       const unitCompany = unitCompanyRecord.toObject();
-      return { unitCompany };
+      return { unitCompany } as any;
     } catch (e) {
       this.logger.error(e);
       throw e;
@@ -75,7 +75,7 @@ export default class UnitCompanyService {
         console.log('unitCompanyRecord:', unitCompanyRecord)
         this.eventDispatcher.dispatch(events.unitCompany.edit, { unitCompany: unitCompanyRecord });
         const unitCompany = unitCompanyRecord;
-        return { unitCompany };
+        return { unitCompany } as any;
       }
 
     } catch (e) {
@@ -96,7 +96,7 @@ export default class UnitCompanyService {
         console.log('unitCompanyRecord:', unitCompanyRecord)
         this.eventDispatcher.dispatch(events.unitCompany.edit, { unitCompany: unitCompanyRecord });
         const unitCompany = unitCompanyRecord;
-        return { unitCompany };
+        return { unitCompany } as any;
       }
 
     } catch (e) {

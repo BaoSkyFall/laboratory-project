@@ -17,7 +17,7 @@ export default (app: Router) => {
   route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const unitCompanyServiceInstance = Container.get(UnitCompanyService);
-    const unitCompany = await unitCompanyServiceInstance.GetListUnitCompany()
+    const unitCompany = await unitCompanyServiceInstance.GetListUnitCompany() as any
     if (!unitCompany) {
       return res.sendStatus(401);
     }
@@ -78,7 +78,7 @@ export default (app: Router) => {
       logger.debug('Calling Edit UnitCompany endpoint with body: %o', req.body);
       try {
         const unitCompanyServiceInstance = Container.get(UnitCompanyService);
-        const { unitCompany } = await unitCompanyServiceInstance.DeleteUnitCompany(req.body as IUnitCompanyInputDTO);
+        const { unitCompany } = await unitCompanyServiceInstance.DeleteUnitCompany(req.body);
         return Helpers.response(res, DEFINED_CODE.INTERACT_DATA_SUCCESS, unitCompany)
       } catch (e) {
         logger.error('🔥 error: %o', e);

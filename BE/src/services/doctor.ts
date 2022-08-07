@@ -25,7 +25,7 @@ export default class DoctorService {
         .populate('unitCompany')
       // const doctorList = await this.specialistModel.find();
 
-      return doctorList
+      return doctorList as any
     }
 
     catch (e) {
@@ -77,7 +77,7 @@ export default class DoctorService {
         console.log('doctorRecord:', doctorRecord)
         this.eventDispatcher.dispatch(events.doctor.edit, { doctor: doctorRecord });
         const doctor = doctorRecord;
-        return { doctor };
+        return { doctor } as any;
       }
 
     } catch (e) {
@@ -98,7 +98,7 @@ export default class DoctorService {
         console.log('doctorRecord:', doctorRecord)
         this.eventDispatcher.dispatch(events.doctor.edit, { doctor: doctorRecord });
         const doctor = doctorRecord;
-        return { doctor };
+        return { doctor } as any;
       }
 
     } catch (e) {

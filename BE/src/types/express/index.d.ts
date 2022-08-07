@@ -1,3 +1,4 @@
+import { ILevelDoctor } from '@/interfaces/ILevelDoctor';
 import { Document, Model } from 'mongoose';
 import { IUser } from '@/interfaces/IUser';
 import { IDoctor } from '@/interfaces/IDoctor';
@@ -15,6 +16,7 @@ declare global {
   namespace Models {
     export type UserModel = Model<IUser & Document>;
     export type DoctorModel = Model<IDoctor & Document>;
+    export type LevelDoctorModel = Model<ILevelDoctor & Document>;
     export type SpecialistModel = Model<ISpecialist & Document>;
     export type UnitCompanyModel = Model<IUnitCompany & Document>;
 

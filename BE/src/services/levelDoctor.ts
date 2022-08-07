@@ -23,7 +23,7 @@ export default class LevelDoctorService {
 
       const levelDoctorList = await this.levelDoctorModel.find()
       // const levelDoctorList = await this.levelDoctorModel.find();
-      return levelDoctorList;
+      return levelDoctorList as any;
     }
 
     catch (e) {
@@ -51,7 +51,7 @@ export default class LevelDoctorService {
        * but that's too over-engineering for now
        */
       const levelDoctor = levelDoctorRecord.toObject();
-      return { levelDoctor };
+      return { levelDoctor } as any;
     } catch (e) {
       this.logger.error(e);
       throw e;
@@ -75,7 +75,7 @@ export default class LevelDoctorService {
         console.log('levelDoctorRecord:', levelDoctorRecord)
         this.eventDispatcher.dispatch(events.levelDoctor.edit, { levelDoctor: levelDoctorRecord });
         const levelDoctor = levelDoctorRecord;
-        return { levelDoctor };
+        return { levelDoctor } as any;
       }
 
     } catch (e) {
@@ -96,7 +96,7 @@ export default class LevelDoctorService {
         console.log('levelDoctorRecord:', levelDoctorRecord)
         this.eventDispatcher.dispatch(events.levelDoctor.edit, { levelDoctor: levelDoctorRecord });
         const levelDoctor = levelDoctorRecord;
-        return { levelDoctor };
+        return { levelDoctor } as any;
       }
 
     } catch (e) {

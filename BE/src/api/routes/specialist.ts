@@ -17,7 +17,7 @@ export default (app: Router) => {
   route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const specialistServiceInstance = Container.get(SpecialistService);
-    const specialist = await specialistServiceInstance.GetListSpecialist()
+    const specialist = await specialistServiceInstance.GetListSpecialist() as any
     if (!specialist) {
       return res.sendStatus(401);
     }
@@ -78,7 +78,7 @@ export default (app: Router) => {
       logger.debug('Calling Edit Specialist endpoint with body: %o', req.body);
       try {
         const specialistServiceInstance = Container.get(SpecialistService);
-        const { specialist } = await specialistServiceInstance.DeleteSpecialist(req.body as ISpecialistInputDTO);
+        const { specialist } = await specialistServiceInstance.DeleteSpecialist(req.body);
         return Helpers.response(res, DEFINED_CODE.INTERACT_DATA_SUCCESS, specialist)
       } catch (e) {
         logger.error('🔥 error: %o', e);

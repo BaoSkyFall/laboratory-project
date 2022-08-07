@@ -22,11 +22,11 @@ export default (app: Router) => {
   route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const doctorServiceInstance = Container.get(DoctorService);
-    const doctorList = await doctorServiceInstance.GetListDoctor()
+    const doctorList = await doctorServiceInstance.GetListDoctor() as any;
     if (!doctorList) {
       return res.sendStatus(401);
     }
-    return Helpers.response(res, DEFINED_CODE.GET_DATA_SUCCESS, doctorList, { total: doctorList.length || 0, pageSize: 10, pageIndex: 1 })
+    return Helpers.response(res, DEFINED_CODE.GET_DATA_SUCCESS, doctorList, { total: doctorList?.length || 0, pageSize: 10, pageIndex: 1 })
   });
   route.post(
     '/create',
@@ -96,7 +96,7 @@ export default (app: Router) => {
       logger.debug('Calling Edit Doctor endpoint with body: %o', req.body);
       try {
         const doctorServiceInstance = Container.get(DoctorService);
-        const { doctor } = await doctorServiceInstance.DeleteDoctor(req.body as IDoctorInputDTO);
+        const { doctor } = await doctorServiceInstance.DeleteDoctor(req.body);
         return Helpers.response(res, DEFINED_CODE.INTERACT_DATA_SUCCESS, doctor)
       } catch (e) {
         logger.error('🔥 error: %o', e);

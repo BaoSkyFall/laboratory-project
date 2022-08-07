@@ -17,7 +17,7 @@ export default (app: Router) => {
   route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const levelDoctorServiceInstance = Container.get(LevelDoctorService);
-    const levelDoctor = await levelDoctorServiceInstance.GetListLevelDoctor()
+    const levelDoctor = await levelDoctorServiceInstance.GetListLevelDoctor() as any
     if (!levelDoctor) {
       return res.sendStatus(401);
     }
@@ -78,7 +78,7 @@ export default (app: Router) => {
       logger.debug('Calling Edit LevelDoctor endpoint with body: %o', req.body);
       try {
         const levelDoctorServiceInstance = Container.get(LevelDoctorService);
-        const { levelDoctor } = await levelDoctorServiceInstance.DeleteLevelDoctor(req.body as ILevelDoctorInputDTO);
+        const { levelDoctor } = await levelDoctorServiceInstance.DeleteLevelDoctor(req.body);
         return Helpers.response(res, DEFINED_CODE.INTERACT_DATA_SUCCESS, levelDoctor)
       } catch (e) {
         logger.error('🔥 error: %o', e);

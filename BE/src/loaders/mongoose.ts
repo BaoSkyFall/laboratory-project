@@ -8,5 +8,5 @@ export default async (): Promise<Db> => {
     useCreateIndex: true,
     useUnifiedTopology: true,
   });
-  return connection.connection.db;
+  return connection.connection.db as any;
 };

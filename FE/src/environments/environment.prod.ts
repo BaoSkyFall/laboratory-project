@@ -7,6 +7,7 @@ export const environment = {
   appVersion: 'v8.0.35',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
+  API_URL: "https://laboratory-be.herokuapp.com",
   apiUrl: 'api',
   appThemeName: 'Metronic',
   appPurchaseUrl: 'https://1.envato.market/EA4JP',

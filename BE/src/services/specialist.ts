@@ -24,7 +24,7 @@ export default class SpecialistService {
       const specialistList = await this.specialistModel.find()
 
       // const specialistList = await this.specialistModel.find();
-      return specialistList;
+      return specialistList as any;
     }
 
     catch (e) {
@@ -52,7 +52,7 @@ export default class SpecialistService {
        * but that's too over-engineering for now
        */
       const specialist = specialistRecord.toObject();
-      return { specialist };
+      return { specialist } as any;
     } catch (e) {
       this.logger.error(e);
       throw e;
@@ -76,7 +76,7 @@ export default class SpecialistService {
         console.log('specialistRecord:', specialistRecord)
         this.eventDispatcher.dispatch(events.specialist.edit, { specialist: specialistRecord });
         const specialist = specialistRecord;
-        return { specialist };
+        return { specialist } as any;
       }
 
     } catch (e) {
@@ -97,7 +97,7 @@ export default class SpecialistService {
         console.log('specialistRecord:', specialistRecord)
         this.eventDispatcher.dispatch(events.specialist.edit, { specialist: specialistRecord });
         const specialist = specialistRecord;
-        return { specialist };
+        return { specialist } as any;
       }
 
     } catch (e) {
