@@ -32,5 +32,23 @@ export default {
     viewDetail: 'onViewDetailUnitCompany',
     delete: 'onDeleteUnitCompany',
 
+  },
+  criteria: {
+    create: 'onCreateCriteria',
+    edit: 'onEditCriteria',
+    viewList: 'onViewListCriteria',
+    viewDetail: 'onViewDetailCriteria',
+    delete: 'onDeleteCriteria',
+
+  },
+  category: {
+    create: 'onCreateCategory',
+    edit: 'onEditCategory',
+    viewList: 'onViewListCategory',
+    viewDetail: 'onViewDetailCategory',
+    delete: 'onDeleteCategory',
+
   }
+
+
 };

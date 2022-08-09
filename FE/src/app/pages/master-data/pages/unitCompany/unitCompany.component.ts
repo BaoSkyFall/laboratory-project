@@ -141,7 +141,7 @@ export class UnitCompanyComponent implements OnInit {
   }
   open(): void {
     this.data.visible = true;
-    this.data.titleDrawer = 'Thêm Chuyên Khoa';
+    this.data.titleDrawer = 'Thêm Đơn vị Bệnh viện';
     this.data.isCreate = true;
   }
 

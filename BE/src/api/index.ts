@@ -6,6 +6,8 @@ import doctor from './routes/doctor';
 import specialist from './routes/specialist';
 import levelDoctor from './routes/levelDoctor';
 import unitCompany from './routes/unitCompany';
+import criteria from './routes/criteria';
+import category from './routes/category';
 
 
 // guaranteed to get dependencies
@@ -17,6 +19,8 @@ export default () => {
   specialist(app);
   levelDoctor(app);
   unitCompany(app);
+  category(app);
+  criteria(app);
   agendash(app);
   return app;
 }

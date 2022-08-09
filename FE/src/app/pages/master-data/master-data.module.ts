@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'specialist',
     loadChildren: () => import('./pages/specialist/specialist.module').then(m => m.SpecialistModule)
+  }, {
+    path: 'criteria',
+    loadChildren: () => import('./pages/criteria/criteria.module').then(m => m.CriteriaModule)
+
   }
 ];
 @NgModule({

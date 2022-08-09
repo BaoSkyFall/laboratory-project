@@ -36,8 +36,20 @@ export const API = {
       DELETE: `${environment.API_URL}/api/unitCompany/delete`,
 
     },
+    CRITERIA: {
+      LIST: `${environment.API_URL}/api/criteria/list`,
+      CREATE: `${environment.API_URL}/api/criteria/create`,
+      EDIT: `${environment.API_URL}/api/criteria/edit`,
+      DELETE: `${environment.API_URL}/api/criteria/delete`,
 
+    },
+    CATEGORY: {
+      LIST: `${environment.API_URL}/api/category/list`,
+      CREATE: `${environment.API_URL}/api/category/create`,
+      EDIT: `${environment.API_URL}/api/category/edit`,
+      DELETE: `${environment.API_URL}/api/category/delete`,
 
+    },
     // ACCOUNTS: {
     //   GET_ACCOUNT_INFO: `${environment.API_URL}/api/v` + version + `/account/get-account-info`,
     //   GET_ACCOUNT_BY_ID_FOR_SA: `${environment.API_URL}/core/v` + version + `/Account/get-account-for-management/`,
