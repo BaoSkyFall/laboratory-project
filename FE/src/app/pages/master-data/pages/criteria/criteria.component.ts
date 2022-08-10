@@ -26,7 +26,15 @@ export class CriteriaComponent implements OnInit {
     listCategory: [] as CategoryItem[],
     visible: false,
     isCreate: true,
-    titleDrawer: ''
+    titleDrawer: '',
+    meta: {
+      pageSize: 10,
+      pageIndex: 1,
+    }
+  }
+  dataFilter = {
+    searchKey: '',
+    category: ''
   }
   dateFormat: string = 'DD/MM/YYYY';
   criteriaForm: FormGroup;
@@ -56,8 +64,15 @@ export class CriteriaComponent implements OnInit {
     this.getListCategory();
 
   }
+
   getListCriteria() {
-    this.criteriaService.getCriteriaList({}).subscribe((res: any) => {
+    const payload = {
+      pageIndex: this.data.meta.pageIndex,
+      pageSize: this.data.meta.pageSize,
+      searchKey: this.dataFilter.searchKey,
+      category: this.dataFilter.category,
+    }
+    this.criteriaService.getCriteriaList(payload).subscribe((res: any) => {
       this.data.listCriteria = res?.data || [];
       this.data.total = res?.total;
       this.cdf.detectChanges()

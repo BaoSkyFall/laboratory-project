@@ -15,14 +15,21 @@ const route = Router();
 export default (app: Router) => {
   app.use('/criteria', route);
   //Get Criteria List
-  route.post('/list', middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
+  route.post('/list', celebrate({
+    body: Joi.object({
+      searchKey: Joi.allow(),
+      category: Joi.allow(),
+      pageSize: Joi.number().required(),
+      pageIndex: Joi.number().required(),
+    }),
+  }), middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
     const Logger: Logger = Container.get('logger');
     const criteriaServiceInstance = Container.get(CriteriaService);
-    const criteria = await criteriaServiceInstance.GetListCriteria() as any
+    const criteria = await criteriaServiceInstance.GetListCriteria(req.body) as any
     if (!criteria) {
       return res.sendStatus(401);
     }
-    return Helpers.response(res, DEFINED_CODE.GET_DATA_SUCCESS, criteria, { total: criteria?.length || 0, pageSize: 10, pageIndex: 1 })
+    return Helpers.response(res, DEFINED_CODE.GET_DATA_SUCCESS, criteria.criteriaList, { total: criteria.total, pageSize: 10, pageIndex: 1 })
   });
   route.post(
     '/create',

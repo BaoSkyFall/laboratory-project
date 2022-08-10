@@ -6,6 +6,7 @@ import { randomBytes } from 'crypto';
 import { ICriteria, ICriteriaInputDTO } from '../interfaces/ICriteria';
 import { EventDispatcher, EventDispatcherInterface } from '../decorators/eventDispatcher';
 import events from '../subscribers/events';
+import { BSONRegExp } from 'mongodb';
 
 @Service()
 export default class CriteriaService {
@@ -16,14 +17,27 @@ export default class CriteriaService {
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
   ) {
   }
-  public async GetListCriteria(): Promise<{ criteria: any[] }> {
+  public async GetListCriteria(params: { searchKey?: string, category?: string, pageSize?: number, pageIndex?: number }): Promise<{ criteria: any[] }> {
     try {
       this.logger.silly('Get list criteria DB Record');
+      console.log('params:', params)
+      const query = {
+        // category: new BSONRegExp(`.*${params.category || ''}.*`, "i"),
+        // name: new BSONRegExp(`.*${params.searchKey || ''}.*`, "i"),
+      };
+
+      const limit = params.pageSize;
+      const skip = params.pageIndex - 1;
       const sort = [["name"]];
-      const criteriaList = await this.criteriaModel.find().populate('category').sort(sort)
+      console.log('query:', query)
+      console.log('limit:', limit)
+      console.log('skip:', skip)
+      const criteriaList = await this.criteriaModel.find(query).skip(skip).limit(limit).populate('category').sort(sort)
+      const total = await this.criteriaModel.count();
+
 
       // const criteriaList = await this.criteriaModel.find();
-      return criteriaList as any;
+      return { criteriaList, total } as any;
     }
 
     catch (e) {
