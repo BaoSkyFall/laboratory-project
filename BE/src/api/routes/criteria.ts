@@ -30,7 +30,8 @@ export default (app: Router) => {
       body: Joi.object({
         name: Joi.string().required(),
         category: Joi.string().required(),
-        priceMaster: Joi.number().required()
+        priceMaster: Joi.number().required(),
+        referenceIndex: Joi.string()
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
@@ -53,7 +54,8 @@ export default (app: Router) => {
         _id: Joi.string().required(),
         name: Joi.string().required(),
         category: Joi.string().required(),
-        priceMaster: Joi.number().required()
+        priceMaster: Joi.number().required(),
+        referenceIndex: Joi.string()
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {

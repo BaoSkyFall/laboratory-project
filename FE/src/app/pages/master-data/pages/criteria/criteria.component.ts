@@ -44,6 +44,7 @@ export class CriteriaComponent implements OnInit {
       name: this.fb.control('', Validators.required),
       category: this.fb.control('', [Validators.required]),
       priceMaster: this.fb.control('', [Validators.required]),
+      referenceIndex: this.fb.control('', [Validators.required]),
     })
 
   }
@@ -140,6 +141,7 @@ export class CriteriaComponent implements OnInit {
     this.criteriaFormControl.name.setValue(item.name);
     this.criteriaFormControl.category.setValue(item.category._id);
     this.criteriaFormControl.priceMaster.setValue(item.priceMaster);
+    this.criteriaFormControl.referenceIndex.setValue(item.referenceIndex);
 
     this.data.titleDrawer = `Chỉ tiêu xét nghiệm ${item.name}`
     this.data.visible = true;

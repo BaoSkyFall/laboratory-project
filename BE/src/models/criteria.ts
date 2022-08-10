@@ -16,8 +16,8 @@ const Criteria = new mongoose.Schema(
       ref: 'Category'
     },
     priceMaster: Number,
-    sortOrder: Number
-
+    sortOrder: Number,
+    referenceIndex: String
   },
   {
     timestamps: true,

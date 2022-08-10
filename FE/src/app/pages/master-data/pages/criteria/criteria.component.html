@@ -28,6 +28,7 @@
           <tr class="fw-bolder text-muted bg-light">
             <th class="ps-4 min-w-150px">Chỉ tiêu / Nội dung xét nghiệm</th>
             <th class="min-w-140px text-start">Thể loại Xét Nghiệm</th>
+            <th class="min-w-140px text-end">Chỉ số tham khảo</th>
             <th class="min-w-140px text-end">Giá Hệ Thống</th>
             <th class="min-w-140px text-end">Ngày Tạo</th>
             <th class="min-w-100px"></th>
@@ -48,6 +49,13 @@
 
               <span class="text-dark  fw-bolder d-block mb-1 text-start">
                 {{item.category.name}}
+              </span>
+
+            </td>
+            <td>
+
+              <span class="text-dark  fw-bolder d-block mb-1 text-end">
+                {{item.referenceIndex}}
               </span>
 
             </td>
@@ -119,6 +127,19 @@
             <ng-template #categoryErr let-control>
               <app-error-messages [control]="criteriaFormControl['category']"
                 [messageObject]="{labelName:'Thể loại xét nghiệm'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">Chỉ số tham khảo</nz-form-label>
+          <nz-form-control [nzSpan]="20" [nzErrorTip]="referenceIndexErr">
+            <textarea formControlName="referenceIndex" nz-input placeholder="Nhập Chỉ số tham khảo"></textarea>
+            <ng-template #referenceIndexErr let-control>
+              <app-error-messages [control]="criteriaFormControl['referenceIndex']"
+                [messageObject]="{labelName:'Chỉ số tham khảo'}">
               </app-error-messages>
             </ng-template>
           </nz-form-control>

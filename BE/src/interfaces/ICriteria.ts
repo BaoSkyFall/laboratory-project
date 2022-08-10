@@ -4,7 +4,7 @@ export interface ICriteria {
   category?: string;
   priceMaster?: number;
   sortOrder?: number;
-
+  referenceIndex?: string;
 }
 
 export interface ICriteriaInputDTO {
@@ -13,4 +13,5 @@ export interface ICriteriaInputDTO {
   category?: string;
   priceMaster?: number;
   sortOrder?: number;
+  referenceIndex?: string;
 }
