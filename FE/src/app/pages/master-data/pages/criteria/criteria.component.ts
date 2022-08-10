@@ -64,7 +64,11 @@ export class CriteriaComponent implements OnInit {
     this.getListCategory();
 
   }
-
+  onSearch() {
+    this.data.meta.pageIndex = 1;
+    this.data.meta.pageSize = 10;
+    this.getListCriteria()
+  }
   getListCriteria() {
     const payload = {
       pageIndex: this.data.meta.pageIndex,

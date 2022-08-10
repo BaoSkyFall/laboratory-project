@@ -22,18 +22,15 @@ export default class CriteriaService {
       this.logger.silly('Get list criteria DB Record');
       console.log('params:', params)
       const query = {
-        // category: new BSONRegExp(`.*${params.category || ''}.*`, "i"),
-        // name: new BSONRegExp(`.*${params.searchKey || ''}.*`, "i"),
+        category: new RegExp(`.*${params.category || ''}.*`, "i"),
+        name: new RegExp(`.*${params.searchKey || ''}.*`, "i"),
       };
 
       const limit = params.pageSize;
       const skip = params.pageIndex - 1;
       const sort = [["name"]];
-      console.log('query:', query)
-      console.log('limit:', limit)
-      console.log('skip:', skip)
       const criteriaList = await this.criteriaModel.find(query).skip(skip).limit(limit).populate('category').sort(sort)
-      const total = await this.criteriaModel.count();
+      const total = await this.criteriaModel.find(query).count();
 
 
       // const criteriaList = await this.criteriaModel.find();

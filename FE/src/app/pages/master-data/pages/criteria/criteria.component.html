@@ -1,7 +1,7 @@
 <div class="card mb-5 mb-xl-8">
   <!-- begin::Header -->
   <div class="card-header border-0 pt-5">
-    <h3 class="card-title align-items-start flex-column">
+    <h3 class="card-title align-items-start flex-column my-0">
       <span class="card-label fw-bolder fs-3 mb-1">Danh sách Chỉ tiêu xét nghiệm</span>
       <span class="text-muted mt-1 fw-bold fs-7">Có {{data.total}} Chỉ tiêu</span>
     </h3>
@@ -15,19 +15,41 @@
       <!-- end::Menu 2 -->
       <!-- end::Menu -->
     </div>
+
   </div>
   <!-- end::Header -->
   <!-- begin::Body -->
-  <div class="card-body py-3">
+  <div class="card-body py-3 pt-0">
     <!-- begin::Table container -->
-    <div class="table-responsive">
+    <div class="cart-filter mt-4 mb-6 d-flex flex-column">
+      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+        <div nz-col class="gutter-row d-flex flex-column gap-2" [nzSpan]="6">
+          <label class="me-2">Loại xét nghiệm</label>
+          <nz-select nzPlaceHolder="Chọn loại xét nghiệm" [ngModel]="dataFilter.category"
+            (ngModelChange)="dataFilter.category=$event;onSearch()">
+            <nz-option [nzValue]="''" [nzLabel]="'Tất Cả'">
+            </nz-option>
+            <nz-option *ngFor="let category of data.listCategory" [nzValue]="category?._id" [nzLabel]="category.name">
+            </nz-option>
+          </nz-select>
+        </div>
+        <div nz-col class="gutter-row d-flex flex-column gap-2" [nzSpan]="6">
+          <label class="me-2">Chỉ tiêu / Nội dung Xét Nghiệm</label>
+          <input [(ngModel)]="dataFilter.searchKey" (keyup.enter)="onSearch()" (focusout)="onSearch()" nz-input
+            placeholder="Tìm kiếm xét nghiệm" />
+        </div>
+
+      </div>
+
+    </div>
+    <div class="table-responsive mt-2">
       <!-- begin::Table -->
       <table class="table align-middle gs-0 gy-4">
         <!-- begin::Table head -->
         <thead>
           <tr class="fw-bolder text-muted bg-light">
             <th class="ps-4 min-w-150px">Chỉ tiêu / Nội dung xét nghiệm</th>
-            <th class="min-w-140px text-start">Thể loại Xét Nghiệm</th>
+            <th class="min-w-140px text-start">Loại Xét Nghiệm</th>
             <th class="min-w-140px text-end">Chỉ số tham khảo</th>
             <th class="min-w-140px text-end">Giá Hệ Thống</th>
             <th class="min-w-140px text-end">Ngày Tạo</th>
@@ -124,15 +146,15 @@
       </div>
       <div nz-col nzSpan="24">
         <nz-form-item>
-          <nz-form-label [nzSpan]="6">Thể loại xét nghiệm</nz-form-label>
+          <nz-form-label [nzSpan]="6">Loại xét nghiệm</nz-form-label>
           <nz-form-control [nzErrorTip]="categoryErr" [nzSpan]="20">
-            <nz-select nzPlaceHolder="Chọn Thể loại xét nghiệm" nzAllowClear="true" formControlName="category">
+            <nz-select nzPlaceHolder="Chọn Loại xét nghiệm" nzAllowClear="true" formControlName="category">
               <nz-option *ngFor="let category of data.listCategory" [nzValue]="category?._id" [nzLabel]="category.name">
               </nz-option>
             </nz-select>
             <ng-template #categoryErr let-control>
               <app-error-messages [control]="criteriaFormControl['category']"
-                [messageObject]="{labelName:'Thể loại xét nghiệm'}">
+                [messageObject]="{labelName:'Loại xét nghiệm'}">
               </app-error-messages>
             </ng-template>
           </nz-form-control>
