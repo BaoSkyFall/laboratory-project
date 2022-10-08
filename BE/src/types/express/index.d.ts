@@ -20,6 +20,8 @@ declare global {
     export type SpecialistModel = Model<ISpecialist & Document>;
     export type UnitCompanyModel = Model<IUnitCompany & Document>;
     export type CriteriaModel = Model<ICriteria & Document>;
+    export type CriteriaSetModel = Model<ICriteriaSet & Document>;
+
     export type CategoryModel = Model<ICategory & Document>;
 
 

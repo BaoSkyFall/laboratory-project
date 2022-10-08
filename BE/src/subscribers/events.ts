@@ -41,6 +41,14 @@ export default {
     delete: 'onDeleteCriteria',
 
   },
+  criteriaSet: {
+    create: 'onCreateCriteriaSet',
+    edit: 'onEditCriteriaSet',
+    viewList: 'onViewListCriteriaSet',
+    viewDetail: 'onViewDetailCriteriaSet',
+    delete: 'onDeleteCriteriaSet',
+
+  },
   category: {
     create: 'onCreateCategory',
     edit: 'onEditCategory',

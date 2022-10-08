@@ -50,6 +50,13 @@ export const API = {
       DELETE: `${environment.API_URL}/api/category/delete`,
 
     },
+    CRITERIA_SET: {
+      LIST: `${environment.API_URL}/api/criteriaSet/list`,
+      CREATE: `${environment.API_URL}/api/criteriaSet/create`,
+      EDIT: `${environment.API_URL}/api/criteriaSet/edit`,
+      DELETE: `${environment.API_URL}/api/criteriaSet/delete`,
+
+    },
     // ACCOUNTS: {
     //   GET_ACCOUNT_INFO: `${environment.API_URL}/api/v` + version + `/account/get-account-info`,
     //   GET_ACCOUNT_BY_ID_FOR_SA: `${environment.API_URL}/core/v` + version + `/Account/get-account-for-management/`,
