@@ -170,24 +170,16 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6">Các chỉ tiêu xét nghiệm</nz-form-label>
           <nz-form-control [nzErrorTip]="categoryErr" [nzSpan]="20">
-            <div formArrayName="criteriaList"
-              *ngFor="let item of criteriaSetFormControlCriteriaList.controls; let i = index">
-              <div [formGroupName]="i">
-                <nz-select nzMode="multiple" nzPlaceHolder="Chọn chỉ tiêu xét nghiệm" nzAllowClear="true"
-                  nzShowSearch="true" formControlName="_id">
-                  <nz-option *ngFor="let criteria of data.listCriteria" [nzValue]="criteria?._id"
-                    [nzLabel]="criteria.name">
-                  </nz-option>
-                </nz-select>
-              </div>
-            </div>
-
 
             <nz-select nzMode="multiple" nzPlaceHolder="Chọn chỉ tiêu xét nghiệm" nzAllowClear="true"
-              nzShowSearch="true" formArrayName="criteriaList">
+              nzShowSearch="true" formControlName="criteriaList">
               <nz-option *ngFor="let criteria of data.listCriteria" [nzValue]="criteria?._id" [nzLabel]="criteria.name">
               </nz-option>
             </nz-select>
+
+
+
+
             <ng-template #categoryErr let-control>
               <app-error-messages [control]="criteriaSetFormControl['criteriaList']"
                 [messageObject]="{labelName:'Các chỉ tiêu xét nghiệm'}">

@@ -35,9 +35,7 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         name: Joi.string().required(),
-        category: Joi.string().required(),
-        priceMaster: Joi.number().required(),
-        referenceIndex: Joi.string()
+        criteriaList: Joi.array().required()
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
@@ -59,9 +57,7 @@ export default (app: Router) => {
       body: Joi.object({
         _id: Joi.string().required(),
         name: Joi.string().required(),
-        category: Joi.string().required(),
-        priceMaster: Joi.number().required(),
-        referenceIndex: Joi.string()
+        criteriaList: Joi.array().required()
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {

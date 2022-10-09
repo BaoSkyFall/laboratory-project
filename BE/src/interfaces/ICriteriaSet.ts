@@ -10,8 +10,5 @@ export interface ICriteriaSet {
 export interface ICriteriaSetInputDTO {
   _id?: string;
   name?: string;
-  category?: string;
-  priceMaster?: number;
-  sortOrder?: number;
-  referenceIndex?: string;
+  criteriaSet?: string[];
 }

@@ -1,31 +1,27 @@
+import { SpecialistService } from './../../../master-data/pages/specialist/specialist.service';
 import { DEFINED_CODE } from '../../../../shared/constants/enum';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NotificationService } from '@services/notification.service';
-import { CriteriaSetService } from '../criteria-set/criteria-set.service';
-import { SpecialistService } from '../specialist/specialist.service';
+import { IndicationUnitService } from './indication-unit.service';
 import { ValidationService } from '@shared/services/validation.service';
-import { CriteriaSetItem } from '../criteria-set/criteria-set.model';
-import { SpecialistItem } from '../specialist/specialist.model';
+import { CategoryItem, IndicationUnitItem } from './indication-unit.model';
 import Utils from '@shared/helper/utils';
 import { Helpers } from '@shared/helper';
 import { NumberLabelPipe } from '@shared/pipes/number-label.pipe';
-import { CategoryItem, CriteriaItem } from '../criteria/criteria.model';
-import { CriteriaService } from '../criteria/criteria.service';
 
 
 
 
 @Component({
-  selector: 'app-criteria-set',
-  templateUrl: './criteria-set.component.html',
-  styleUrls: ['./criteria-set.component.scss']
+  selector: 'app-indication-unit',
+  templateUrl: './indication-unit.component.html',
+  styleUrls: ['./indication-unit.component.scss']
 })
-export class CriteriaSetComponent implements OnInit {
+export class IndicationUnitComponent implements OnInit {
   data = {
     total: 0,
-    listCriteriaSet: [] as CriteriaSetItem[],
-    listCriteria: [] as CriteriaItem[],
+    listIndicationUnit: [] as IndicationUnitItem[],
     listCategory: [] as CategoryItem[],
     visible: false,
     isCreate: true,
@@ -40,49 +36,47 @@ export class CriteriaSetComponent implements OnInit {
     category: ''
   }
   dateFormat: string = 'DD/MM/YYYY';
-  criteriaSetForm: FormGroup;
+  indicationUnitForm: FormGroup;
 
   constructor(
-    private criteriaSetService: CriteriaSetService,
-    private criteriaService: CriteriaService,
+    private indicationUnitService: IndicationUnitService,
     private specialistService: SpecialistService,
     private notificationService: NotificationService,
     private numberLabelPipe: NumberLabelPipe,
     private fb: FormBuilder,
     private cdf: ChangeDetectorRef
   ) {
-    this.criteriaSetForm = this.fb.group({
+    this.indicationUnitForm = this.fb.group({
       _id: this.fb.control(''),
       name: this.fb.control('', Validators.required),
-      criteriaList: this.fb.control([''], Validators.required),
+      category: this.fb.control('', [Validators.required]),
+      priceMaster: this.fb.control('', [Validators.required]),
+      referenceIndex: this.fb.control('', [Validators.required]),
     })
 
   }
-  get criteriaSetFormControl() {
-    return this.criteriaSetForm.controls;
-  }
-  get criteriaSetFormControlCriteriaList() {
-    return this.criteriaSetFormControl.criteriaList as FormArray
+  get indicationUnitFormControl() {
+    return this.indicationUnitForm.controls;
   }
   ngOnInit(): void {
-    this.getListCriteriaSet();
-    this.getListCriteria();
+    this.getListIndicationUnit();
     this.getListCategory();
 
   }
   onSearch() {
     this.data.meta.pageIndex = 1;
     this.data.meta.pageSize = 10;
-    this.getListCriteriaSet()
+    this.getListIndicationUnit()
   }
-  getListCriteriaSet() {
+  getListIndicationUnit() {
     const payload = {
       pageIndex: this.data.meta.pageIndex,
       pageSize: this.data.meta.pageSize,
-      searchKey: this.dataFilter.searchKey
+      searchKey: this.dataFilter.searchKey,
+      category: this.dataFilter.category,
     }
-    this.criteriaSetService.getCriteriaSetList(payload).subscribe((res: any) => {
-      this.data.listCriteriaSet = res?.data || [];
+    this.indicationUnitService.getIndicationUnitList(payload).subscribe((res: any) => {
+      this.data.listIndicationUnit = res?.data || [];
       this.data.total = res?.total;
       this.cdf.detectChanges()
       // this.cdf.detectChanges();
@@ -93,7 +87,7 @@ export class CriteriaSetComponent implements OnInit {
     })
   }
   getListCategory() {
-    this.criteriaSetService.getCategoryList({}).subscribe((res: any) => {
+    this.indicationUnitService.getCategoryList({}).subscribe((res: any) => {
       this.data.listCategory = res?.data || [];
       this.data.total = res?.total;
       this.cdf.detectChanges()
@@ -105,39 +99,23 @@ export class CriteriaSetComponent implements OnInit {
     })
   }
   formatterNumber = (value: number): string => this.numberLabelPipe.transform(value);
-  getListCriteria() {
-    const payload = {
-      pageIndex: this.data.meta.pageIndex,
-      pageSize: 999,
-      searchKey: this.dataFilter.searchKey,
-      category: this.dataFilter.category,
-    }
-    this.criteriaService.getCriteriaList(payload).subscribe((res: any) => {
-      this.data.listCriteria = res?.data || [];
-      this.cdf.detectChanges()
-      // this.cdf.detectChanges();
 
-    }, err => {
-      console.log('err:', err);
-      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
-    })
-  }
   onSubmit() {
-    console.log(this.criteriaSetForm);
+    console.log(this.indicationUnitForm);
 
-    if (this.criteriaSetForm.invalid) {
-      // this.criteriaSetForm.markAllAsTouched();
-      Utils.validateAllFormFields(this.criteriaSetForm);
+    if (this.indicationUnitForm.invalid) {
+      // this.indicationUnitForm.markAllAsTouched();
+      Utils.validateAllFormFields(this.indicationUnitForm);
       return;
     }
-    const value = this.criteriaSetForm.value;
-    console.log('value:', value)
+    const value = this.indicationUnitForm.value;
+
     //Create
     if (this.data.isCreate) {
       value._id = undefined;
-      this.criteriaSetService.createCriteriaSetList(this.criteriaSetForm.value).subscribe((res: any) => {
+      this.indicationUnitService.createIndicationUnitList(this.indicationUnitForm.value).subscribe((res: any) => {
         if (res?.code == DEFINED_CODE.CREATED_DATA_SUCCESS) {
-          this.notificationService.showToastr('Thêm mới Gói xét nghiệm thành công', 'success')
+          this.notificationService.showToastr('Thêm mới Chỉ tiêu xét nghiệm thành công', 'success')
 
 
         }
@@ -151,14 +129,14 @@ export class CriteriaSetComponent implements OnInit {
         this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
       }, () => {
         this.close()
-        this.getListCriteriaSet();
+        this.getListIndicationUnit();
       })
     }
     //Edit
     else {
-      this.criteriaSetService.editCriteriaSetList(this.criteriaSetForm.value).subscribe((res: any) => {
+      this.indicationUnitService.editIndicationUnitList(this.indicationUnitForm.value).subscribe((res: any) => {
         if (res?.code == DEFINED_CODE.INTERACT_DATA_SUCCESS) {
-          this.notificationService.showToastr('Cập nhật Gói xét nghiệm thành công', 'success')
+          this.notificationService.showToastr('Cập nhật Chỉ tiêu xét nghiệm thành công', 'success')
         }
 
         else {
@@ -171,23 +149,26 @@ export class CriteriaSetComponent implements OnInit {
 
       }, () => {
         this.close()
-        this.getListCriteriaSet();
+        this.getListIndicationUnit();
       })
     }
     // this.close()
   }
-  edit(item: CriteriaSetItem) {
-    this.criteriaSetFormControl._id.setValue(item._id);
-    this.criteriaSetFormControl.name.setValue(item.name);
-    this.criteriaSetFormControl.criteriaList.setValue(item.criteriaList.map(item => item._id));
-    this.data.titleDrawer = `Gói xét nghiệm ${item.name}`
+  edit(item: IndicationUnitItem) {
+    this.indicationUnitFormControl._id.setValue(item._id);
+    this.indicationUnitFormControl.name.setValue(item.name);
+    this.indicationUnitFormControl.category.setValue(item.category._id);
+    this.indicationUnitFormControl.priceMaster.setValue(item.priceMaster);
+    this.indicationUnitFormControl.referenceIndex.setValue(item.referenceIndex);
+
+    this.data.titleDrawer = `Chỉ tiêu xét nghiệm ${item.name}`
     this.data.visible = true;
     this.data.isCreate = false;
   }
-  delete(item: CriteriaSetItem) {
-    this.criteriaSetService.deleteCriteriaSetList(item).subscribe((res: any) => {
+  delete(item: IndicationUnitItem) {
+    this.indicationUnitService.deleteIndicationUnitList(item).subscribe((res: any) => {
       if (res?.code == DEFINED_CODE.INTERACT_DATA_SUCCESS) {
-        this.notificationService.showToastr('Xóa Gói xét nghiệm thành công', 'success')
+        this.notificationService.showToastr('Xóa Chỉ tiêu xét nghiệm thành công', 'success')
       }
 
       else {
@@ -199,19 +180,17 @@ export class CriteriaSetComponent implements OnInit {
       this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
 
     }, () => {
-      this.getListCriteriaSet();
+      this.getListIndicationUnit();
     })
   }
   open(): void {
     this.data.visible = true;
-    this.data.titleDrawer = 'Thêm Gói xét nghiệm';
-    this.criteriaSetFormControl.criteriaList.setValue([]);
-
+    this.data.titleDrawer = 'Thêm Chỉ tiêu xét nghiệm';
     this.data.isCreate = true;
   }
 
   close(): void {
-    this.criteriaSetForm.reset();
+    this.indicationUnitForm.reset();
     this.data.visible = false;
   }
 

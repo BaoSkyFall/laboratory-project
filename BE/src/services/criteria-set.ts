@@ -20,7 +20,6 @@ export default class CriteriaSetService {
   public async GetListCriteriaSet(params: { searchKey?: string, category?: string, pageSize?: number, pageIndex?: number }): Promise<{ criteriaSet: any[] }> {
     try {
       this.logger.silly('Get list criteriaSet DB Record');
-      console.log('params:', params)
       const query = {
         // category: new RegExp(`.*${params.category || ''}.*`, "i"),
         name: new RegExp(`.*${params.searchKey || ''}.*`, "i"),

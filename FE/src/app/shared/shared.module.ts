@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 import { IconFactoryComponent } from './components/icon-factory/icon-factory.component';
 import { NotAllowBlankDirective } from './directives/notAllowBlank.directive';
@@ -21,7 +22,8 @@ import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    LabNgZorroAntdModule
+    LabNgZorroAntdModule,
+    InlineSVGModule
   ],
   exports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
     TranslateModule,
     IconFactoryComponent,
     NotAllowBlankDirective,
+    InlineSVGModule,
     LabNgZorroAntdModule
   ]
 })

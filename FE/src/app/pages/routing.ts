@@ -49,6 +49,11 @@ const Routing: Routes = [
       import('./master-data/master-data.module').then((m) => m.MasterDataModule),
   },
   {
+    path: 'indication',
+    loadChildren: () =>
+      import('./indication/indication.module').then((m) => m.IndicationModule),
+  },
+  {
     path: '**',
     redirectTo: 'error/404',
   },
