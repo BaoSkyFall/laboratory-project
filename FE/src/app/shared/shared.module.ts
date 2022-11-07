@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg';
 
 import { IconFactoryComponent } from './components/icon-factory/icon-factory.component';
+import { StepModule } from './components/steps/step.module';
 import { NotAllowBlankDirective } from './directives/notAllowBlank.directive';
 import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
 
@@ -23,7 +24,8 @@ import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
     ReactiveFormsModule,
     RouterModule,
     LabNgZorroAntdModule,
-    InlineSVGModule
+    InlineSVGModule,
+    StepModule
   ],
   exports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
     IconFactoryComponent,
     NotAllowBlankDirective,
     InlineSVGModule,
-    LabNgZorroAntdModule
+    LabNgZorroAntdModule,
+    StepModule
   ]
 })
 export class SharedModule { }

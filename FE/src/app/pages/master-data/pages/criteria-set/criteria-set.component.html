@@ -171,8 +171,9 @@
           <nz-form-label [nzSpan]="6">Các chỉ tiêu xét nghiệm</nz-form-label>
           <nz-form-control [nzErrorTip]="categoryErr" [nzSpan]="20">
 
-            <nz-select nzMode="multiple" nzPlaceHolder="Chọn chỉ tiêu xét nghiệm" nzAllowClear="true"
-              nzShowSearch="true" formControlName="criteriaList">
+            <nz-select class="form-select form-select-solid form-select-lg fw-bold" nzMode="multiple"
+              nzPlaceHolder="Chọn chỉ tiêu xét nghiệm" nzAllowClear="true" nzShowSearch="true"
+              formControlName="criteriaList">
               <nz-option *ngFor="let criteria of data.listCriteria" [nzValue]="criteria?._id" [nzLabel]="criteria.name">
               </nz-option>
             </nz-select>

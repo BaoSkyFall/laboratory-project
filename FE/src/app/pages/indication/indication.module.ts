@@ -24,8 +24,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    StepModule,
+    RouterModule.forChild(routes)
   ],
 })
 export class IndicationModule { }

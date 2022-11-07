@@ -1,3 +1,4 @@
+import { DoctorItem } from './../../../master-data/pages/doctor/doctor.model';
 import { DEFINED_CODE } from '../../../../shared/constants/enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -8,6 +9,9 @@ import { IndicationTechnicianItem } from './indication-technician.model';
 import Utils from '@shared/helper/utils';
 import { Helpers } from '@shared/helper';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { DoctorService } from 'src/app/pages/master-data/pages/doctor/doctor.service';
+import { UnitCompanyService } from 'src/app/pages/master-data/pages/unitCompany/unitCompany.service';
+import { UnitCompanyItem } from 'src/app/pages/master-data/pages/unitCompany/unitCompany.model';
 
 
 
@@ -21,6 +25,8 @@ export class IndicationTechnicianComponent implements OnInit {
   data = {
     total: 0,
     listIndicationTechnician: [] as IndicationTechnicianItem[],
+    listDoctor: [] as DoctorItem[],
+    listUnitCompany: [] as UnitCompanyItem[],
     visible: false,
     isCreate: true,
     titleDrawer: ''
@@ -55,6 +61,8 @@ export class IndicationTechnicianComponent implements OnInit {
   constructor(
     private indicationTechnicianService: IndicationTechnicianService,
     private notificationService: NotificationService,
+    private doctorService: DoctorService,
+    private unitCompanyService: UnitCompanyService,
     private fb: FormBuilder,
     private cdf: ChangeDetectorRef
   ) {
@@ -70,7 +78,33 @@ export class IndicationTechnicianComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getListIndicationTechnician();
+    this.getListDoctor();
+    this.getListUnitCompany();
 
+  }
+
+  getListDoctor() {
+    this.doctorService.getDoctorList({}).subscribe((res: any) => {
+      this.data.listDoctor = res?.data || [];
+      this.data.total = res?.total;
+      this.cdf.detectChanges();
+
+    }, err => {
+      console.log('err:', err);
+      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+    })
+  }
+  getListUnitCompany() {
+    this.unitCompanyService.getUnitCompanyList({}).subscribe((res: any) => {
+      this.data.listUnitCompany = res?.data || [];
+      this.data.total = res?.total;
+      this.cdf.detectChanges()
+      // this.cdf.detectChanges();
+
+    }, err => {
+      console.log('err:', err);
+      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+    })
   }
   getListIndicationTechnician() {
     this.indicationTechnicianService.getIndicationTechnicianList({}).subscribe((res: any) => {
