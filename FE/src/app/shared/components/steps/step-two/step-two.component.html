@@ -1,1 +1,16 @@
-<p>step-two works!</p>
+<nz-tabset>
+  <nz-tab [nzTitle]="titleSetIndication">
+    <ng-template #titleSetIndication>
+      <span nz-icon nzType="group"></span>
+      Gói Xét Nghiệm
+    </ng-template>
+    <app-select-set-criteria [listCriteriaSet]="listCriteriaSet"></app-select-set-criteria>
+  </nz-tab>
+  <nz-tab [nzTitle]="titleIndication">
+    <ng-template #titleIndication>
+      <span nz-icon nzType="medicine-box"></span>
+      Chỉ tiêu/ Nội dung xét nghiệm
+    </ng-template>
+    <app-select-criteria [listCriteria]="listCriteria"></app-select-criteria>
+  </nz-tab>
+</nz-tabset>

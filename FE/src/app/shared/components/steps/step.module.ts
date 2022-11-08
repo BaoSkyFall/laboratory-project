@@ -11,13 +11,17 @@ import { StepThreeComponent } from './step-three/step-three.component';
 import { LabNgZorroAntdModule } from '@shared/ng-zorro-antd.module';
 import { SharedModule } from '@shared/shared.module';
 import { ErrorMessagesModule } from '../error-message/error-messages.module';
+import { SelectSetCriteriaComponent } from './step-two/select-set-criteria/select-set-criteria.component';
+import { SelectCriteriaComponent } from './step-two/select-criteria/select-criteria.component';
 
 
 @NgModule({
   declarations: [
     StepOneComponent,
     StepTwoComponent,
-    StepThreeComponent
+    StepThreeComponent,
+    SelectSetCriteriaComponent,
+    SelectCriteriaComponent
   ],
   exports: [
     StepOneComponent,

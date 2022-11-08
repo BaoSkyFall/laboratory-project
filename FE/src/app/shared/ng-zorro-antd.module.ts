@@ -133,7 +133,7 @@ import { NzPipesModule } from 'ng-zorro-antd/pipes';
     NzUploadModule,
     NzWaveModule,
     NzResizableModule,
-    NzPipesModule,
+    NzPipesModule
   ],
 
 })

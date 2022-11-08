@@ -2,6 +2,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { DoctorItem } from 'src/app/pages/master-data/pages/doctor/doctor.model';
 import { UnitCompanyItem } from 'src/app/pages/master-data/pages/unitCompany/unitCompany.model';
+import Utils from '@shared/helper/utils';
 
 @Component({
   selector: 'app-step-one',
@@ -36,12 +37,9 @@ export class StepOneComponent implements OnInit {
     this.basicInformationFormGroup.markAllAsTouched();
     this.basicInformationFormGroup.markAsDirty();
     if (this.basicInformationFormGroup.invalid) {
-      Object.values(this.basicInformationFormGroup.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+      Utils.validateAllFormFields(this.basicInformationFormGroup);
+
+
     }
   }
 }

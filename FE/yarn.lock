@@ -186,7 +186,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^12.0.0", "@angular/common@^12.0.0 || ^13.0.0-0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^13.0.1", "@angular/common@>=10.0.0", "@angular/common@>=8.0.0", "@angular/common@>=9.0.0 <13.0.0", "@angular/common@~12.1.2", "@angular/common@12.1.5":
+"@angular/common@^12.0.0", "@angular/common@^12.0.0 || ^13.0.0-0", "@angular/common@^12.0.3", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^13.0.1", "@angular/common@>=10.0.0", "@angular/common@>=8.0.0", "@angular/common@>=9.0.0 <13.0.0", "@angular/common@~12.1.2", "@angular/common@12.1.5":
   "integrity" "sha512-xs33eMhV79S85nbH5FVmujKY3OoczloW9oOGRe5tCzxsDDv85hadrB8Mbm3qI5WQ99DNk8M2+P0MW6uiyCAWkQ=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-12.1.5.tgz"
   "version" "12.1.5"
@@ -220,7 +220,7 @@
   dependencies:
     "tslib" "^2.2.0"
 
-"@angular/core@^12.0.0", "@angular/core@^12.0.0 || ^13.0.0-0", "@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^13.0.1", "@angular/core@^14.0.0", "@angular/core@>=10.0.0", "@angular/core@>=8.0.0", "@angular/core@>=9.0.0 <13.0.0", "@angular/core@~12.1.2", "@angular/core@12.1.5":
+"@angular/core@^12.0.0", "@angular/core@^12.0.0 || ^13.0.0-0", "@angular/core@^12.0.3", "@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^13.0.1", "@angular/core@^14.0.0", "@angular/core@>=10.0.0", "@angular/core@>=8.0.0", "@angular/core@>=9.0.0 <13.0.0", "@angular/core@~12.1.2", "@angular/core@12.1.5":
   "integrity" "sha512-okXnhAPxfblAWSe5M/IqrSATi+ul83a9o9PWOTFR/XCVcbx+neE2IwIr1dIDKBKj91b1CFalLS+uOSkN05PNkA=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-12.1.5.tgz"
   "version" "12.1.5"
@@ -257,7 +257,7 @@
   dependencies:
     "tslib" "^2.2.0"
 
-"@angular/platform-browser@^13.0.1", "@angular/platform-browser@~12.1.2", "@angular/platform-browser@12.1.5":
+"@angular/platform-browser@^12.0.3", "@angular/platform-browser@^13.0.1", "@angular/platform-browser@~12.1.2", "@angular/platform-browser@12.1.5":
   "integrity" "sha512-UNlmvCY8cS1/WojCJtgf/EMMN8qdPV1IQa6vZ6/ChQiS38YlH+aQEOCcxtSSfMFmWjaz7j67u55vSlkvA4rApQ=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-12.1.5.tgz"
   "version" "12.1.5"
@@ -277,6 +277,14 @@
   "version" "5.1.1"
   dependencies:
     "@ctrl/tinycolor" "^3.3.1"
+
+"@ant-design/icons-angular@^12.0.3":
+  "integrity" "sha512-Jl/O7fQiFGsFHuesOp7Oo/TKTPSlWAqMa2DBQdgQbNzv2c3v1ijQWd54ymDC6ftIHMsKD30nJ6bekCiqdbfZuA=="
+  "resolved" "https://registry.npmjs.org/@ant-design/icons-angular/-/icons-angular-12.0.3.tgz"
+  "version" "12.0.3"
+  dependencies:
+    "@ant-design/colors" "^5.0.0"
+    "tslib" "^2.0.0"
 
 "@ant-design/icons-angular@^13.0.1":
   "integrity" "sha512-bQ1pxiDmR8Hx7kUwQImxLGAtexv0uDCCMlKSWdyaw39TnNAPz+Hls0XL+UqVIjHgt/D4R8tkmSMpx3eBGFIY/Q=="
@@ -7400,7 +7408,7 @@
   dependencies:
     "queue-microtask" "^1.2.2"
 
-"rxjs@^6.0.0", "rxjs@^6.4.0 || ^7.4.0", "rxjs@^6.5.3", "rxjs@^6.5.3 || ^7.0.0", "rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.3 || ^7.5.0", "rxjs@^6.5.5", "rxjs@^6.6.0", "rxjs@^6.6.6", "rxjs@>=6.5.3", "rxjs@~6.6.0", "rxjs@6.6.7":
+"rxjs@^6.0.0", "rxjs@^6.4.0", "rxjs@^6.4.0 || ^7.4.0", "rxjs@^6.5.3", "rxjs@^6.5.3 || ^7.0.0", "rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.3 || ^7.5.0", "rxjs@^6.5.5", "rxjs@^6.6.0", "rxjs@^6.6.6", "rxjs@>=6.5.3", "rxjs@~6.6.0", "rxjs@6.6.7":
   "integrity" "sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ=="
   "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-6.6.7.tgz"
   "version" "6.6.7"

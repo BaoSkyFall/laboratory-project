@@ -13,6 +13,10 @@ import { DoctorService } from 'src/app/pages/master-data/pages/doctor/doctor.ser
 import { UnitCompanyService } from 'src/app/pages/master-data/pages/unitCompany/unitCompany.service';
 import { UnitCompanyItem } from 'src/app/pages/master-data/pages/unitCompany/unitCompany.model';
 import { StepOneComponent } from '@shared/components/steps/step-one/step-one.component';
+import { CriteriaService } from 'src/app/pages/master-data/pages/criteria/criteria.service';
+import { CriteriaSetService } from 'src/app/pages/master-data/pages/criteria-set/criteria-set.service';
+import { CriteriaSetItem } from 'src/app/pages/master-data/pages/criteria-set/criteria-set.model';
+import { CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.model';
 
 
 
@@ -29,6 +33,8 @@ export class IndicationTechnicianComponent implements OnInit {
     listIndicationTechnician: [] as IndicationTechnicianItem[],
     listDoctor: [] as DoctorItem[],
     listUnitCompany: [] as UnitCompanyItem[],
+    listCriteriaSet: [] as CriteriaSetItem[],
+    listCriteria: [] as CriteriaItem[],
     visible: false,
     isCreate: true,
     titleDrawer: ''
@@ -63,6 +69,8 @@ export class IndicationTechnicianComponent implements OnInit {
   constructor(
     private indicationTechnicianService: IndicationTechnicianService,
     private notificationService: NotificationService,
+    private criteriaService: CriteriaService,
+    private criteriaSetService: CriteriaSetService,
     private doctorService: DoctorService,
     private unitCompanyService: UnitCompanyService,
     private fb: FormBuilder,
@@ -82,6 +90,8 @@ export class IndicationTechnicianComponent implements OnInit {
     this.getListIndicationTechnician();
     this.getListDoctor();
     this.getListUnitCompany();
+    this.getListCriteriaSet();
+    this.getListCriteria();
 
   }
 
@@ -111,6 +121,40 @@ export class IndicationTechnicianComponent implements OnInit {
   getListIndicationTechnician() {
     this.indicationTechnicianService.getIndicationTechnicianList({}).subscribe((res: any) => {
       this.data.listIndicationTechnician = res?.data || [];
+      this.data.total = res?.total;
+      this.cdf.detectChanges()
+      // this.cdf.detectChanges();
+
+    }, err => {
+      console.log('err:', err);
+      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+    })
+  }
+  getListCriteria() {
+    const payload = {
+      pageIndex: 1,
+      pageSize: 999,
+      searchKey: 1,
+      category: '',
+    }
+    this.criteriaService.getCriteriaList(payload).subscribe((res: any) => {
+      this.data.listCriteria = res?.data || [];
+      this.cdf.detectChanges()
+      // this.cdf.detectChanges();
+
+    }, err => {
+      console.log('err:', err);
+      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+    })
+  }
+  getListCriteriaSet() {
+    const payload = {
+      pageIndex: 1,
+      pageSize: 999,
+      searchKey: ''
+    }
+    this.criteriaSetService.getCriteriaSetList(payload).subscribe((res: any) => {
+      this.data.listCriteriaSet = res?.data || [];
       this.data.total = res?.total;
       this.cdf.detectChanges()
       // this.cdf.detectChanges();
@@ -221,9 +265,9 @@ export class IndicationTechnicianComponent implements OnInit {
 
   nextStep() {
     this.stepOneComponent.onSubmit();
-    if (this.stepOneComponent.basicInformationFormGroup.invalid) {
-      return;
-    }
+    // if (this.stepOneComponent.basicInformationFormGroup.invalid) {
+    //   return;
+    // }
     const nextStep = this.currentStep$.value + 1;
     if (nextStep > this.formsCount) {
       return;

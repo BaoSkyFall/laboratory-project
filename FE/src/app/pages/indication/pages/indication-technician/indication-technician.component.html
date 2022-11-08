@@ -64,7 +64,7 @@
             </div>
 
             <div class="current-step-container" [hidden]="currentStep$.value !== 2">
-              <app-step-two></app-step-two>
+              <app-step-two [listCriteriaSet]="data.listCriteriaSet" [listCriteria]="data.listCriteria"></app-step-two>
             </div>
 
             <div class="current-step-container" [hidden]="currentStep$.value !== 3">
