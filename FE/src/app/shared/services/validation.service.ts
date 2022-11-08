@@ -10,7 +10,7 @@ export class ValidationService {
   public static getValidationErrorMessage(validatorName: string, validatorValue?: any, labelName?: string, labelCompare?: string): any {
     const config = {
       email: `sai định dạng`,
-      required: `bắt buộc`,
+      required: `là trường bắt buộc nhập`,
       invalidPassword: 'invalid password. Password must be at least 6 characters long, and contain a number.',
       invalidPhone: 'sai định dạng',
       maxLength: `the field can't contain more than ${validatorValue.requiredLength} characters.`,

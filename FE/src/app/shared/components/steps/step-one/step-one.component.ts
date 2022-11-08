@@ -32,5 +32,16 @@ export class StepOneComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-
+  onSubmit() {
+    this.basicInformationFormGroup.markAllAsTouched();
+    this.basicInformationFormGroup.markAsDirty();
+    if (this.basicInformationFormGroup.invalid) {
+      Object.values(this.basicInformationFormGroup.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
+  }
 }

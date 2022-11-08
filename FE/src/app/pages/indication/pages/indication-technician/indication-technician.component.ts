@@ -1,7 +1,7 @@
 import { DoctorItem } from './../../../master-data/pages/doctor/doctor.model';
 import { DEFINED_CODE } from '../../../../shared/constants/enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { NotificationService } from '@services/notification.service';
 import { IndicationTechnicianService } from './indication-technician.service';
 import { ValidationService } from '@shared/services/validation.service';
@@ -12,6 +12,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { DoctorService } from 'src/app/pages/master-data/pages/doctor/doctor.service';
 import { UnitCompanyService } from 'src/app/pages/master-data/pages/unitCompany/unitCompany.service';
 import { UnitCompanyItem } from 'src/app/pages/master-data/pages/unitCompany/unitCompany.model';
+import { StepOneComponent } from '@shared/components/steps/step-one/step-one.component';
 
 
 
@@ -22,6 +23,7 @@ import { UnitCompanyItem } from 'src/app/pages/master-data/pages/unitCompany/uni
   styleUrls: ['./indication-technician.component.scss']
 })
 export class IndicationTechnicianComponent implements OnInit {
+  @ViewChild('stepOneComponent') stepOneComponent!: StepOneComponent;
   data = {
     total: 0,
     listIndicationTechnician: [] as IndicationTechnicianItem[],
@@ -218,6 +220,10 @@ export class IndicationTechnicianComponent implements OnInit {
   };
 
   nextStep() {
+    this.stepOneComponent.onSubmit();
+    if (this.stepOneComponent.basicInformationFormGroup.invalid) {
+      return;
+    }
     const nextStep = this.currentStep$.value + 1;
     if (nextStep > this.formsCount) {
       return;

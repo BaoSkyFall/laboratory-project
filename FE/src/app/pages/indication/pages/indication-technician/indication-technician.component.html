@@ -56,19 +56,20 @@
           </div> -->
         </div>
 
-        <form class="mx-auto pt-20 w-100 pb-10" noValidate id="kt_create_account_form">
+        <form class="mx-auto  w-100 pb-10" noValidate id="kt_create_account_form">
           <div class="current">
-            <ng-container *ngIf="currentStep$.value === 1">
-              <app-step-one [listDoctor]="data.listDoctor" [listUnitCompany]="data.listUnitCompany"></app-step-one>
-            </ng-container>
+            <div class="current-step-container" [hidden]="currentStep$.value !== 1">
+              <app-step-one #stepOneComponent [listDoctor]="data.listDoctor" [listUnitCompany]="data.listUnitCompany">
+              </app-step-one>
+            </div>
 
-            <ng-container *ngIf="currentStep$.value === 2">
+            <div class="current-step-container" [hidden]="currentStep$.value !== 2">
               <app-step-two></app-step-two>
-            </ng-container>
+            </div>
 
-            <ng-container *ngIf="currentStep$.value === 3">
+            <div class="current-step-container" [hidden]="currentStep$.value !== 3">
               <app-step-three></app-step-three>
-            </ng-container>
+            </div>
 
 
           </div>
