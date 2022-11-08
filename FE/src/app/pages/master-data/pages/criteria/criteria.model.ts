@@ -11,6 +11,7 @@ export class CriteriaItem {
     code: string;
   }
   priceMaster: number;
+  categoryName?: string;
   sortOrder: number;
   referenceIndex?: string;
   createdAt: string;

@@ -30,6 +30,7 @@ import { SelectCriteriaComponent } from './step-two/select-criteria/select-crite
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     InlineSVGModule,
     NgbTooltipModule,

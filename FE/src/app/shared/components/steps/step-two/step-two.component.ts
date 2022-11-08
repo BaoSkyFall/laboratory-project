@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CriteriaSetItem } from 'src/app/pages/master-data/pages/criteria-set/criteria-set.model';
-import { CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.model';
+import { CategoryItem, CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.model';
 
 @Component({
   selector: 'app-step-two',
@@ -10,6 +10,8 @@ import { CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.
 export class StepTwoComponent implements OnInit {
   @Input() listCriteria: CriteriaItem[] = [];
   @Input() listCriteriaSet: CriteriaSetItem[] = [];
+  @Input() listCategory: CategoryItem[] = [];
+
   constructor() { }
   tabs = [
     {

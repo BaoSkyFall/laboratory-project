@@ -16,7 +16,7 @@ import { StepOneComponent } from '@shared/components/steps/step-one/step-one.com
 import { CriteriaService } from 'src/app/pages/master-data/pages/criteria/criteria.service';
 import { CriteriaSetService } from 'src/app/pages/master-data/pages/criteria-set/criteria-set.service';
 import { CriteriaSetItem } from 'src/app/pages/master-data/pages/criteria-set/criteria-set.model';
-import { CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.model';
+import { CategoryItem, CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.model';
 
 
 
@@ -34,6 +34,7 @@ export class IndicationTechnicianComponent implements OnInit {
     listDoctor: [] as DoctorItem[],
     listUnitCompany: [] as UnitCompanyItem[],
     listCriteriaSet: [] as CriteriaSetItem[],
+    listCategory: [] as CategoryItem[],
     listCriteria: [] as CriteriaItem[],
     visible: false,
     isCreate: true,
@@ -92,6 +93,7 @@ export class IndicationTechnicianComponent implements OnInit {
     this.getListUnitCompany();
     this.getListCriteriaSet();
     this.getListCriteria();
+    this.getListCategory();
 
   }
 
@@ -100,6 +102,18 @@ export class IndicationTechnicianComponent implements OnInit {
       this.data.listDoctor = res?.data || [];
       this.data.total = res?.total;
       this.cdf.detectChanges();
+
+    }, err => {
+      console.log('err:', err);
+      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+    })
+  }
+  getListCategory() {
+    this.criteriaService.getCategoryList({}).subscribe((res: any) => {
+      this.data.listCategory = res?.data || [];
+      this.data.total = res?.total;
+      this.cdf.detectChanges()
+      // this.cdf.detectChanges();
 
     }, err => {
       console.log('err:', err);
@@ -134,11 +148,12 @@ export class IndicationTechnicianComponent implements OnInit {
     const payload = {
       pageIndex: 1,
       pageSize: 999,
-      searchKey: 1,
+      searchKey: '',
       category: '',
     }
     this.criteriaService.getCriteriaList(payload).subscribe((res: any) => {
       this.data.listCriteria = res?.data || [];
+      this.data.listCriteria = this.data.listCriteria.map(item => ({ ...item, categoryName: item.category.name }))
       this.cdf.detectChanges()
       // this.cdf.detectChanges();
 
