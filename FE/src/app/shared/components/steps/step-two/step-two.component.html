@@ -1,15 +1,21 @@
 <nz-tabset>
   <nz-tab [nzTitle]="titleSetIndication">
     <ng-template #titleSetIndication>
-      <span nz-icon nzType="group"></span>
-      Gói Xét Nghiệm
+      <div class="d-flex align-items-center">
+        <span nz-icon nzType="group"></span>
+        <span>Gói Xét Nghiệm</span>
+      </div>
+
     </ng-template>
     <app-select-set-criteria [listCriteriaSet]="listCriteriaSet"></app-select-set-criteria>
   </nz-tab>
   <nz-tab [nzTitle]="titleIndication">
     <ng-template #titleIndication>
-      <span nz-icon nzType="medicine-box"></span>
-      Chỉ tiêu/ Nội dung xét nghiệm
+      <div class="d-flex align-items-center">
+        <span nz-icon nzType="medicine-box"></span>
+        <span>Chỉ tiêu/ Nội dung xét nghiệm</span>
+      </div>
+
     </ng-template>
     <app-select-criteria [listCriteria]="listCriteria"></app-select-criteria>
   </nz-tab>
