@@ -17,7 +17,7 @@ import { CriteriaService } from 'src/app/pages/master-data/pages/criteria/criter
 import { CriteriaSetService } from 'src/app/pages/master-data/pages/criteria-set/criteria-set.service';
 import { CriteriaSetItem } from 'src/app/pages/master-data/pages/criteria-set/criteria-set.model';
 import { CategoryItem, CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.model';
-
+import * as _ from 'lodash';
 
 
 
@@ -28,6 +28,13 @@ import { CategoryItem, CriteriaItem } from 'src/app/pages/master-data/pages/crit
 })
 export class IndicationTechnicianComponent implements OnInit {
   @ViewChild('stepOneComponent') stepOneComponent!: StepOneComponent;
+  step = {
+    cart: {
+      criteriaList: [] as CriteriaItem[],
+      criteriaSetList: [] as CriteriaSetItem[],
+    }
+  }
+
   data = {
     total: 0,
     totalSelectedCriteria: 0,
@@ -39,7 +46,18 @@ export class IndicationTechnicianComponent implements OnInit {
     listCriteria: [] as CriteriaItem[],
     visible: false,
     isCreate: true,
+    triggerCleanProduct: 0,
     titleDrawer: ''
+  }
+  selected = {
+    listCriteriaSet: [] as CriteriaSetItem[],
+    listCriteria: [] as CriteriaItem[],
+  }
+
+
+  visible = {
+    visibleModalCart: false,
+    visibleButtonViewCart: false
   }
   dateFormat: string = 'DD/MM/YYYY';
   indicationTechnicianForm: FormGroup;
@@ -301,7 +319,33 @@ export class IndicationTechnicianComponent implements OnInit {
     }
     this.currentStep$.next(prevStep);
   }
+  addToCart() {
+    this.visible.visibleButtonViewCart = true;
+    this.selected.listCriteria.forEach(item => {
+      const _index = _.findIndex(this.step.cart.criteriaList, itemCriteria => item._id == itemCriteria._id);
+      if (_index > -1) {
+        this.step.cart.criteriaList[_index].qty = (this.step.cart.criteriaList[_index].qty || 0) + (item.qty || 0);
+      }
+      else {
+        this.step.cart.criteriaList.push(item)
+      }
+    })
+    this.selected.listCriteriaSet.forEach(item => {
+      this.step.cart.criteriaSetList.push(item)
+    })
+    this.selected.listCriteria = [];
+    this.selected.listCriteriaSet = []
+    this.data.totalSelectedCriteria = 0;
+    this.data.triggerCleanProduct = Date.now();
+    console.log('this.selected:', this.selected)
 
+  }
+  onChangeSelectedCriteria(evt: any) {
+    this.selected.listCriteria = evt;
+  }
+  onChangeSelectedSetCriteria(evt: any) {
+    this.selected.listCriteriaSet = evt;
+  }
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }

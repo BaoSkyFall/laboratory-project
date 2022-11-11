@@ -8,6 +8,7 @@ export class CriteriaSetItem {
   name: string;
   criteriaList: CriteriaItem[];
   createdAt: string;
+  checked?: boolean;
   expand?: boolean;
 }
 

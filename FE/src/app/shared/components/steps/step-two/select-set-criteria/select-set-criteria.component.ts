@@ -17,7 +17,6 @@ export class SelectSetCriteriaComponent implements OnInit {
   }
   onChangeCheckboxSetCriteria(evt: any, _id: string | undefined) {
     const index = _.findIndex(this.listCriteriaSet, { _id })
-    debugger;
     const indexSelected = _.findIndex(this.selectedSetCriteria, { _id });
     if (evt) {
       this.selectedSetCriteria.push(this.listCriteriaSet[index])

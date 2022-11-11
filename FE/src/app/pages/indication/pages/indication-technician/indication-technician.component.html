@@ -65,8 +65,11 @@
 
             <div class="current-step-container" [hidden]="currentStep$.value !== 2">
               <app-step-two [listCriteriaSet]="data.listCriteriaSet" [listCriteria]="data.listCriteria"
-                [totalSelectedCriteria]="data.totalSelectedCriteria"
+                [totalSelectedCriteria]="data.totalSelectedCriteria" [selectedCriteria]="selected.listCriteria"
+                [selectedSetCriteria]="selected.listCriteriaSet" [triggerCleanProduct]="data.triggerCleanProduct"
                 (onChangeTotalSelectedCriteria)="onChangeTotalSelectedCriteria($event)"
+                (onChangeDataSelectedCriteria)="onChangeSelectedCriteria($event)"
+                (onChangeDataSelectedSetCriteria)="onChangeSelectedSetCriteria($event)"
                 [listCategory]="data.listCategory"></app-step-two>
             </div>
 
@@ -91,7 +94,7 @@
             <ng-container *ngIf="currentStep$.value !== formsCount">
               <div>
                 <button *ngIf="currentStep$.value == 2" type="button" class="btn btn-lg btn-primary me-3 "
-                  [ngClass]="{'disabled':!data.totalSelectedCriteria}" (click)="nextStep()">
+                  [ngClass]="{'disabled':!data.totalSelectedCriteria}" (click)="addToCart()">
                   <span class="indicator-label">
                     <ng-container *ngIf="currentStep$.value < formsCount - 1">
                       <div class="d-flex align-items-center gap-3">
@@ -103,7 +106,19 @@
 
                   </span>
                 </button>
+                <button *ngIf="currentStep$.value == 2 && visible.visibleButtonViewCart" type="button"
+                  class="btn btn-lg btn-primary me-3 " (click)="nextStep()">
+                  <span class="indicator-label">
+                    <ng-container *ngIf="currentStep$.value < formsCount - 1">
+                      <div class="d-flex align-items-center gap-3">
+                        <span>Kiểm tra chỉ định {{ " " }}</span>
+                        <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
+                      </div>
 
+                    </ng-container>
+
+                  </span>
+                </button>
                 <button type="button" class="btn btn-lg btn-primary me-3" (click)="nextStep()">
                   <span class="indicator-label">
                     <ng-container *ngIf="currentStep$.value < formsCount - 1">
@@ -124,5 +139,8 @@
       </div>
     </div>
   </div>
+  <ng-container>
 
+
+  </ng-container>
 </div>

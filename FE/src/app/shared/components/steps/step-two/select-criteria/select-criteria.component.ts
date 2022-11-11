@@ -12,6 +12,7 @@ export class SelectCriteriaComponent implements OnInit, OnChanges {
   listCriteriaShow: CriteriaItem[] = [];
   @Input() selectedCriteria: CriteriaItem[] = [];
   @Output() onChangeSelectedCriteria = new EventEmitter();
+
   dataFilter = {
     searchKey: '',
     category: ''
