@@ -1,0 +1,33 @@
+<ng-container>
+  <!-- <nz-collapse nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }" class="collapse-container"> -->
+  <div nz-row [nzGutter]="[16,16]" class="collapse-container-criteria-set">
+    <div nz-col nzSpan="12" class="collapse-panel-item-criteria-set" *ngFor="let criteriaSet of listCriteriaSet">
+      <div class="collapse-panel-item-criteria-set-container d-flex flex-column gap-4">
+        <a class=" collapse-panel-item-criteria-set-header d-flex align-items-center justify-content-between"
+          (click)="criteriaSet.expand = !criteriaSet.expand">
+          <div class="d-flex align-items-center gap-2">
+            <span *ngIf="!criteriaSet.expand" nz-icon nzType="right" nzTheme="outline"></span>
+            <span *ngIf="criteriaSet.expand" nz-icon nzType="down" nzTheme="outline"></span>
+            {{criteriaSet.name}}
+          </div>
+          <label nz-checkbox [ngModel]="criteriaSet.checked"
+            (nzCheckedChange)="onChangeCheckboxSetCriteria($event,criteriaSet._id)">
+          </label>
+        </a>
+        <ng-container *ngIf="criteriaSet.expand" style="margin:0;">
+          <div class="d-flex flex-column gap-3">
+            <div *ngFor="let criteria of criteriaSet.criteriaList" class="d-flex justify-content-between">
+              <p class="mb-0">
+                {{criteria.name}}
+              </p>
+              <span>x1</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+
+    </div>
+  </div>
+
+</ng-container>

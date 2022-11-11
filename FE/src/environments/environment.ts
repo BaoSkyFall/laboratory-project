@@ -158,6 +158,28 @@ export const environment = {
       'thumbnail': './assets/media/demos/demo20.png'
     },
   },
+  SETTING_FORMAT: {
+    localFormat: {
+      date: "DD/MM/YYYY",
+      time: "HH:mm:ss a",
+      dateTime: "DD/MM/YYYY HH:mm:ss",
+      number: "0,00,###",
+      currency: "USD",
+      currencySight: "$"
+    },
+    exportFormat: {
+      timezone: 8,
+      date: "dd/MM/yyyy",
+      dateTime: "dd/MM/yyyy HH:mm:ss",
+      fullDateTime: "dd/MM/yyyy HH:mm:ss",
+      currency: "#N0,0.00",
+      thousand: ",",
+      point: ".",
+      currencySight: "$",
+      number: "#N0,0.00",
+      numberMaxSight: "2"
+    }
+  },
 };
 
 /*

@@ -33,6 +33,12 @@
       ],
       "@store/*": [
         "./src/app/store/*"
+      ],
+      "@cores/*": [
+        "./src/app/core/*"
+      ],
+      "@config/*": [
+        "./src/app/config/*"
       ]
     },
     "target": "es2017",

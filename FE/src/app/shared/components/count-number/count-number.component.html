@@ -1,0 +1,45 @@
+<span #content class="pen-count-number basic-type d-flex justify-content-center" *ngIf="type === 'basic'">
+  <span class="wrap" [ngClass]="{'disabled': disabled}">
+    <span [ngClass]="{'hide': showButtonByConditionMin,
+    'disabled': min >= _currentValue}" class="d-flex align-items-center minus justify-content-end"
+      (click)="onClick(increaseNumber * -1)">
+      <span class="d-flex align-items-center" nz-icon nzType="minus-circle" nzTheme="outline"></span>
+    </span>
+    <input maxlength="12" #inputBasicNumber [ngClass]="{'hide': (showButtonByConditionMin || showButtonByConditionMax) && inputBasicNumber.value !== '',
+      'pen-red': redIfNegative && _currentValue < 0}" type="text" [allowEmpty]="changeOnBlur"
+      [(ngModel)]="_currentValue" class="number-input" [class]="'input-mxw-' + maxWidth" NumberOnly
+      [allowDecimals]="allowDecimals" [allowSign]="allowSign" [min]="min"
+      (paste)="onChangeInput('paste', inputBasicNumber.value)" (blur)="onChangeInput('blur', inputBasicNumber.value)"
+      (ngModelChange)="onChangeInput($event, inputBasicNumber.value)" [readonly]="readonly" />
+    <span [ngClass]=" {
+      'hide': showButtonByConditionMax,
+        'disabled': max === 0 || max === _currentValue
+    }" class="d-flex align-items-center plus" (click)="onClick(increaseNumber)">
+      <span class="d-flex align-items-center" nz-icon nzType="plus-circle" nzTheme="outline"></span>
+    </span>
+  </span>
+</span>
+<!-- <ng-container *ngIf="type === 'input'">
+  <div #content class="pen-count-number input-type">
+    <div class="wrap" [ngClass]="{'disabled': disabled}">
+      <nz-input-group [nzSuffix]="suffixPlus" [nzPrefix]="prefixMinus">
+        <input maxlength="32" type="text" [(ngModel)]="_currentValue" nz-input #inputNumber
+          [attr.placeholder]="placeholder | translate" class="pen-count-number-input" NumberOnly
+          [allowDecimals]="allowDecimals" (paste)="onChangeInput('paste', inputNumber.value)" [allowSign]="allowSign"
+          [readonly]="readonly" (ngModelChange)="onChangeInput()"
+          [ngClass]="{'pen-red': redIfNegative && _currentValue < 0}" />
+      </nz-input-group>
+      <ng-template #prefixMinus>
+        <span class="icon minus" (click)="onClick(increaseNumber * -1)">
+          <svg [outerHTML]="'minus-flat' | svgIcon:{class:'icon-small'}"></svg>
+        </span>
+      </ng-template>
+      <ng-template #suffixPlus>
+        <span class="icon plus pen-align-right" (click)="onClick(increaseNumber)">
+          <svg [outerHTML]="'plus-flat' | svgIcon:{class:'icon-small'}"></svg>
+        </span>
+      </ng-template>
+    </div>
+  </div>
+
+</ng-container> -->

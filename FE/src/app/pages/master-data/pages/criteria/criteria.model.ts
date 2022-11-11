@@ -11,8 +11,10 @@ export class CriteriaItem {
     code: string;
   }
   priceMaster: number;
+  categoryName?: string;
   sortOrder: number;
   referenceIndex?: string;
+  qty?: number | undefined;
   createdAt: string;
 }
 

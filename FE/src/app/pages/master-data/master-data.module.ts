@@ -25,6 +25,11 @@ const routes: Routes = [
     path: 'criteria',
     loadChildren: () => import('./pages/criteria/criteria.module').then(m => m.CriteriaModule)
 
+  },
+  {
+    path: 'criteria-set',
+    loadChildren: () => import('./pages/criteria-set/criteria-set.module').then(m => m.CriteriaSetModule)
+
   }
 ];
 @NgModule({

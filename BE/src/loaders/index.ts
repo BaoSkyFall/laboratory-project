@@ -45,6 +45,10 @@ export default async ({ expressApp }) => {
     name: 'criteriaModel',
     model: require('../models/criteria').default
   }
+  const criteriaSetModel = {
+    name: 'criteriaSetModel',
+    model: require('../models/criteria-set').default
+  }
   const categoryModel = {
     name: 'categoryModel',
     model: require('../models/category').default
@@ -59,6 +63,7 @@ export default async ({ expressApp }) => {
       levelDoctorModel,
       unitCompanyModel,
       criteriaModel,
+      criteriaSetModel,
       categoryModel
       // whateverModel
     ],

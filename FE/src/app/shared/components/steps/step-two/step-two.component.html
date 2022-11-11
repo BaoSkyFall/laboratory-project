@@ -1,0 +1,28 @@
+<nz-tabset [nzTabBarExtraContent]="extraTemplate">
+  <nz-tab [nzTitle]="titleSetIndication">
+    <ng-template #titleSetIndication>
+      <div class="d-flex align-items-center">
+        <span nz-icon nzType="group"></span>
+        <span>Gói Xét Nghiệm</span>
+      </div>
+
+    </ng-template>
+    <app-select-set-criteria [listCriteriaSet]="listCriteriaSet" [selectedSetCriteria]="selectedSetCriteria"
+      (onChangeSelectedSetCriteria)="onChangeSelectedSetCriteria($event)"></app-select-set-criteria>
+  </nz-tab>
+  <nz-tab [nzTitle]="titleIndication">
+    <ng-template #titleIndication>
+      <div class="d-flex align-items-center">
+        <span nz-icon nzType="medicine-box"></span>
+        <span>Chỉ tiêu/ Nội dung xét nghiệm</span>
+      </div>
+
+    </ng-template>
+    <app-select-criteria [listCriteria]="listCriteria" [selectedCriteria]="selectedCriteria"
+      [listCategory]="listCategory" (onChangeSelectedCriteria)="onChangeSelectedCriteria($event)">
+    </app-select-criteria>
+  </nz-tab>
+</nz-tabset>
+<ng-template #extraTemplate>
+  <label class=" fw-bold fs-6 pe-2">Đã chọn: {{totalSelectedCriteria}} Chỉ Định XN</label>
+</ng-template>

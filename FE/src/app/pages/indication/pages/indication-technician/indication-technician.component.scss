@@ -1,0 +1,11 @@
+#kt_create_account_form {
+  .current {
+    min-height: 30vh;
+
+    .current-step-container {
+      min-height: 60vh;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+  }
+}

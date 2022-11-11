@@ -1,0 +1,126 @@
+<form class="card-body border-top p-9" nz-form [formGroup]="basicInformationFormGroup" (ngSubmit)="onSubmit()">
+
+  <div class="row mb-6">
+    <label class="col-lg-4 col-form-label required fw-bold fs-6">Bác Sĩ</label>
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col-lg-6 fv-row">
+          <nz-form-item>
+
+            <nz-form-control [nzErrorTip]="doctorErr" [nzSpan]="20">
+
+              <nz-select class="w-100" nzPlaceHolder="Chọn Bác sĩ" formControlName="doctor" nzAllowClear>
+                <nz-option *ngFor="let doctor of listDoctor" [nzValue]="doctor._id" [nzLabel]="doctor.name">
+                </nz-option>
+              </nz-select>
+              <ng-template #doctorErr let-control>
+                <app-error-messages [control]="control" [messageObject]="{labelName:'Bác sĩ'}">
+                </app-error-messages>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row mb-6">
+    <label class="col-lg-4 col-form-label required fw-bold fs-6">Đơn Vị</label>
+    <div class="col-lg-8 fv-row">
+      <nz-form-item>
+
+        <nz-form-control [nzErrorTip]="unitErr" [nzSpan]="20">
+          <nz-select class="w-100" nzPlaceHolder="Chọn Đơn vị" formControlName="unit" nzAllowClear>
+            <nz-option *ngFor="let unit of listUnitCompany" [nzValue]="unit._id" [nzLabel]="unit.name">
+            </nz-option>
+          </nz-select>
+          <ng-template #unitErr let-control>
+            <app-error-messages [control]="control" [messageObject]="{labelName:'Đơn vị'}">
+            </app-error-messages>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+
+    </div>
+  </div>
+  <div class="row mb-6">
+    <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">Chuẩn Đoán Bệnh</span></label>
+    <div class="col-lg-8 fv-row">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="issueErr" [nzSpan]="20">
+          <input nz-input class="form-control form-control-lg form-control-solid" placeholder="Nhập chuẩn đoán bệnh"
+            formControlName="issue" value="" />
+          <ng-template #issueErr let-control>
+            <app-error-messages [control]="control" [messageObject]="{labelName:'Chuẩn đoán bệnh'}">
+            </app-error-messages>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row mb-6">
+    <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">Bệnh Nhân</span></label>
+    <div class="col-lg-8 fv-row">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="patientErr" [nzSpan]="20">
+          <input nz-input class="form-control form-control-lg form-control-solid" placeholder="Nhập tên bệnh nhân"
+            formControlName="patient" value="" />
+          <ng-template #patientErr let-control>
+            <app-error-messages [control]="control" [messageObject]="{labelName:'Bệnh Nhân'}">
+            </app-error-messages>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row mb-6">
+    <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">SĐT Bệnh Nhân</span></label>
+    <div class="col-lg-8 fv-row">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="phoneNumberErr" [nzSpan]="20">
+          <input nz-input class="form-control form-control-lg form-control-solid" placeholder="Nhập SĐT Bệnh Nhân"
+            formControlName="phoneNumber" value="" />
+          <ng-template #phoneNumberErr let-control>
+            <app-error-messages [control]="control" [messageObject]="{labelName:'SĐT Bệnh Nhân'}">
+            </app-error-messages>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row mb-6">
+    <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">Địa Chỉ Bệnh Nhân</span></label>
+    <div class="col-lg-8 fv-row">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="addressPatientErr" [nzSpan]="20">
+          <input nz-input class="form-control form-control-lg form-control-solid" placeholder="Nhập Địa Chỉ Bệnh Nhân"
+            formControlName="addressPatient" value="" />
+          <ng-template #addressPatientErr let-control>
+            <app-error-messages [control]="control" [messageObject]="{labelName:'Địa Chỉ Bệnh Nhân'}">
+            </app-error-messages>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row mb-6">
+    <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">Địa chỉ lấy mẫu</span></label>
+    <div class="col-lg-8 fv-row">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="addressGetTestErr" [nzSpan]="20">
+          <input nz-input class="form-control form-control-lg form-control-solid" placeholder="Nhập Địa chỉ lấy mẫu"
+            formControlName="addressGetTest" value="" />
+          <ng-template #addressGetTestErr let-control>
+            <app-error-messages [control]="control" [messageObject]="{labelName:'Địa chỉ lấy mẫu'}">
+            </app-error-messages>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <!-- <div class="fv-plugins-message-container">
+      <div class="fv-help-block">Country is required</div>
+    </div> -->
+    </div>
+  </div>
+
+</form>

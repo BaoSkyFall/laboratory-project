@@ -1,0 +1,63 @@
+.basic-type {
+  $height: 28px;
+  $font-size-icon: 17px;
+  $font-size-number-input: 15px;
+
+  .wrap {
+    display: flex;
+    align-items: center;
+    height: $height;
+    max-width: 80px;
+    cursor: pointer;
+
+    span {
+
+      &.plus,
+      &.minus {
+        width: $height;
+        height: $height;
+
+        .icon {
+          width: $height;
+          height: $height;
+        }
+      }
+
+      font-size: $font-size-icon;
+    }
+
+    .hide {
+      width: 0 !important;
+      overflow: hidden;
+    }
+
+    .disabled {
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.3;
+    }
+
+    .number-input {
+      border: none;
+      background-color: transparent;
+      outline: none;
+      box-sizing: border-box;
+      max-width: 34px;
+      font-size: 0.95em;
+      text-align: center;
+      width: unset;
+      padding: 0 2px;
+      margin: 0;
+      transition: all 0.12s ease;
+      font-size: $font-size-number-input;
+
+      $mws: 44; //54, 64, 74, 84, 94, 104, 114, 124, 134, 144, 154;
+
+      @each $max in $mws {
+        &.input-mxw-#{$max} {
+          max-width: #{$max}px;
+        }
+      }
+    }
+  }
+}
