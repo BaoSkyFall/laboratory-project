@@ -107,7 +107,7 @@
                   </span>
                 </button>
                 <button *ngIf="currentStep$.value == 2 && visible.visibleButtonViewCart" type="button"
-                  class="btn btn-lg btn-primary me-3 " (click)="nextStep()">
+                  class="btn btn-lg btn-primary me-3 " (click)="visible.visibleModalCart=true">
                   <span class="indicator-label">
                     <ng-container *ngIf="currentStep$.value < formsCount - 1">
                       <div class="d-flex align-items-center gap-3">
@@ -155,3 +155,163 @@
 
   </ng-container>
 </div>
+<nz-modal [(nzVisible)]="visible.visibleModalCart" nzTitle="Danh Sách Chỉ Định Đã Được Thêm" [nzWidth]="1024"
+  (nzOnCancel)="visible.visibleModalCart = false">
+  <div *nzModalContent>
+    <!-- Criter Set -->
+    <div class="table-responsive mt-2" *ngIf="step.cart.criteriaSetList.length">
+      <!-- begin::Table -->
+      <table class="table align-middle gs-0 gy-4">
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th class="min-w-15px"></th>
+            <th class="ps-4 min-w-150px">Gói xét nghiệm</th>
+            <th class="min-w-140px text-start">Tên Xét Nghiệm</th>
+            <th class="min-w-140px text-start">Loại Xét Nghiệm</th>
+            <th class="min-w-140px text-end">Giá Hệ Thống</th>
+            <th class="min-w-100px"></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <ng-container *ngFor="let item of step.cart.criteriaSetList">
+            <tr>
+              <td>
+                <a class="d-flex align-items-center" *ngIf="!item.expand" (click)="item.expand = !item.expand" nz-icon
+                  nzType="right" nzTheme="outline"></a>
+                <a class="d-flex align-items-center" *ngIf="item.expand" (click)="item.expand = !item.expand" nz-icon
+                  nzType="down" nzTheme="outline"></a>
+              </td>
+              <td class="ps-4 cursor-pointer" (click)="item.expand = !item.expand">
+                <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                  {{item.name}}
+                </span>
+
+              </td>
+
+              <td>
+
+
+              </td>
+              <td>
+
+
+              </td>
+
+              <td>
+
+
+
+              </td>
+              <td class="text-center">
+                <a nz-icon nzType="delete" class=" text-danger fs-4" nzTheme="outline"></a>
+
+              </td>
+
+            </tr>
+            <ng-container *ngIf="item.expand">
+              <ng-container *ngFor="let criteria of item.criteriaList; let idx = index; let lst = last">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>{{criteria.name}}</td>
+                  <td>{{criteria.category.name}}</td>
+                  <td class="text-end">{{criteria.priceMaster}}</td>
+
+                </tr>
+
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+
+
+    </div>
+
+    <!-- Criteria -->
+    <div class="table-responsive" *ngIf="step.cart.criteriaList.length">
+      <!-- begin::Table -->
+      <table class="table align-middle gs-0 gy-4">
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th class="ps-4 min-w-150px">Chỉ tiêu / Nội dung xét nghiệm</th>
+            <th class="min-w-140px text-start">Loại Xét Nghiệm</th>
+            <th class="min-w-140px text-end">Giá Hệ Thống</th>
+            <th class="min-w-140px text-end">Giá Điều Chỉnh</th>
+            <th class="min-w-100px text-end">Số lượng</th>
+            <th class="min-w-100px"></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr *ngFor="let item of step.cart.criteriaList ">
+
+            <td class="ps-4">
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.name}}
+              </span>
+
+            </td>
+            <td>
+
+              <span class="text-dark  fw-bolder d-block mb-1 text-start">
+                {{item.category.name}}
+              </span>
+
+            </td>
+
+            <td>
+
+              <span class="text-dark  fw-bolder d-block mb-1 text-end">
+                {{item.priceMaster |numberLabel}}
+              </span>
+
+            </td>
+
+            <td>
+
+              <span class="text-dark  fw-bolder d-block mb-1 text-end">
+                <nz-input-group class="pen-pl-0 pen-pr-5" [nzSuffix]="inputClearTpl">
+                  <input class="pen-align-right" nz-input [(ngModel)]="item.newPrice" mask="separator.2" #newPriceValue
+                    [allowNegativeNumbers]="false" thousandSeparator="," separatorLimit="1000000000" />
+                </nz-input-group>
+                <ng-template #inputClearTpl>
+                  <a style="opacity: 0.8;" *ngIf="item.newPrice" (click)="item.newPrice = null">
+                    <span nz-icon nzType="close-circle" nzTheme="outline"></span>
+                  </a>
+                </ng-template>
+              </span>
+
+            </td>
+            <td class="text-end d-flex justify-content-end">
+              {{item.qty}}
+            </td>
+            <td class="text-center">
+              <a nz-icon nzType="delete" class=" text-danger fs-4" nzTheme="outline"></a>
+
+            </td>
+          </tr>
+
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+
+
+    </div>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="visible.visibleModalCart = false">Trở về</button>
+    <button nz-button nzType="primary" (click)="goToConfirmIndication()" [nzLoading]="loading.loadingGoToConfirm">Đi đến
+      xác nhận</button>
+  </div>
+</nz-modal>

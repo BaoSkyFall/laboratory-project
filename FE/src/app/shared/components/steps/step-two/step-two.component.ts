@@ -35,7 +35,7 @@ export class StepTwoComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
   ngOnChanges({ triggerCleanProduct, listCriteria, listCriteriaSet }: SimpleChanges): void {
-    if (triggerCleanProduct.currentValue) {
+    if (triggerCleanProduct?.currentValue) {
       this.listCriteria = this.listCriteria.map(item => ({ ...item, qty: 0 }));
       this.listCriteriaSet = this.listCriteriaSet.map(item => ({ ...item, checked: false }));
     }

@@ -18,6 +18,7 @@ import { CriteriaSetService } from 'src/app/pages/master-data/pages/criteria-set
 import { CriteriaSetItem } from 'src/app/pages/master-data/pages/criteria-set/criteria-set.model';
 import { CategoryItem, CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.model';
 import * as _ from 'lodash';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -58,6 +59,9 @@ export class IndicationTechnicianComponent implements OnInit {
   visible = {
     visibleModalCart: false,
     visibleButtonViewCart: false
+  }
+  loading = {
+    loadingGoToConfirm: false,
   }
   dateFormat: string = 'DD/MM/YYYY';
   indicationTechnicianForm: FormGroup;
@@ -331,6 +335,7 @@ export class IndicationTechnicianComponent implements OnInit {
       }
     })
     this.selected.listCriteriaSet.forEach(item => {
+      item.expand = false;
       this.step.cart.criteriaSetList.push(item)
     })
     this.selected.listCriteria = [];
@@ -345,6 +350,14 @@ export class IndicationTechnicianComponent implements OnInit {
   }
   onChangeSelectedSetCriteria(evt: any) {
     this.selected.listCriteriaSet = evt;
+  }
+  goToConfirmIndication() {
+    this.loading.loadingGoToConfirm = true;
+    setTimeout(() => {
+      this.loading.loadingGoToConfirm = false;
+      this.visible.visibleModalCart = false;
+      this.nextStep()
+    }, 400)
   }
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

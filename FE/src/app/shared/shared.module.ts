@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg';
-
+import { NgxMaskModule } from 'ngx-mask';
 import { IconFactoryComponent } from './components/icon-factory/icon-factory.component';
 import { StepModule } from './components/steps/step.module';
 import { NotAllowBlankDirective } from './directives/notAllowBlank.directive';
@@ -24,6 +24,7 @@ import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
     ReactiveFormsModule,
     RouterModule,
     LabNgZorroAntdModule,
+    NgxMaskModule,
     InlineSVGModule,
     StepModule
   ],
@@ -37,6 +38,7 @@ import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
     NotAllowBlankDirective,
     InlineSVGModule,
     LabNgZorroAntdModule,
+    NgxMaskModule,
     StepModule
   ]
 })

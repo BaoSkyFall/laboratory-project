@@ -7,6 +7,7 @@ import { PipeModule } from '@shared/pipes/pipe.module';
 import { ErrorMessagesModule } from '@shared/components/error-message/error-messages.module';
 import { NotificationService } from '@services/notification.service';
 import { IndicationTechnicianComponent } from './indication-technician.component';
+import { CountNumberModule } from '@shared/components/count-number/count-number.module';
 
 
 
@@ -28,6 +29,7 @@ const routes: Routes = [
     WidgetsModule,
     PipeModule,
     ErrorMessagesModule,
+    CountNumberModule,
     SharedModule
   ],
   providers: [NotificationService]

@@ -227,7 +227,7 @@
   dependencies:
     "tslib" "^2.2.0"
 
-"@angular/forms@^12.0.0", "@angular/forms@^12.0.0 || ^13.0.0-0", "@angular/forms@^13.0.1", "@angular/forms@~12.1.2":
+"@angular/forms@^12.0.0", "@angular/forms@^12.0.0 || ^13.0.0-0", "@angular/forms@^13.0.1", "@angular/forms@>=10.0.0", "@angular/forms@~12.1.2":
   "integrity" "sha512-ABfBRCZYVbR5MUkMNrYU/ovCjXtCedk0h4phzCimGl6hBcpbumT9z/3m0TsY9sQnLq0BaCfKNklnHwCuO9mSSg=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-12.1.5.tgz"
   "version" "12.1.5"
@@ -5981,6 +5981,13 @@
   dependencies:
     "ngx-window-token" ">=4.0.0"
     "tslib" "^2.0.0"
+
+"ngx-mask@^12.0.0":
+  "integrity" "sha512-q4vUjhjJfg4faRud/tUdCTOs3JA6B+rBB2OPZ2xBZy4LNTRKGfUK683LrDCitMVBezjEAVrkQdUT1I4C7LXBZQ=="
+  "resolved" "https://registry.npmjs.org/ngx-mask/-/ngx-mask-12.0.0.tgz"
+  "version" "12.0.0"
+  dependencies:
+    "tslib" "^2.1.0"
 
 "ngx-window-token@>=4.0.0":
   "integrity" "sha512-DhigCrm9QO8R29lqJYzBC9aaTU0KiWgdnt8RNcTN/DvMaS7shfzAqyvUtxSIm/+JR4gW5JKqR/JODU8760nJMw=="
