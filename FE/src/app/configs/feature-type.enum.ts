@@ -1,0 +1,56 @@
+export const TYPE_ENUM = {
+  PRODUCT: 'product',
+  PRODUCT_BY_CODE: 'product_by_code',
+  BUSINESS_DIVISION: 'bu',
+  SUPPLIER: 'supplier',
+  STORAGE: 'storage',
+  SHIP_TO: 'ship',
+  INVENTORY: 'inventory',
+  CUSTOMER: 'customer',
+  USER: 'user',
+  PRODUCT_MASTER: 'product_master',
+  SALE_REP: 'sale_rep',
+  PAYER: 'payer',
+  BILL_TO: 'bill_to',
+  DIVISION: 'division',
+  SALE_ORG: 'sale_org',
+  TERRITORY: 'sale_territory',
+  PROD_UPN: 'product_upn',
+  PRODUCT_MULTI_DIVISION: 'product_multi_division',
+  POFILES: 'poFiles',
+  HEADER_TEXT: 'header_text',
+  // BILL_NOW: 'bill_now',
+  BILL_LATER: 'is_bill_later'
+}
+
+export const PERMISSION_MODULE = {
+  ORDER: "ORDER",
+  MASTER_DATA: "MASTER",
+  TOP: "HOME",
+  ADMIN: "ADMIN",
+  RFID: "RFID",
+  REPORT: "REPORT",
+  APPROVAL: "APPROVAL",
+  REQUEST: "REQUEST",
+  PRICING: "PRICING",
+  INVENTORY: "INVENTORY",
+  MY_REQUEST: "MY_REQUEST",
+  FAVORITE: "FAVORITE",
+  DC_CHECK: "DC_CHECK",
+  CC_CHECK: "CC_CHECK",
+  RFID_MB: "RFID_MB"
+}
+export const LEGAL_CODE = {
+  NONE: "NONE",
+  CAPITAL_EQUIPMENT: "CAPITAL_EQUIPMENT",
+  CLINICAL_CONSIGNMENT: "CLINICAL_CONSIGNMENT",
+  FINANCIAL_ACTS: "FINANCIAL_ACTS",
+  LOANER_KIT: "LOANER_KIT",
+  LONG_TERM_CONSIGN: "LONG_TERM_CONSIGN",
+  ORDER_ADVANCEMENT: "ORDER_ADVANCEMENT",
+  PENDING_PO: "PENDING_PO",
+  SOLD_TO_PARTY: "SOLD_TO_PARTY",
+  SHORT_TERM_CONSIGN: "SHORT_TERM_CONSIGN",
+  TRUNK_STOCK: "TRUNK_STOCK"
+
+}

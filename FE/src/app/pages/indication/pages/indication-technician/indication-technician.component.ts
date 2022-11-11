@@ -30,6 +30,7 @@ export class IndicationTechnicianComponent implements OnInit {
   @ViewChild('stepOneComponent') stepOneComponent!: StepOneComponent;
   data = {
     total: 0,
+    totalSelectedCriteria: 0,
     listIndicationTechnician: [] as IndicationTechnicianItem[],
     listDoctor: [] as DoctorItem[],
     listUnitCompany: [] as UnitCompanyItem[],
@@ -232,6 +233,9 @@ export class IndicationTechnicianComponent implements OnInit {
       })
     }
     // this.close()
+  }
+  onChangeTotalSelectedCriteria(evt: any) {
+    this.data.totalSelectedCriteria = evt;
   }
   edit(item: IndicationTechnicianItem) {
     this.indicationTechnicianFormControl._id.setValue(item._id);

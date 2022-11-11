@@ -13,6 +13,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ErrorMessagesModule } from '../error-message/error-messages.module';
 import { SelectSetCriteriaComponent } from './step-two/select-set-criteria/select-set-criteria.component';
 import { SelectCriteriaComponent } from './step-two/select-criteria/select-criteria.component';
+import { CountNumberModule } from '../count-number/count-number.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { SelectCriteriaComponent } from './step-two/select-criteria/select-crite
     NgbTooltipModule,
     ErrorMessagesModule,
     LabNgZorroAntdModule,
+    CountNumberModule,
     PipeModule,
 
   ]

@@ -65,6 +65,8 @@
 
             <div class="current-step-container" [hidden]="currentStep$.value !== 2">
               <app-step-two [listCriteriaSet]="data.listCriteriaSet" [listCriteria]="data.listCriteria"
+                [totalSelectedCriteria]="data.totalSelectedCriteria"
+                (onChangeTotalSelectedCriteria)="onChangeTotalSelectedCriteria($event)"
                 [listCategory]="data.listCategory"></app-step-two>
             </div>
 
@@ -88,8 +90,8 @@
 
             <ng-container *ngIf="currentStep$.value !== formsCount">
               <div>
-                <button *ngIf="currentStep$.value == 2" type="button" class="btn btn-lg btn-primary me-3 disabled"
-                  (click)="nextStep()">
+                <button *ngIf="currentStep$.value == 2" type="button" class="btn btn-lg btn-primary me-3 "
+                  [ngClass]="{'disabled':!data.totalSelectedCriteria}" (click)="nextStep()">
                   <span class="indicator-label">
                     <ng-container *ngIf="currentStep$.value < formsCount - 1">
                       <div class="d-flex align-items-center gap-3">

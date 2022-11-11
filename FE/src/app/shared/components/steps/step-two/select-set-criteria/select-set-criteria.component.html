@@ -10,7 +10,7 @@
             <span *ngIf="criteriaSet.expand" nz-icon nzType="down" nzTheme="outline"></span>
             {{criteriaSet.name}}
           </div>
-          <label nz-checkbox>
+          <label nz-checkbox (nzCheckedChange)="onChangeCheckboxSetCriteria($event,criteriaSet._id)">
           </label>
         </a>
         <ng-container *ngIf="criteriaSet.expand" style="margin:0;">

@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CategoryItem, CriteriaItem } from 'src/app/pages/master-data/pages/criteria/criteria.model';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-select-criteria',
   templateUrl: './select-criteria.component.html',
@@ -9,8 +9,9 @@ import { CategoryItem, CriteriaItem } from 'src/app/pages/master-data/pages/crit
 export class SelectCriteriaComponent implements OnInit, OnChanges {
   @Input() listCriteria: CriteriaItem[] = [];
   @Input() listCategory: CategoryItem[] = [];
-
   listCriteriaShow: CriteriaItem[] = [];
+  @Input() selectedCriteria: CriteriaItem[] = [];
+  @Output() onChangeSelectedCriteria = new EventEmitter();
   dataFilter = {
     searchKey: '',
     category: ''
@@ -26,8 +27,29 @@ export class SelectCriteriaComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
   ngOnChanges({ listCriteria }: SimpleChanges) {
-    if (listCriteria.currentValue.length) {
+    if (listCriteria?.currentValue?.length) {
       this.onSearch();
     }
   }
+  onValueCountChanges(evt: number, _id: string | undefined) {
+    const index = _.findIndex(this.listCriteria, item => item._id == _id);
+    const indexSelected = _.findIndex(this.selectedCriteria, item => item._id == _id);
+    this.listCriteria[index].qty = evt;
+    if (evt) {
+      if (indexSelected > -1) {
+        this.selectedCriteria[indexSelected].qty = this.selectedCriteria[indexSelected].qty || 0 + evt;
+      }
+      else {
+        this.selectedCriteria.push(this.listCriteria[index])
+      }
+    }
+    else {
+      if (indexSelected > -1) {
+        this.selectedCriteria = _.pullAt(this.selectedCriteria, indexSelected)
+      }
+    }
+
+    this.onChangeSelectedCriteria.emit(this.selectedCriteria)
+  }
+
 }

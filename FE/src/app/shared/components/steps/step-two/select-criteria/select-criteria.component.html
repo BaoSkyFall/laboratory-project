@@ -75,21 +75,9 @@
 
           </td>
 
-          <td class="text-end">
-
-            <a class="
-              btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
-              px-4 me-3
-            ">
-              Edit
-            </a>
-            <a class="
-            btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
-            px-4
-
-          ">
-              Xóa
-            </a>
+          <td class="text-end d-flex justify-content-end">
+            <app-count-number [min]="0" (valueChanges)="onValueCountChanges($event, item._id)" [value]="item.qty || 0">
+            </app-count-number>
           </td>
         </tr>
 

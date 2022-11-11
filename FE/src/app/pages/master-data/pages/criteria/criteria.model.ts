@@ -14,6 +14,7 @@ export class CriteriaItem {
   categoryName?: string;
   sortOrder: number;
   referenceIndex?: string;
+  qty?: number | undefined;
   createdAt: string;
 }
 
