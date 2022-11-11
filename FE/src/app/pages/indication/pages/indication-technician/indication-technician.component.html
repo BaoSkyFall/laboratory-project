@@ -98,8 +98,8 @@
                   <span class="indicator-label">
                     <ng-container *ngIf="currentStep$.value < formsCount - 1">
                       <div class="d-flex align-items-center gap-3">
-                        <span>Thêm vào Chỉ định {{ " " }}</span>
-                        <span nz-icon nzType="plus"></span>
+                        <span>Thêm Vào Chỉ Định {{ " " }}</span>
+                        <span nz-icon class="d-flex align-items-center" nzType="plus"></span>
                       </div>
 
                     </ng-container>
@@ -111,27 +111,38 @@
                   <span class="indicator-label">
                     <ng-container *ngIf="currentStep$.value < formsCount - 1">
                       <div class="d-flex align-items-center gap-3">
-                        <span>Kiểm tra chỉ định {{ " " }}</span>
-                        <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
+                        <span>Xem Chỉ Định Đã Thêm</span>
+                        <span nz-icon class="d-flex align-items-center" nzType="schedule" nzTheme="outline"></span>
                       </div>
 
                     </ng-container>
 
                   </span>
                 </button>
-                <button type="button" class="btn btn-lg btn-primary me-3" (click)="nextStep()">
+                <button type="button" class="btn btn-lg btn-primary me-3 " (click)="nextStep()">
                   <span class="indicator-label">
                     <ng-container *ngIf="currentStep$.value < formsCount - 1">
-                      Tiếp Tục {{ " " }}
-                      <span [inlineSVG]="
-                          './assets/media/icons/duotune/arrows/arr064.svg'
-                        " class="svg-icon svg-icon-3 ms-2 me-0"></span>
+                      <div class="d-flex align-items-center gap-3">
+                        <span> Tiếp Tục</span>
+                        <span nz-icon class="d-flex align-items-center" nzType="arrow-right" nzTheme="outline"></span>
+                      </div>
+
+                    </ng-container>
+
+                  </span>
+                </button>
+                <!-- <button type="button" class="btn btn-lg btn-primary me-3" (click)="nextStep()">
+                  <span class="indicator-label">
+                    <ng-container *ngIf="currentStep$.value < formsCount - 1">
+                      Tiếp Tục
+                      <span nz-icon class="d-flex align-items-center" nzType="arrow-right" nzTheme="outline"></span>
+
                     </ng-container>
                     <ng-container *ngIf="currentStep$.value === formsCount - 1">
                       Gửi
                     </ng-container>
                   </span>
-                </button>
+                </button> -->
               </div>
             </ng-container>
           </div>
