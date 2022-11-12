@@ -205,9 +205,8 @@
 
 
               </td>
-              <td class="text-center">
-                <a nz-icon nzType="delete" class=" text-danger fs-4" nzTheme="outline"></a>
-
+              <td class="text-end pe-5">
+                <a nz-icon nzType="delete" class="text-danger fs-4" nzTheme="outline"></a>
               </td>
 
             </tr>
@@ -279,23 +278,26 @@
 
             <td>
 
-              <span class="text-dark  fw-bolder d-block mb-1 text-end">
-                <nz-input-group class="pen-pl-0 pen-pr-5" [nzSuffix]="inputClearTpl">
-                  <input class="pen-align-right" nz-input [(ngModel)]="item.newPrice" mask="separator.2" #newPriceValue
+              <span class="text-dark  fw-bolder d-block mb-1 text-end d-flex justify-content-end">
+                <nz-input-group class=" pen-pl-0 pen-pr-5 w-50" [nzSuffix]="'đ'">
+                  <input class="text-end" nz-input [(ngModel)]="item.newPrice" mask="separator.2" #newPriceValue
                     [allowNegativeNumbers]="false" thousandSeparator="," separatorLimit="1000000000" />
                 </nz-input-group>
-                <ng-template #inputClearTpl>
+                <!-- <ng-template #inputClearTpl>
                   <a style="opacity: 0.8;" *ngIf="item.newPrice" (click)="item.newPrice = null">
                     <span nz-icon nzType="close-circle" nzTheme="outline"></span>
                   </a>
-                </ng-template>
+                </ng-template> -->
               </span>
 
             </td>
-            <td class="text-end d-flex justify-content-end">
-              {{item.qty}}
+            <td class="text-end d-flex justify-content-end fw-bolder text-dark">
+              <span class="text-dark  fw-bolder d-block mb-1 text-end">
+                x{{item.qty}}
+              </span>
+
             </td>
-            <td class="text-center">
+            <td class="text-end pe-5">
               <a nz-icon nzType="delete" class=" text-danger fs-4" nzTheme="outline"></a>
 
             </td>

@@ -24,7 +24,7 @@ import { LabNgZorroAntdModule } from './ng-zorro-antd.module';
     ReactiveFormsModule,
     RouterModule,
     LabNgZorroAntdModule,
-    NgxMaskModule,
+    NgxMaskModule.forRoot(),
     InlineSVGModule,
     StepModule
   ],
