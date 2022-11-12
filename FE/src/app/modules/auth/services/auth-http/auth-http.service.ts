@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserModel } from '../../models/user.model';
 import { environment } from '../../../../../environments/environment';
@@ -37,11 +37,14 @@ export class AuthHTTPService {
   }
 
   getUserByToken(token: string): Observable<UserModel> {
-    const httpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<UserModel>(`${API_USERS_URL}/users/me`, {
-      headers: httpHeaders,
-    });
+    setTimeout(() => {
+      const httpHeaders = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get<UserModel>(`${API_USERS_URL}/users/me`, {
+        headers: httpHeaders,
+      });
+    }, 500)
+    return of({} as UserModel)
   }
 }
