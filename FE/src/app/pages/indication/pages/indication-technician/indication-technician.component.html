@@ -77,7 +77,7 @@
             <div class="current-step-container" [hidden]="currentStep$.value !== 3">
               <app-step-three [basicInformation]="step.info.basicInformation" [listDoctor]="data.listDoctor"
                 [listUnitCompany]="data.listUnitCompany" [usageInformation]="step.info.usageInformation"
-                [cart]="step.cart">
+                [criteriaList]="step.cart.criteriaList" [criteriaSetList]="step.cart.criteriaSetList">
               </app-step-three>
             </div>
 
@@ -123,11 +123,12 @@
 
                   </span>
                 </button>
-                <button type="button" class="btn btn-lg btn-primary me-3 " (click)="nextStep()">
+                <button type="button" class="btn btn-lg btn-primary me-3 " (click)="nextStep()" [ngClass]="{'disabled': (currentStep$.value==2 &&
+                (!step.cart.criteriaList.length  && !step.cart.criteriaSetList.length))}">
                   <span class="indicator-label">
                     <ng-container *ngIf="currentStep$.value < formsCount - 1">
                       <div class="d-flex align-items-center gap-3">
-                        <span> Tiếp Tục</span>
+                        <span> {{currentStep$.value == 3? 'Lên Chỉ Định' : 'Tiếp Tục'}}</span>
                         <span nz-icon class="d-flex align-items-center" nzType="arrow-right" nzTheme="outline"></span>
                       </div>
 

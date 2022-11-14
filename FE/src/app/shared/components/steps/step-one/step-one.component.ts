@@ -19,11 +19,11 @@ export class StepOneComponent implements OnInit {
     this.basicInformationFormGroup = this.fb.group({
       doctor: this.fb.control('', Validators.required),
       unit: this.fb.control('', Validators.required),
-      issue: this.fb.control('', Validators.required),
-      patient: this.fb.control('', Validators.required),
-      phoneNumber: this.fb.control('', Validators.required),
-      addressPatient: this.fb.control('', Validators.required),
-      addressGetTest: this.fb.control('', Validators.required)
+      issue: this.fb.control('Rối loạn tiêu Hóa (Ví dụ)', Validators.required),
+      patient: this.fb.control('Nguyễn Văn A (Ví dụ)', Validators.required),
+      phoneNumber: this.fb.control('0335557773 (Ví dụ)', Validators.required),
+      addressPatient: this.fb.control('59 Võ Văn Tần, Phường 10, Quận 3, TP.HCM (Ví dụ)', Validators.required),
+      addressGetTest: this.fb.control('59 Võ Văn Tần, Phường 10, Quận 3, TP.HCM (Ví dụ)', Validators.required)
     })
 
   }

@@ -346,7 +346,7 @@ export class IndicationTechnicianComponent implements OnInit {
     this.selected.listCriteriaSet = []
     this.data.totalSelectedCriteria = 0;
     this.data.triggerCleanProduct = Date.now();
-    console.log('this.selected:', this.selected)
+    this.cdf.detectChanges();
 
   }
   onChangeSelectedCriteria(evt: any) {

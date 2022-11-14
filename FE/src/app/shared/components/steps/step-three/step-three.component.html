@@ -61,7 +61,7 @@
     <span class="pe-3 fs-5 cursor-pointer text-primary" nz-icon nzType="edit" nzTheme="outline"></span>
   </div>
   <!-- Criter Set -->
-  <div class="table-responsive mt-2" *ngIf="cart.criteriaSetList.length">
+  <div class="table-responsive mt-2" *ngIf="criteriaSetList.length">
     <!-- begin::Table -->
     <table class="table align-middle gs-0 gy-4">
       <!-- begin::Table head -->
@@ -79,7 +79,7 @@
       <!-- end::Table head -->
       <!-- begin::Table body -->
       <tbody>
-        <ng-container *ngFor="let item of cart.criteriaSetList">
+        <ng-container *ngFor="let item of criteriaSetList">
           <tr>
             <td>
               <a class="d-flex align-items-center" *ngIf="!item.expand" (click)="item.expand = !item.expand" nz-icon
@@ -135,7 +135,7 @@
   </div>
 
   <!-- Criteria -->
-  <div class="table-responsive" *ngIf="cart.criteriaList.length">
+  <div class="table-responsive" *ngIf="criteriaList.length">
     <!-- begin::Table -->
     <table class="table align-middle gs-0 gy-4">
       <!-- begin::Table head -->
@@ -146,13 +146,13 @@
           <th class="min-w-140px text-end">Giá Hệ Thống</th>
           <th class="min-w-140px text-end">Giá Điều Chỉnh</th>
           <th class="min-w-100px text-end">Số lượng</th>
-          <th class="min-w-100px"></th>
+          <th class="min-w-140px">Tổng Cộng</th>
         </tr>
       </thead>
       <!-- end::Table head -->
       <!-- begin::Table body -->
       <tbody>
-        <tr *ngFor="let item of cart.criteriaList ">
+        <tr *ngFor="let item of criteriaList ">
 
           <td class="ps-4">
             <span class="text-dark  fw-bolder d-block mb-1 fs-">
@@ -201,7 +201,14 @@
 
           </td>
         </tr>
-
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
       </tbody>
       <!-- end::Table body -->
     </table>
