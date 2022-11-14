@@ -14,6 +14,7 @@ import { ErrorMessagesModule } from '../error-message/error-messages.module';
 import { SelectSetCriteriaComponent } from './step-two/select-set-criteria/select-set-criteria.component';
 import { SelectCriteriaComponent } from './step-two/select-criteria/select-criteria.component';
 import { CountNumberModule } from '../count-number/count-number.module';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { CountNumberModule } from '../count-number/count-number.module';
     ErrorMessagesModule,
     LabNgZorroAntdModule,
     CountNumberModule,
+    NgxMaskModule,
     PipeModule,
 
   ]

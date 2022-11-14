@@ -59,7 +59,8 @@
         <form class="mx-auto  w-100 pb-10" noValidate id="kt_create_account_form">
           <div class="current">
             <div class="current-step-container" [hidden]="currentStep$.value !== 1">
-              <app-step-one #stepOneComponent [listDoctor]="data.listDoctor" [listUnitCompany]="data.listUnitCompany">
+              <app-step-one #stepOneComponent [listDoctor]="data.listDoctor" [listUnitCompany]="data.listUnitCompany"
+                (onSubmitForm)="onSubmitForm($event)">
               </app-step-one>
             </div>
 
@@ -74,7 +75,10 @@
             </div>
 
             <div class="current-step-container" [hidden]="currentStep$.value !== 3">
-              <app-step-three></app-step-three>
+              <app-step-three [basicInformation]="step.info.basicInformation" [listDoctor]="data.listDoctor"
+                [listUnitCompany]="data.listUnitCompany" [usageInformation]="step.info.usageInformation"
+                [cart]="step.cart">
+              </app-step-three>
             </div>
 
 

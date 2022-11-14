@@ -30,6 +30,10 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class IndicationTechnicianComponent implements OnInit {
   @ViewChild('stepOneComponent') stepOneComponent!: StepOneComponent;
   step = {
+    info: {
+      basicInformation: {},
+      usageInformation: {}
+    },
     cart: {
       criteriaList: [] as CriteriaItem[],
       criteriaSetList: [] as CriteriaSetItem[],
@@ -358,6 +362,11 @@ export class IndicationTechnicianComponent implements OnInit {
       this.visible.visibleModalCart = false;
       this.nextStep()
     }, 400)
+  }
+  onSubmitForm(evt: any) {
+    console.log('evt:', evt)
+    this.step.info.basicInformation = evt;
+
   }
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

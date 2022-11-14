@@ -1,1 +1,212 @@
-<p>step-three works!</p>
+<div>
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class=" fw-bold mb-5">Thông tin cơ bản</h3>
+    <span class="pe-3 fs-5 cursor-pointer text-primary" nz-icon nzType="edit" nzTheme="outline"></span>
+  </div>
+  <nz-list nzBordered>
+    <nz-list-item>
+      <span nz-typography>Bác Sĩ</span>
+      <!-- <div class="min-w-250px">
+        <nz-select class="w-100 border-none" nzPlaceHolder="Chọn Bác sĩ" [ngModel]="basicInformation.doctor">
+          <nz-option *ngFor="let doctor of listDoctor" [nzValue]="doctor._id" [nzLabel]="doctor.name">
+          </nz-option>
+        </nz-select>
+
+      </div> -->
+      <div>
+        {{basicInformation.doctorName}}
+      </div>
+    </nz-list-item>
+    <nz-list-item>
+      <span nz-typography>Đơn Vị</span>
+      <div>
+        {{basicInformation.unitName}}
+      </div>
+    </nz-list-item>
+    <nz-list-item>
+      <span nz-typography>Chuẩn Đoán Bệnh</span>
+      <div>
+        {{basicInformation.issue}}
+      </div>
+    </nz-list-item>
+    <nz-list-item>
+      <span nz-typography>Bệnh Nhân</span>
+      <div>
+        {{basicInformation.patient}}
+      </div>
+    </nz-list-item>
+    <nz-list-item>
+      <span nz-typography>SĐT Bệnh Nhân</span>
+      <div>
+        {{basicInformation.phoneNumber}}
+      </div>
+    </nz-list-item>
+    <nz-list-item>
+      <span nz-typography>Địa Chỉ Bệnh Nhân</span>
+      <div>
+        {{basicInformation.addressPatient}}
+      </div>
+    </nz-list-item>
+    <nz-list-item>
+      <span nz-typography>Địa Chỉ Lấy Mẫu</span>
+      <div>
+        {{basicInformation.addressGetTest}}
+      </div>
+    </nz-list-item>
+  </nz-list>
+</div>
+<div class="mt-10 mb-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class="fw-bold">Danh sách chỉ định</h3>
+    <span class="pe-3 fs-5 cursor-pointer text-primary" nz-icon nzType="edit" nzTheme="outline"></span>
+  </div>
+  <!-- Criter Set -->
+  <div class="table-responsive mt-2" *ngIf="cart.criteriaSetList.length">
+    <!-- begin::Table -->
+    <table class="table align-middle gs-0 gy-4">
+      <!-- begin::Table head -->
+      <thead>
+        <tr class="fw-bolder text-muted bg-light">
+          <th class="min-w-15px"></th>
+          <th class="ps-4 min-w-150px">Gói xét nghiệm</th>
+          <th class="min-w-140px text-start">Tên Xét Nghiệm</th>
+          <th class="min-w-140px text-start">Loại Xét Nghiệm</th>
+          <th class="min-w-140px text-end">Giá Hệ Thống</th>
+          <th class="min-w-100px"></th>
+
+        </tr>
+      </thead>
+      <!-- end::Table head -->
+      <!-- begin::Table body -->
+      <tbody>
+        <ng-container *ngFor="let item of cart.criteriaSetList">
+          <tr>
+            <td>
+              <a class="d-flex align-items-center" *ngIf="!item.expand" (click)="item.expand = !item.expand" nz-icon
+                nzType="right" nzTheme="outline"></a>
+              <a class="d-flex align-items-center" *ngIf="item.expand" (click)="item.expand = !item.expand" nz-icon
+                nzType="down" nzTheme="outline"></a>
+            </td>
+            <td class="ps-4 cursor-pointer" (click)="item.expand = !item.expand">
+              <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                {{item.name}}
+              </span>
+
+            </td>
+
+            <td>
+
+
+            </td>
+            <td>
+
+
+            </td>
+
+            <td>
+
+
+
+            </td>
+
+          </tr>
+          <ng-container *ngIf="item.expand">
+            <ng-container *ngFor="let criteria of item.criteriaList; let idx = index; let lst = last">
+              <tr>
+                <td></td>
+                <td></td>
+                <td>{{criteria.name}}</td>
+                <td>{{criteria.category.name}}</td>
+                <td class="text-end">{{criteria.priceMaster}}</td>
+
+              </tr>
+
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+
+      </tbody>
+      <!-- end::Table body -->
+    </table>
+    <!-- end::Table -->
+
+
+  </div>
+
+  <!-- Criteria -->
+  <div class="table-responsive" *ngIf="cart.criteriaList.length">
+    <!-- begin::Table -->
+    <table class="table align-middle gs-0 gy-4">
+      <!-- begin::Table head -->
+      <thead>
+        <tr class="fw-bolder text-muted bg-light">
+          <th class="ps-4 min-w-150px">Chỉ tiêu / Nội dung xét nghiệm</th>
+          <th class="min-w-140px text-start">Loại Xét Nghiệm</th>
+          <th class="min-w-140px text-end">Giá Hệ Thống</th>
+          <th class="min-w-140px text-end">Giá Điều Chỉnh</th>
+          <th class="min-w-100px text-end">Số lượng</th>
+          <th class="min-w-100px"></th>
+        </tr>
+      </thead>
+      <!-- end::Table head -->
+      <!-- begin::Table body -->
+      <tbody>
+        <tr *ngFor="let item of cart.criteriaList ">
+
+          <td class="ps-4">
+            <span class="text-dark  fw-bolder d-block mb-1 fs-">
+              {{item.name}}
+            </span>
+
+          </td>
+          <td>
+
+            <span class="text-dark  fw-bolder d-block mb-1 text-start">
+              {{item.category.name}}
+            </span>
+
+          </td>
+
+          <td>
+
+            <span class="text-dark  fw-bolder d-block mb-1 text-end">
+              {{item.priceMaster |numberLabel}}
+            </span>
+
+          </td>
+
+          <td>
+
+            <span class="text-dark  fw-bolder d-block mb-1 text-end d-flex justify-content-end">
+              <!-- <nz-input-group class=" pen-pl-0 pen-pr-5 w-50" [nzSuffix]="'đ'">
+                <input class="text-end" nz-input [(ngModel)]="item.newPrice" mask="separator.2" #newPriceValue
+                  [allowNegativeNumbers]="false" thousandSeparator="," separatorLimit="1000000000" />
+              </nz-input-group> -->
+              <span class="text-dark  fw-bolder d-block mb-1 text-end">
+                {{item.newPrice |numberLabel}}
+              </span>
+              <!-- <ng-template #inputClearTpl>
+                <a style="opacity: 0.8;" *ngIf="item.newPrice" (click)="item.newPrice = null">
+                  <span nz-icon nzType="close-circle" nzTheme="outline"></span>
+                </a>
+              </ng-template> -->
+            </span>
+
+          </td>
+          <td class="text-end d-flex justify-content-end fw-bolder text-dark">
+            <span class="text-dark  fw-bolder d-block mb-1 text-end">
+              x{{item.qty}}
+            </span>
+
+          </td>
+        </tr>
+
+      </tbody>
+      <!-- end::Table body -->
+    </table>
+    <!-- end::Table -->
+
+
+  </div>
+</div>
