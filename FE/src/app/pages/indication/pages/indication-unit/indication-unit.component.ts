@@ -101,7 +101,6 @@ export class IndicationUnitComponent implements OnInit {
   formatterNumber = (value: number): string => this.numberLabelPipe.transform(value);
 
   onSubmit() {
-    console.log(this.indicationUnitForm);
 
     if (this.indicationUnitForm.invalid) {
       // this.indicationUnitForm.markAllAsTouched();

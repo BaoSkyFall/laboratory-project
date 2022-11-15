@@ -123,7 +123,6 @@ export class CriteriaSetComponent implements OnInit {
     })
   }
   onSubmit() {
-    console.log(this.criteriaSetForm);
 
     if (this.criteriaSetForm.invalid) {
       // this.criteriaSetForm.markAllAsTouched();
@@ -131,7 +130,6 @@ export class CriteriaSetComponent implements OnInit {
       return;
     }
     const value = this.criteriaSetForm.value;
-    console.log('value:', value)
     //Create
     if (this.data.isCreate) {
       value._id = undefined;

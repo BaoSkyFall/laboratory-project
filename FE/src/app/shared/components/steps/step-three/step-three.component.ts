@@ -30,21 +30,17 @@ export class StepThreeComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
   ngOnChanges({ basicInformation, criteriaSetList, criteriaList }: SimpleChanges): void {
-    console.log('criteriaSetList:', criteriaSetList)
-    console.log('criteriaList:', criteriaList)
     if (criteriaSetList) {
       this.criteriaSetList.forEach(item => {
         item.expand = true;
       })
       this.summaryData.totalPriceCriteriaSet = _.sumBy(this.criteriaSetList, item => _.sumBy(item.criteriaList, o => o.priceMaster))
       this.summaryData.totalQuantityCriteriaSet = _.sumBy(this.criteriaSetList, item => _.sumBy(item.criteriaList, o => o.qty || 1));
-      console.log('summaryData:', this.summaryData)
-      // console.log('criteriaSetList:', criteriaSetList)
     }
     if (criteriaList) {
-      this.summaryData.totalPriceCriteria = _.sumBy(this.criteriaList, item => _.isNumber(item.newPrice) ? item.newPrice : item.priceMaster);
+      this.summaryData.totalPriceCriteria = _.sumBy(this.criteriaList, item => (_.isNumber(item.newPrice) || _.isString(item.newPrice)
+        && !_.isNull(item.newPrice) ? +item.newPrice : item.priceMaster));
       this.summaryData.totalQuantityCriteria = _.sumBy(this.criteriaList, item => item.qty || 0);
-      console.log('summaryData:', this.summaryData)
     }
 
   }

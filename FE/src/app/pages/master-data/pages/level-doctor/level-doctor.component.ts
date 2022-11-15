@@ -64,8 +64,6 @@ export class LevelDoctorComponent implements OnInit {
     })
   }
   onSubmit() {
-    console.log(this.levelDoctorForm);
-
     if (this.levelDoctorForm.invalid) {
       // this.levelDoctorForm.markAllAsTouched();
       Utils.validateAllFormFields(this.levelDoctorForm);

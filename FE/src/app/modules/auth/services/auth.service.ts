@@ -62,9 +62,7 @@ export class AuthService implements OnDestroy {
 
   logout() {
     this.isLoadingSubject.next(true);
-    console.log('"goto logout":')
     this.authHttpService.logout().subscribe(response => {
-      console.log('response:', response)
       this.router.navigate(['/auth/login'], {
         queryParams: {},
       })

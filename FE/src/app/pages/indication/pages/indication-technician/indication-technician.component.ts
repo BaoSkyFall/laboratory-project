@@ -207,7 +207,6 @@ export class IndicationTechnicianComponent implements OnInit {
     })
   }
   onSubmit() {
-    console.log(this.indicationTechnicianForm);
 
     if (this.indicationTechnicianForm.invalid) {
       // this.indicationTechnicianForm.markAllAsTouched();
@@ -362,6 +361,8 @@ export class IndicationTechnicianComponent implements OnInit {
     setTimeout(() => {
       this.loading.loadingGoToConfirm = false;
       this.visible.visibleModalCart = false;
+      this.step.cart.criteriaList = _.cloneDeep(this.step.cart.criteriaList);
+      this.step.cart.criteriaSetList = _.cloneDeep(this.step.cart.criteriaSetList)
       this.nextStep()
     }, 400)
   }
