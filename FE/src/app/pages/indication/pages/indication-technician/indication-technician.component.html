@@ -77,7 +77,8 @@
             <div class="current-step-container" [hidden]="currentStep$.value !== 3">
               <app-step-three [basicInformation]="step.info.basicInformation" [listDoctor]="data.listDoctor"
                 [listUnitCompany]="data.listUnitCompany" [usageInformation]="step.info.usageInformation"
-                [criteriaList]="step.cart.criteriaList" [criteriaSetList]="step.cart.criteriaSetList">
+                [criteriaList]="step.cart.criteriaList" [criteriaSetList]="step.cart.criteriaSetList"
+                (onBackToStep)="onBackToStep($event)">
               </app-step-three>
             </div>
 
@@ -162,7 +163,7 @@
 </div>
 <nz-modal [(nzVisible)]="visible.visibleModalCart" nzTitle="Danh Sách Chỉ Định Đã Được Thêm" [nzWidth]="1024"
   (nzOnCancel)="visible.visibleModalCart = false">
-  <div *nzModalContent>
+  <div *nzModalContent style="max-height:50vh;overflow-y:auto">
     <!-- Criter Set -->
     <div class="table-responsive mt-2" *ngIf="step.cart.criteriaSetList.length">
       <!-- begin::Table -->
@@ -181,7 +182,7 @@
         <!-- end::Table head -->
         <!-- begin::Table body -->
         <tbody>
-          <ng-container *ngFor="let item of step.cart.criteriaSetList">
+          <ng-container *ngFor="let item of step.cart.criteriaSetList;let i =index">
             <tr>
               <td>
                 <a class="d-flex align-items-center" *ngIf="!item.expand" (click)="item.expand = !item.expand" nz-icon
@@ -211,7 +212,8 @@
 
               </td>
               <td class="text-end pe-5">
-                <a nz-icon nzType="delete" class="text-danger fs-4" nzTheme="outline"></a>
+                <a nz-icon nzType="delete" class="text-danger fs-4" nzTheme="outline"
+                  (click)="onDeleteCriteriaSet(i)"></a>
               </td>
 
             </tr>
@@ -222,7 +224,7 @@
                   <td></td>
                   <td>{{criteria.name}}</td>
                   <td>{{criteria.category.name}}</td>
-                  <td class="text-end">{{criteria.priceMaster}}</td>
+                  <td class="text-end">{{criteria.priceMaster |numberLabel}}</td>
 
                 </tr>
 
@@ -257,7 +259,7 @@
         <!-- end::Table head -->
         <!-- begin::Table body -->
         <tbody>
-          <tr *ngFor="let item of step.cart.criteriaList ">
+          <tr *ngFor="let item of step.cart.criteriaList;let i =index">
 
             <td class="ps-4">
               <span class="text-dark  fw-bolder d-block mb-1 fs-">
@@ -303,7 +305,7 @@
 
             </td>
             <td class="text-end pe-5">
-              <a nz-icon nzType="delete" class=" text-danger fs-4" nzTheme="outline"></a>
+              <a nz-icon nzType="delete" class=" text-danger fs-4" nzTheme="outline" (click)="onDeleteCriteria(i)"></a>
 
             </td>
           </tr>

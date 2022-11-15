@@ -342,6 +342,8 @@ export class IndicationTechnicianComponent implements OnInit {
       item.expand = false;
       this.step.cart.criteriaSetList.push(item)
     })
+    this.step.cart.criteriaList = _.cloneDeep(this.step.cart.criteriaList);
+    this.step.cart.criteriaSetList = _.cloneDeep(this.step.cart.criteriaSetList);
     this.selected.listCriteria = [];
     this.selected.listCriteriaSet = []
     this.data.totalSelectedCriteria = 0;
@@ -367,6 +369,43 @@ export class IndicationTechnicianComponent implements OnInit {
     console.log('evt:', evt)
     this.step.info.basicInformation = evt;
 
+  }
+  onDeleteCriteriaSet(index: number) {
+    if (this.step.cart.criteriaSetList.length == 1) {
+      this.step.cart.criteriaSetList = [];
+      if (this.step.cart.criteriaList.length == 0) {
+        this.visible.visibleModalCart = false;
+      }
+    }
+    else {
+      this.step.cart.criteriaSetList.splice(index, 1)
+    }
+  }
+  onDeleteCriteria(index: number) {
+    if (this.step.cart.criteriaList.length == 1) {
+      this.step.cart.criteriaList = [];
+      if (this.step.cart.criteriaSetList.length == 0) {
+        this.visible.visibleModalCart = false;
+      }
+    }
+    else {
+      this.step.cart.criteriaList.splice(index, 1)
+    }
+  }
+  onBackToStep(step: number) {
+
+    let prevStep = this.currentStep$.value - 1;
+    if (step == 1)
+      prevStep--
+    if (prevStep === 0) {
+      return;
+    }
+    this.currentStep$.next(prevStep);
+    if (prevStep == 2) {
+      setTimeout(() => {
+        this.visible.visibleModalCart = true;
+      }, 200)
+    }
   }
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

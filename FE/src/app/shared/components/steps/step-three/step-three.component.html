@@ -1,7 +1,8 @@
 <div>
   <div class="d-flex justify-content-between align-items-center">
     <h3 class=" fw-bold mb-5">Thông tin cơ bản</h3>
-    <span class="pe-3 fs-5 cursor-pointer text-primary" nz-icon nzType="edit" nzTheme="outline"></span>
+    <span class="pe-3 fs-5 cursor-pointer text-primary" nz-icon nzType="edit" nzTheme="outline"
+      (click)="onClickBack(1)"></span>
   </div>
   <nz-list nzBordered>
     <nz-list-item>
@@ -58,7 +59,8 @@
 <div class="mt-10 mb-5">
   <div class="d-flex justify-content-between align-items-center">
     <h3 class="fw-bold">Danh sách chỉ định</h3>
-    <span class="pe-3 fs-5 cursor-pointer text-primary" nz-icon nzType="edit" nzTheme="outline"></span>
+    <span class="pe-3 fs-5 cursor-pointer text-primary" nz-icon nzType="edit" nzTheme="outline"
+      (click)="onClickBack(2)"></span>
   </div>
   <!-- Criter Set -->
   <div class="table-responsive mt-2" *ngIf="criteriaSetList.length">
@@ -72,7 +74,7 @@
           <th class="min-w-140px text-start">Tên Xét Nghiệm</th>
           <th class="min-w-140px text-start">Loại Xét Nghiệm</th>
           <th class="min-w-140px text-end">Giá Hệ Thống</th>
-          <th class="min-w-100px"></th>
+          <th class="min-w-140px text-end">Tổng Cộng</th>
 
         </tr>
       </thead>
@@ -117,14 +119,21 @@
                 <td></td>
                 <td>{{criteria.name}}</td>
                 <td>{{criteria.category.name}}</td>
-                <td class="text-end">{{criteria.priceMaster}}</td>
+                <td class="text-end">{{criteria.priceMaster |numberLabel}}</td>
 
               </tr>
 
             </ng-container>
           </ng-container>
         </ng-container>
-
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-end pe-2 fw-bolder fs-3">{{summaryData.totalPriceCriteriaSet|numberLabel}}</td>
+        </tr>
 
       </tbody>
       <!-- end::Table body -->
@@ -146,7 +155,7 @@
           <th class="min-w-140px text-end">Giá Hệ Thống</th>
           <th class="min-w-140px text-end">Giá Điều Chỉnh</th>
           <th class="min-w-100px text-end">Số lượng</th>
-          <th class="min-w-140px">Tổng Cộng</th>
+          <th class="min-w-140px text-end">Tổng Cộng</th>
         </tr>
       </thead>
       <!-- end::Table head -->
@@ -206,8 +215,23 @@
           <td></td>
           <td></td>
           <td></td>
+          <td class="text-end d-flex justify-content-end fw-bolder text-dark pe-0 fw-bolder fs-3">
+            x{{summaryData.totalQuantityCriteria}}
+          </td>
+          <td class="text-end pe-2 fw-bolder fs-3">{{summaryData.totalPriceCriteria|numberLabel}}</td>
+        </tr>
+
+        <tr *ngIf="criteriaList.length && criteriaSetList.length" class="my-2"
+          style="border-top: 1px solid rgb(49, 48, 48)">
           <td></td>
           <td></td>
+          <td></td>
+          <td></td>
+          <td>
+
+          </td>
+          <td class="text-end pe-2 fw-bolder fs-1">{{(summaryData.totalPriceCriteria
+            +summaryData.totalPriceCriteriaSet)|numberLabel}}</td>
         </tr>
       </tbody>
       <!-- end::Table body -->
