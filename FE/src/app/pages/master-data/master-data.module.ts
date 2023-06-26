@@ -30,6 +30,11 @@ const routes: Routes = [
     path: 'criteria-set',
     loadChildren: () => import('./pages/criteria-set/criteria-set.module').then(m => m.CriteriaSetModule)
 
+  },
+  {
+    path: 'user-partner',
+    loadChildren: () => import('./pages/user-partner/user-partner.module').then(m => m.UserPartnerModule)
+
   }
 ];
 @NgModule({

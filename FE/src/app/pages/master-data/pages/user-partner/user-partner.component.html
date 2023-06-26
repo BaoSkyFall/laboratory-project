@@ -1,0 +1,182 @@
+<div class="card mb-5 mb-xl-8">
+  <!-- begin::Header -->
+  <div class="card-header border-0 pt-5">
+    <h3 class="card-title align-items-start flex-column my-0">
+      <span class="card-label fw-bolder fs-3 mb-1">Danh sách Gói xét nghiệm</span>
+      <span class="text-muted mt-1 fw-bold fs-7">Có {{data.total}} Gói xét nghiệm</span>
+    </h3>
+    <div class="">
+      <!-- begin::Menu -->
+      <a (click)="open()" type="button"
+        class="btn btn-bg-primary btn-color-light btn-hover-light  btn-active-color-light btn-sm px-4">
+        <span>Thêm mới</span>
+      </a>
+      <!-- begin::Menu 2 -->
+      <!-- end::Menu 2 -->
+      <!-- end::Menu -->
+    </div>
+
+  </div>
+  <!-- end::Header -->
+  <!-- begin::Body -->
+  <div class="card-body py-3 pt-0">
+    <!-- begin::Table container -->
+    <!-- <div class="cart-filter mt-4 mb-6 d-flex flex-column">
+      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+        <div nz-col class="gutter-row d-flex flex-column gap-2" [nzSpan]="6">
+          <label class="me-2">Loại xét nghiệm</label>
+          <nz-select nzPlaceHolder="Chọn loại xét nghiệm" [ngModel]="dataFilter.category"
+            (ngModelChange)="dataFilter.category=$event;onSearch()">
+            <nz-option [nzValue]="''" [nzLabel]="'Tất Cả'">
+            </nz-option>
+            <nz-option *ngFor="let category of data.listCategory" [nzValue]="category?._id" [nzLabel]="category.name">
+            </nz-option>
+          </nz-select>
+        </div>
+        <div nz-col class="gutter-row d-flex flex-column gap-2" [nzSpan]="6">
+          <label class="me-2">Gói / Nội dung Xét Nghiệm</label>
+          <input [(ngModel)]="dataFilter.searchKey" (keyup.enter)="onSearch()" (focusout)="onSearch()" nz-input
+            placeholder="Tìm kiếm xét nghiệm" />
+        </div>
+
+      </div>
+
+    </div> -->
+    <div class="table-responsive mt-2">
+      <!-- begin::Table -->
+      <table class="table align-middle gs-0 gy-4">
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th class="min-w-15px"></th>
+            <th class="ps-4 min-w-150px">Tên người Dùng</th>
+            <th class="min-w-140px text-start">Tên người Dùng</th>
+            <th class="min-w-140px text-start">Email</th>
+            <th class="min-w-100px"></th>
+            <th class="min-w-100px"></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <ng-container *ngFor="let item of data.listUserPartner">
+            <tr>
+              <td>
+                <a *ngIf="!item.expand" (click)="item.expand = !item.expand" nz-icon nzType="right"
+                  nzTheme="outline"></a>
+                <a *ngIf="item.expand" (click)="item.expand = !item.expand" nz-icon nzType="down" nzTheme="outline"></a>
+              </td>
+              <td class="ps-4">
+                <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                  {{item.ownerUser.name}}
+                </span>
+
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+
+                <span class="text-dark  fw-bolder d-block mb-1 text-end">
+                  {{item.createdAt | date: 'dd/MM/YYYY'}}
+                </span>
+
+              </td>
+              <td class="text-end">
+
+                <a (click)="edit(item)" class="
+                  btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
+                  px-4 me-3
+                ">
+                  Edit
+                </a>
+                <a (click)="delete(item)" class="
+                btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
+                px-4
+
+              ">
+                  Xóa
+                </a>
+              </td>
+
+            </tr>
+            <ng-container *ngIf="item.expand">
+              <ng-container *ngFor="let user of item.partnerUser; let idx = index; let lst = last">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>{{user.name}}</td>
+                  <td>{{user.email}}</td>
+
+                </tr>
+
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+      <nz-pagination [(nzPageIndex)]="data.meta.pageIndex" nzShowSizeChanger [nzTotal]="data.total"
+        (nzPageIndexChange)="data.meta.pageIndex=$event;getListUserPartner()"
+        (nzPageSizeChange)="data.meta.pageIndex=1;data.meta.pageSize=$event;getListUserPartner()"
+        [(nzPageSize)]="data.meta.pageSize">
+      </nz-pagination>
+
+    </div>
+    <!-- end::Table container -->
+  </div>
+  <!-- begin::Body -->
+</div>
+<nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzWidth]="720" [nzVisible]="data.visible" [nzTitle]="data.titleDrawer"
+  [nzFooter]="footerTpl" (nzOnClose)="close()">
+  <form nz-form [formGroup]="userPartnerForm" *nzDrawerContent>
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">Tên Gói</nz-form-label>
+          <nz-form-control [nzSpan]="20" [nzErrorTip]="usernameErr">
+            <input formControlName="name" nz-input placeholder="Nhập tên gói xét nghiệm" />
+            <ng-template #usernameErr let-control>
+              <app-error-messages [control]="userPartnerFormControl['name']" [messageObject]="{labelName:'Tên gói'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">Các chỉ tiêu xét nghiệm</nz-form-label>
+          <nz-form-control [nzErrorTip]="categoryErr" [nzSpan]="20">
+
+            <nz-select class="form-select form-select-solid form-select-lg fw-bold" nzMode="multiple"
+              nzPlaceHolder="Chọn chỉ tiêu xét nghiệm" nzAllowClear="true" nzShowSearch="true"
+              formControlName="criteriaList">
+              <nz-option *ngFor="let criteria of data.listCriteria" [nzValue]="criteria?._id" [nzLabel]="criteria.name">
+              </nz-option>
+            </nz-select>
+
+
+
+
+            <ng-template #categoryErr let-control>
+              <app-error-messages [control]="userPartnerFormControl['criteriaList']"
+                [messageObject]="{labelName:'Các chỉ tiêu xét nghiệm'}">
+              </app-error-messages>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+  </form>
+
+  <ng-template #footerTpl>
+    <div style="float: right">
+      <button nz-button style="margin-right: 8px;" (click)="close()">Hủy Bỏ</button>
+      <button nz-button nzType="primary" (click)="onSubmit()">Tạo</button>
+    </div>
+  </ng-template>
+</nz-drawer>

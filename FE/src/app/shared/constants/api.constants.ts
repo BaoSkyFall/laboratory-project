@@ -57,6 +57,12 @@ export const API = {
       DELETE: `${environment.API_URL}/api/criteriaSet/delete`,
 
     },
+    USER_PARTNER: {
+      LIST: `${environment.API_URL}/api/userPartner/list`,
+      CREATE: `${environment.API_URL}/api/userPartner/create`,
+      EDIT: `${environment.API_URL}/api/userPartner/edit`,
+      DELETE: `${environment.API_URL}/api/userPartner/delete`,
+    },
     // ACCOUNTS: {
     //   GET_ACCOUNT_INFO: `${environment.API_URL}/api/v` + version + `/account/get-account-info`,
     //   GET_ACCOUNT_BY_ID_FOR_SA: `${environment.API_URL}/core/v` + version + `/Account/get-account-for-management/`,

@@ -9,13 +9,14 @@ import unitCompany from './routes/unitCompany';
 import criteria from './routes/criteria';
 import category from './routes/category';
 import criteriaSet from './routes/criteria-set';
-
+import userPartner from './routes/user-partner';
 
 // guaranteed to get dependencies
 export default () => {
   const app = Router();
   auth(app);
   user(app);
+  userPartner(app);
   doctor(app);
   specialist(app);
   levelDoctor(app);
@@ -25,4 +26,4 @@ export default () => {
   criteriaSet(app);
   agendash(app);
   return app;
-}
+};
