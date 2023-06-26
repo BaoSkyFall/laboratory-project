@@ -306,17 +306,26 @@ export class IndicationTechnicianComponent implements OnInit {
     this.account$.next(updatedAccount);
     this.isCurrentFormValid$.next(isFormValid);
   };
-
+  onSubmitIndications() {
+    console.log('this.step:', this.step)
+  }
   nextStep() {
     this.stepOneComponent.onSubmit();
     // if (this.stepOneComponent.basicInformationFormGroup.invalid) {
     //   return;
     // }
-    const nextStep = this.currentStep$.value + 1;
-    if (nextStep > this.formsCount) {
-      return;
+    if (this.currentStep$.value < 3) {
+      const nextStep = this.currentStep$.value + 1;
+      if (nextStep > this.formsCount) {
+        return;
+      }
+      this.currentStep$.next(nextStep);
     }
-    this.currentStep$.next(nextStep);
+    //Submit
+    else {
+      this.onSubmitIndications();
+    }
+
   }
 
   prevStep() {

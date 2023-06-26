@@ -1,0 +1,16 @@
+//Script Clone Data price
+db = db.getSiblingDB("test");
+db.criteria.find({}).forEach(function(criteria) {
+  db.doctors.find({}).forEach(function(doctor) {
+      var price = NumberLong(criteria.priceMaster); // Convert int64 to numeric value
+      var priceWithMarkup = price * 1.1; // Calculate the price with a 10% increase
+      db.priceMaster.insertOne({
+        userPartnerId: "649950c9e9e136df55424671",
+        unitCompany: doctor.unitCompany,
+        doctorId: doctor._id,
+        criteriaId: criteria._id,
+        categoryId: criteria.category,
+        price: NumberLong(priceWithMarkup) // Convert back to int64 for insertion
+    });
+  });
+});
