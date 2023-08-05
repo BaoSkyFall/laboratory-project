@@ -14,6 +14,21 @@ import UserPartnerService from '../../services/user-partner';
 const route = Router();
 export default (app: Router) => {
   app.use('/userPartner', route);
+  route.post('/list-user-flatten', celebrate({
+    body: Joi.object({
+      searchKey: Joi.allow(),
+      pageSize: Joi.number().required(),
+      pageIndex: Joi.number().required(),
+    }),
+  }), middlewares.isAuth, middlewares.attachCurrentUser, async (req: Request, res: Response) => {
+    const Logger: Logger = Container.get('logger');
+    const userPartnerServiceInstance = Container.get(UserPartnerService);
+    const userPartner = await userPartnerServiceInstance.GetListUserFlatten(req.body) as any
+    if (!userPartner) {
+      return res.sendStatus(401);
+    }
+    return Helpers.response(res, DEFINED_CODE.GET_DATA_SUCCESS, userPartner.userPartnerList, { total: userPartner.total, pageSize: 10, pageIndex: 1 })
+  });
   //Get UserPartner List
   route.post('/list', celebrate({
     body: Joi.object({

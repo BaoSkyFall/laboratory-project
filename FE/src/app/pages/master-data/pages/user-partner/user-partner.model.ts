@@ -1,9 +1,12 @@
 import { BaseSearch } from "@shared/models/base-search";
 
-interface IUser {
+export interface IUser {
   _id: string;
   name: string;
   email: string;
+  fullName?: string;
+  role: string;
+  checked?: boolean;
 }
 
 

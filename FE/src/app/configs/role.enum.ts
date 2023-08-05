@@ -1,7 +1,7 @@
 export const SYSTEM_ROLE = {
-  SR: "SALE_REP",
-  C_DR: "COUNTRY_DIRECTOR",
-  ADMIN: "ADMIN"
+  PARTNER: "partner",
+  USER: "user",
+  ADMIN: "admin"
 }
 
 export const SYSTEM_ACTION = {

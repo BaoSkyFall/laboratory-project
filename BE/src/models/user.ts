@@ -5,10 +5,14 @@ const User = new mongoose.Schema(
   {
     name: {
       type: String,
+      required: [true, 'Please enter a suername'],
+      index: true,
+    },
+    fullName: {
+      type: String,
       required: [true, 'Please enter a full name'],
       index: true,
     },
-
     email: {
       type: String,
       lowercase: true,

@@ -13,6 +13,10 @@ export class UserPartnerService {
   getUserPartnerList(payload: any) {
     return this.http.post(API.URL.USER_PARTNER.LIST, payload).pipe(take(1));
   }
+  getUserFlattenList(payload: any) {
+    return this.http.post(API.URL.USER_PARTNER.FLATTEN, payload).pipe(take(1));
+
+  }
   getCategoryList(payload: any) {
     return this.http.post(API.URL.CATEGORY.LIST, payload).pipe(take(1));
   }

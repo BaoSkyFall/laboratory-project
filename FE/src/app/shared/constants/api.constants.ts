@@ -59,6 +59,7 @@ export const API = {
     },
     USER_PARTNER: {
       LIST: `${environment.API_URL}/api/userPartner/list`,
+      FLATTEN: `${environment.API_URL}/api/userPartner/list-user-flatten`,
       CREATE: `${environment.API_URL}/api/userPartner/create`,
       EDIT: `${environment.API_URL}/api/userPartner/edit`,
       DELETE: `${environment.API_URL}/api/userPartner/delete`,

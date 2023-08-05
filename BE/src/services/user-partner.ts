@@ -12,6 +12,7 @@ import { BSONRegExp } from 'mongodb';
 export default class UserPartnerService {
   constructor(
     @Inject('userPartnerModel') private userPartnerModel: Models.UserPartnerModel,
+    @Inject('userModel') private userModel: Models.UserModel,
     private mailer: MailerService,
     @Inject('logger') private logger,
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
@@ -36,20 +37,75 @@ export default class UserPartnerService {
           populate: {
             path: 'users',
           },
-          select: 'name email'
+          select: 'name email fullName'
         })
         .populate({
           path: 'partnerUser',
           populate: {
             path: 'users',
           },
-          select: 'name email'
+          select: 'name email fullName'
         })
         .sort({});
 
       // Rest of your code...
 
       const total = await this.userPartnerModel.find(query).count();
+
+
+      // const userPartnerList = await this.userPartnerModel.find();
+      return { userPartnerList, total } as any;
+    }
+
+    catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
+  public async GetListUserFlatten(params: { searchKey?: string, category?: string, pageSize?: number, pageIndex?: number }): Promise<{ userPartner: any[] }> {
+    try {
+      this.logger.silly('Get list userPartner Flattern DB Record');
+
+      const select = '_id name role fullName email';
+
+      const limit = params.pageSize;
+      const skip = params.pageIndex - 1;
+      const listIdNotExist = await this.userPartnerModel.find({});
+      const blacklistUserIds = [];
+      listIdNotExist.forEach(item => {
+        blacklistUserIds.push(item?.ownerUser, ...item?.partnerUser);
+      });
+      const query = {
+        // category: new RegExp(`.*${params.category || ''}.*`, "i"),
+        // name: new RegExp(`.*${params.searchKey || ''}.*`, "i"),
+        _id: { $nin: blacklistUserIds },
+        role: { $ne: 'admin' },
+
+      };
+      // const sort = [["name"]];
+      const userPartnerList = await this.userModel
+        .find(query, select)
+        .skip(skip)
+        .limit(limit)
+        // .populate({
+        //   path: 'ownerUser',
+        //   populate: {
+        //     path: 'users',
+        //   },
+        //   select: 'name email fullName'
+        // })
+        // .populate({
+        //   path: 'partnerUser',
+        //   populate: {
+        //     path: 'users',
+        //   },
+        //   select: 'name email fullName'
+        // })
+        .sort({});
+
+      // Rest of your code...
+
+      const total = await this.userModel.find(query).count();
 
 
       // const userPartnerList = await this.userPartnerModel.find();

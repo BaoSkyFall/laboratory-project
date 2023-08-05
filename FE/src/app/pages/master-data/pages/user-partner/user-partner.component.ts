@@ -11,7 +11,9 @@ import { Helpers } from '@shared/helper';
 import { NumberLabelPipe } from '@shared/pipes/number-label.pipe';
 import { CategoryItem, CriteriaItem } from '../criteria/criteria.model';
 import { CriteriaService } from '../criteria/criteria.service';
-import { UserPartnerItem } from './user-partner.model';
+import { IUser, UserPartnerItem } from './user-partner.model';
+import { SYSTEM_ROLE } from 'src/app/configs';
+import * as _ from 'lodash';
 
 
 
@@ -25,6 +27,9 @@ export class UserPartnerComponent implements OnInit {
   data = {
     total: 0,
     listUserPartner: [] as UserPartnerItem[],
+    listUserFlatten: [] as IUser[],
+    listUserFlattenDisplay: [] as IUser[],
+    listUserFlattenSelected: [] as IUser[],
     listCriteria: [] as CriteriaItem[],
     listCategory: [] as CategoryItem[],
     visible: false,
@@ -37,11 +42,12 @@ export class UserPartnerComponent implements OnInit {
   }
   dataFilter = {
     searchKey: '',
+    searchKeyUserFlatten: '',
     category: ''
   }
   dateFormat: string = 'DD/MM/YYYY';
   userPartnerForm: FormGroup;
-
+  SYSTEM_ROLE = SYSTEM_ROLE
   constructor(
     private userPartnerService: UserPartnerService,
     private criteriaService: CriteriaService,
@@ -66,14 +72,13 @@ export class UserPartnerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getListUserPartner();
-    this.getListCriteria();
-    this.getListCategory();
+    this.getListUserFlatten()
 
   }
   onSearch() {
     this.data.meta.pageIndex = 1;
     this.data.meta.pageSize = 10;
-    this.getListUserPartner()
+    this.getListUserPartner();
   }
   getListUserPartner() {
     const payload = {
@@ -92,10 +97,15 @@ export class UserPartnerComponent implements OnInit {
       this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
     })
   }
-  getListCategory() {
-    this.userPartnerService.getCategoryList({}).subscribe((res: any) => {
-      this.data.listCategory = res?.data || [];
-      this.data.total = res?.total;
+  getListUserFlatten() {
+    const payload = {
+      pageIndex: this.data.meta.pageIndex,
+      pageSize: this.data.meta.pageSize,
+      searchKey: this.dataFilter.searchKey
+    }
+    this.userPartnerService.getUserFlattenList(payload).subscribe((res: any) => {
+      this.data.listUserFlatten = res?.data || [];
+      this.data.listUserFlattenDisplay = [...this.data.listUserFlatten.filter(item => item._id)]
       this.cdf.detectChanges()
       // this.cdf.detectChanges();
 
@@ -105,23 +115,7 @@ export class UserPartnerComponent implements OnInit {
     })
   }
   formatterNumber = (value: number): string => this.numberLabelPipe.transform(value);
-  getListCriteria() {
-    const payload = {
-      pageIndex: this.data.meta.pageIndex,
-      pageSize: 999,
-      searchKey: this.dataFilter.searchKey,
-      category: this.dataFilter.category,
-    }
-    this.criteriaService.getCriteriaList(payload).subscribe((res: any) => {
-      this.data.listCriteria = res?.data || [];
-      this.cdf.detectChanges()
-      // this.cdf.detectChanges();
 
-    }, err => {
-      console.log('err:', err);
-      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
-    })
-  }
   onSubmit() {
 
     if (this.userPartnerForm.invalid) {
@@ -200,9 +194,32 @@ export class UserPartnerComponent implements OnInit {
       this.getListUserPartner();
     })
   }
+  onSearchUserFlatten() {
+    this.data.listUserFlattenDisplay = this.data.listUserFlatten.filter((item: IUser) => `${item.name} ${item.email} ${item.fullName}`?.toLocaleLowerCase().
+      indexOf(this.dataFilter.searchKeyUserFlatten.toLocaleLowerCase()) !== -1);
+
+  }
+  onCheckUserFlatten(evt: any, item: IUser) {
+    const checked = evt.currentTarget.checked;
+    if (checked) {
+      this.data.listUserFlattenSelected.push(item);
+    }
+    else {
+      const indexSelected = _.findIndex(this.data.listUserFlattenSelected, itemSelect => itemSelect._id === item._id);
+      if (indexSelected > -1)
+        this.data.listUserFlattenSelected.splice(indexSelected, 1)
+    }
+  }
+  onDeleteSelectedUserFlatten(item: IUser, index: number) {
+    const indexUserFlatten = _.findIndex(this.data.listUserFlatten, itemSelect => itemSelect._id === item._id);
+    if (indexUserFlatten > -1) {
+      this.data.listUserFlattenSelected.splice(index, 1);
+      this.data.listUserFlatten[indexUserFlatten].checked = false;
+    }
+  }
   open(): void {
     this.data.visible = true;
-    this.data.titleDrawer = 'Thêm Người Dùng';
+    this.data.titleDrawer = 'Thêm Nhóm Người Dùng';
     this.userPartnerFormControl.partnerUser.setValue([]);
 
     this.data.isCreate = true;
@@ -211,6 +228,9 @@ export class UserPartnerComponent implements OnInit {
   close(): void {
     this.userPartnerForm.reset();
     this.data.visible = false;
+    this.dataFilter.searchKeyUserFlatten = '';
+    this.data.listUserFlattenSelected = [];
+    this.onSearchUserFlatten();
   }
 
 
