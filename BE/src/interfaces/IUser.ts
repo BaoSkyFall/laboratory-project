@@ -5,6 +5,7 @@ export interface IUser {
   fullName?: string;
   password?: string;
   salt?: string;
+  role?: string;
 }
 
 export interface IUserInputDTO {
@@ -12,4 +13,5 @@ export interface IUserInputDTO {
   email?: string;
   fullName?: string;
   password?: string;
+  role?: string;
 }

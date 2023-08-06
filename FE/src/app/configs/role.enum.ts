@@ -3,7 +3,26 @@ export const SYSTEM_ROLE = {
   USER: "user",
   ADMIN: "admin"
 }
+export const ROLE = {
+  ADMIN: 'admin',
+  USER: 'user',
+  PARTNER: 'partner',
 
+}
+export const LIST_ROLES = [
+  {
+    value: ROLE.ADMIN,
+    label: ROLE.ADMIN,
+  },
+  {
+    value: ROLE.USER,
+    label: ROLE.USER,
+  },
+  {
+    value: ROLE.PARTNER,
+    label: ROLE.PARTNER,
+  }
+]
 export const SYSTEM_ACTION = {
   READ: "VIEW",
   CREATE: "CREATE",

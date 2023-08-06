@@ -7,6 +7,7 @@ export interface IUser {
   fullName?: string;
   role: string;
   checked?: boolean;
+  isExisted?: boolean;
 }
 
 

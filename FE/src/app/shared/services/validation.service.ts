@@ -14,7 +14,7 @@ export class ValidationService {
       invalidPassword: 'invalid password. Password must be at least 6 characters long, and contain a number.',
       invalidPhone: 'sai định dạng',
       maxLength: `the field can't contain more than ${validatorValue.requiredLength} characters.`,
-      mustMatch: `Those ${labelCompare} didn’t match`,
+      mustMatch: `${labelCompare} không khớp`,
       greaterThan: `must be greater than ${labelCompare}`,
       lowerThan: `cannot be greater than ${labelCompare}`
     } as any;

@@ -1,5 +1,5 @@
 import { DEFINED_CODE } from '../../../../shared/constants/enum';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NotificationService } from '@services/notification.service';
 import { UserPartnerService } from '../user-partner/user-partner.service';
@@ -12,7 +12,7 @@ import { NumberLabelPipe } from '@shared/pipes/number-label.pipe';
 import { CategoryItem, CriteriaItem } from '../criteria/criteria.model';
 import { CriteriaService } from '../criteria/criteria.service';
 import { IUser, UserPartnerItem } from './user-partner.model';
-import { SYSTEM_ROLE } from 'src/app/configs';
+import { LIST_ROLES, SYSTEM_ROLE } from 'src/app/configs';
 import * as _ from 'lodash';
 
 
@@ -26,15 +26,20 @@ import * as _ from 'lodash';
 export class UserPartnerComponent implements OnInit {
   data = {
     total: 0,
+    totalUserFlatten: 0,
     listUserPartner: [] as UserPartnerItem[],
     listUserFlatten: [] as IUser[],
     listUserFlattenDisplay: [] as IUser[],
     listUserFlattenSelected: [] as IUser[],
-    listCriteria: [] as CriteriaItem[],
+    listIdsUserExisted: [] as string[],
     listCategory: [] as CategoryItem[],
+    selectedItem: {} as UserPartnerItem,
     visible: false,
+    visibleAddNewUser: false,
     isCreate: true,
+    passwordVisible: false,
     titleDrawer: '',
+    titleDrawerUser: '',
     meta: {
       pageSize: 10,
       pageIndex: 1,
@@ -47,7 +52,9 @@ export class UserPartnerComponent implements OnInit {
   }
   dateFormat: string = 'DD/MM/YYYY';
   userPartnerForm: FormGroup;
-  SYSTEM_ROLE = SYSTEM_ROLE
+  userFlattenForm: FormGroup;
+  SYSTEM_ROLE = SYSTEM_ROLE;
+  LIST_ROLES = LIST_ROLES;
   constructor(
     private userPartnerService: UserPartnerService,
     private criteriaService: CriteriaService,
@@ -59,16 +66,51 @@ export class UserPartnerComponent implements OnInit {
   ) {
     this.userPartnerForm = this.fb.group({
       _id: this.fb.control(''),
-      name: this.fb.control('', Validators.required),
+      ownerUser: this.fb.control('', Validators.required),
       partnerUser: this.fb.control([''], Validators.required),
     })
-
+    this.userFlattenForm = this.fb.group({
+      _id: this.fb.control(undefined),
+      name: this.fb.control('user_test1', Validators.required),
+      fullName: this.fb.control('Trần Văn A', Validators.required),
+      email: this.fb.control('user_test1@gmail.com', [Validators.required, Validators.email]),
+      password: this.fb.control('12345678@', Validators.required),
+      confirmPassword: this.fb.control('12345678@', [Validators.required]),
+      role: this.fb.control('user', [Validators.required]),
+    }, { validators: this.passwordMatchValidator });
   }
   get userPartnerFormControl() {
     return this.userPartnerForm.controls;
   }
+  get userFlattenFormControl() {
+    return this.userFlattenForm.controls;
+
+  }
   get userPartnerFormControlCriteriaList() {
     return this.userPartnerFormControl.partnerUser as FormArray
+  }
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+
+    if (!password || !confirmPassword) {
+      return null;
+    }
+    if (password.value !== confirmPassword.value) {
+
+      confirmPassword.setErrors({ 'mustMatch': true })
+
+
+    }
+    else {
+      if (confirmPassword.value === '') {
+        confirmPassword.setErrors({ 'required': true })
+      }
+      else {
+        confirmPassword.setErrors(null)
+      }
+    }
+    return password.value === confirmPassword.value ? null : { 'mustMatch': true };
   }
   ngOnInit(): void {
     this.getListUserPartner();
@@ -104,8 +146,13 @@ export class UserPartnerComponent implements OnInit {
       searchKey: this.dataFilter.searchKey
     }
     this.userPartnerService.getUserFlattenList(payload).subscribe((res: any) => {
-      this.data.listUserFlatten = res?.data || [];
-      this.data.listUserFlattenDisplay = [...this.data.listUserFlatten.filter(item => item._id)]
+      this.data.listIdsUserExisted = res?.data.listUsertExisted || [];
+      res?.data.userPartnerList.forEach((item: any) => {
+        item.isExisted = this.data.listIdsUserExisted.includes(item._id);
+      })
+      this.data.listUserFlatten = res?.data.userPartnerList || [];
+      this.data.listUserFlattenDisplay = [...this.data.listUserFlatten.filter(item => item._id)];
+      this.data.totalUserFlatten = res.total;
       this.cdf.detectChanges()
       // this.cdf.detectChanges();
 
@@ -169,9 +216,11 @@ export class UserPartnerComponent implements OnInit {
     // this.close()
   }
   edit(item: UserPartnerItem) {
+    this.data.selectedItem = item;
     this.userPartnerFormControl._id.setValue(item._id);
     // this.userPartnerFormControl.name.setValue(item.name);
-    this.userPartnerFormControl.partnerUser.setValue(item.partnerUser.map(item => item._id));
+    this.userPartnerFormControl.ownerUser.setValue(item.ownerUser._id);
+    this.data.listUserFlattenSelected = item.partnerUser;
     // this.data.titleDrawer = `Người Dùng ${item.name}`
     this.data.visible = true;
     this.data.isCreate = false;
@@ -205,16 +254,24 @@ export class UserPartnerComponent implements OnInit {
       this.data.listUserFlattenSelected.push(item);
     }
     else {
-      const indexSelected = _.findIndex(this.data.listUserFlattenSelected, itemSelect => itemSelect._id === item._id);
+      const indexSelected = _.findIndex(this.data.listUserFlattenSelected, itemSelect => itemSelect._id === item._id && !itemSelect.isExisted);
       if (indexSelected > -1)
         this.data.listUserFlattenSelected.splice(indexSelected, 1)
+      else {
+
+      }
     }
   }
   onDeleteSelectedUserFlatten(item: IUser, index: number) {
-    const indexUserFlatten = _.findIndex(this.data.listUserFlatten, itemSelect => itemSelect._id === item._id);
+    const indexUserFlatten = _.findIndex(this.data.listUserFlatten, itemSelect => itemSelect._id === item._id && !itemSelect.isExisted);
     if (indexUserFlatten > -1) {
       this.data.listUserFlattenSelected.splice(index, 1);
       this.data.listUserFlatten[indexUserFlatten].checked = false;
+    }
+    else {
+      item.isExisted = false;
+      this.data.listUserFlattenDisplay.push(item);
+      this.data.listUserFlattenSelected.splice(index, 1);
     }
   }
   open(): void {
@@ -232,7 +289,46 @@ export class UserPartnerComponent implements OnInit {
     this.data.listUserFlattenSelected = [];
     this.onSearchUserFlatten();
   }
+  openUser(isCreate: boolean) {
+    this.data.visibleAddNewUser = true;
+    this.data.isCreate = isCreate
+  }
+  closeUser() {
+    this.data.visibleAddNewUser = false;
+    this.userFlattenForm.reset();
+  }
+  editUser(item: IUser) {
 
+  }
+  resetPassword(item: IUser) {
 
+  }
+  onSubmitUser() {
+    console.log(this.userFlattenForm);
 
+    if (this.userFlattenForm.invalid) {
+      // this.userFlattenForm.markAllAsTouched();
+      Utils.validateAllFormFields(this.userFlattenForm);
+      return;
+    }
+    const value = this.userFlattenForm.value;
+    if (this.data.isCreate) {
+      this.userPartnerService.createUser(value).subscribe((res: any) => {
+        if (res?.code == DEFINED_CODE.CREATED_DATA_SUCCESS) {
+          this.notificationService.showToastr('Thêm mới người dùng thành công', 'success')
+        }
+        else {
+          this.notificationService.showToastr(res?.errors.message || res?.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+
+        }
+      }, err => {
+        console.log('err:', err)
+        this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+      }, () => {
+        this.closeUser()
+        this.getListUserFlatten();
+      })
+    }
+
+  }
 }

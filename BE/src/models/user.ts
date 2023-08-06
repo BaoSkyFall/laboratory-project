@@ -5,7 +5,8 @@ const User = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Please enter a suername'],
+      required: [true, 'Please enter a uername'],
+      unique: true,
       index: true,
     },
     fullName: {
@@ -16,7 +17,7 @@ const User = new mongoose.Schema(
     email: {
       type: String,
       lowercase: true,
-      unique: true,
+      unique: [true, 'Your registed email  already exist'],
       index: true,
     },
 

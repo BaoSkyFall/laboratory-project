@@ -7,7 +7,7 @@ import { IUserPartner, IUserPartnerInputDTO } from '../interfaces/IUserPartner';
 import { EventDispatcher, EventDispatcherInterface } from '../decorators/eventDispatcher';
 import events from '../subscribers/events';
 import { BSONRegExp } from 'mongodb';
-
+import * as _ from 'lodash';
 @Service()
 export default class UserPartnerService {
   constructor(
@@ -69,7 +69,7 @@ export default class UserPartnerService {
       const select = '_id name role fullName email';
 
       const limit = params.pageSize;
-      const skip = params.pageIndex - 1;
+      const skip = (params.pageIndex - 1) * limit;
       const listIdNotExist = await this.userPartnerModel.find({});
       const blacklistUserIds = [];
       listIdNotExist.forEach(item => {
@@ -78,7 +78,6 @@ export default class UserPartnerService {
       const query = {
         // category: new RegExp(`.*${params.category || ''}.*`, "i"),
         // name: new RegExp(`.*${params.searchKey || ''}.*`, "i"),
-        _id: { $nin: blacklistUserIds },
         role: { $ne: 'admin' },
 
       };
@@ -101,15 +100,16 @@ export default class UserPartnerService {
         //   },
         //   select: 'name email fullName'
         // })
-        .sort({});
-
+        .sort({ createdAt: -1 });
       // Rest of your code...
 
       const total = await this.userModel.find(query).count();
-
-
+      const result = {
+        userPartnerList,
+        listUsertExisted: blacklistUserIds
+      }
       // const userPartnerList = await this.userPartnerModel.find();
-      return { userPartnerList, total } as any;
+      return { result, total } as any;
     }
 
     catch (e) {

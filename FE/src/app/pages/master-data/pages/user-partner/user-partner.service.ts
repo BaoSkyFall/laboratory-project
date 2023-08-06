@@ -29,7 +29,9 @@ export class UserPartnerService {
   deleteUserPartnerList(payload: any) {
     return this.http.post(API.URL.USER_PARTNER.DELETE, { _id: payload?._id }).pipe(take(1));
   }
-
+  createUser(payload: any) {
+    return this.http.post(API.URL.USER_PARTNER.CREATE_USER, payload).pipe(take(1));
+  }
 
   // getBlackList(searchModel: BlackListSearchModel) {
   //   return this.http.post(API.URL.BLACK_LIST.SEARCH, searchModel).pipe(take(1));
