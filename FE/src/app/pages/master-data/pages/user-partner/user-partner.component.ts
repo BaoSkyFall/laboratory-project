@@ -291,17 +291,49 @@ export class UserPartnerComponent implements OnInit {
   }
   openUser(isCreate: boolean) {
     this.data.visibleAddNewUser = true;
-    this.data.isCreate = isCreate
+    this.data.isCreate = isCreate;
+    this.data.titleDrawerUser = 'Thêm mới Người dùng'
+    this.userFlattenFormControl['password'].setValidators([Validators.required]);
+    this.userFlattenFormControl['confirmPassword'].setValidators([Validators.required]);
+    this.userFlattenForm.setValidators(this.passwordMatchValidator);
   }
   closeUser() {
     this.data.visibleAddNewUser = false;
     this.userFlattenForm.reset();
   }
   editUser(item: IUser) {
+    this.data.visibleAddNewUser = true;
+    this.data.isCreate = false;
+    this.data.titleDrawerUser = 'Cập nhật Người dùng'
+    console.log('item:', item);
+    this.userFlattenFormControl['_id'].setValue(item._id);
+    this.userFlattenFormControl['name'].setValue(item.name);
+    this.userFlattenFormControl['name'].disable();
+    this.userFlattenFormControl['email'].setValue(item.email);
+    this.userFlattenFormControl['email'].disable();
+    this.userFlattenFormControl['fullName'].setValue(item.fullName);
+    this.userFlattenFormControl['role'].setValue(item.role);
+    this.userFlattenFormControl['password'].setValidators([]);
+    this.userFlattenFormControl['confirmPassword'].setValidators([]);
+    this.userFlattenForm.setValidators([]);
 
   }
   resetPassword(item: IUser) {
+    this.userPartnerService.resetPassword({ _id: item._id }).subscribe((res: any) => {
+      if (res?.code == DEFINED_CODE.INTERACT_DATA_SUCCESS) {
+        this.notificationService.showToastr('Reset password người dùng thành công', 'success')
+      }
+      else {
+        this.notificationService.showToastr(res?.errors.message || res?.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
 
+      }
+    }, err => {
+      console.log('err:', err)
+      this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+    }, () => {
+      this.closeUser()
+      this.getListUserFlatten();
+    })
   }
   onSubmitUser() {
     console.log(this.userFlattenForm);
@@ -316,6 +348,23 @@ export class UserPartnerComponent implements OnInit {
       this.userPartnerService.createUser(value).subscribe((res: any) => {
         if (res?.code == DEFINED_CODE.CREATED_DATA_SUCCESS) {
           this.notificationService.showToastr('Thêm mới người dùng thành công', 'success')
+        }
+        else {
+          this.notificationService.showToastr(res?.errors.message || res?.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+
+        }
+      }, err => {
+        console.log('err:', err)
+        this.notificationService.showToastr(err?.error.errors.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')
+      }, () => {
+        this.closeUser()
+        this.getListUserFlatten();
+      })
+    }
+    else {
+      this.userPartnerService.updateUser(value).subscribe((res: any) => {
+        if (res?.code == DEFINED_CODE.INTERACT_DATA_SUCCESS) {
+          this.notificationService.showToastr('Cập nhật thông tin người dùng thành công', 'success')
         }
         else {
           this.notificationService.showToastr(res?.errors.message || res?.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau ít phút!', 'error')

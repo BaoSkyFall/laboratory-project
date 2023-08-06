@@ -64,6 +64,8 @@ export const API = {
       EDIT: `${environment.API_URL}/api/userPartner/edit`,
       DELETE: `${environment.API_URL}/api/userPartner/delete`,
       CREATE_USER: `${environment.API_URL}/api/userPartner/create-user`,
+      UPDATE_USER: `${environment.API_URL}/api/userPartner/update-user`,
+      RESET_PASSWORD: `${environment.API_URL}/api/userPartner/reset-password`,
     },
     // ACCOUNTS: {
     //   GET_ACCOUNT_INFO: `${environment.API_URL}/api/v` + version + `/account/get-account-info`,

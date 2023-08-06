@@ -54,7 +54,7 @@
                 <th class="ps-4 min-w-150px">Username </th>
                 <th class="min-w-140px text-start">Họ Tên</th>
                 <th class="min-w-140px text-start">Email</th>
-                <th class="min-w-100px text-end">Action</th>
+                <th class="min-w-100px text-end pe-4">Action</th>
               </tr>
             </thead>
             <!-- end::Table head -->
@@ -84,9 +84,7 @@
                     </a>
                     <a (click)="resetPassword(item)" class="
                   btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
-                  px-4
-
-                ">
+                  px-4">
                       Reset Password
                     </a>
                   </td>
@@ -165,7 +163,7 @@
 
 
         </div>
-        <div nz-row [nzGutter]="8">
+        <div nz-row [nzGutter]="8" *ngIf="data.isCreate">
           <div nz-col nzSpan="24">
             <nz-form-item>
               <nz-form-label [nzSpan]="6">Password</nz-form-label>
@@ -189,7 +187,7 @@
 
 
         </div>
-        <div nz-row [nzGutter]="8">
+        <div nz-row [nzGutter]="8" *ngIf="data.isCreate">
           <div nz-col nzSpan="24">
             <nz-form-item>
               <nz-form-label [nzSpan]="6">Confirm Password</nz-form-label>
@@ -240,318 +238,323 @@
       <ng-template #footerTpl>
         <div style="float: right">
           <button nz-button style="margin-right: 8px;" (click)="closeUser()">Hủy Bỏ</button>
-          <button nz-button nzType="primary" (click)="onSubmitUser()">Tạo</button>
+          <button nz-button nzType="primary" (click)="onSubmitUser()">{{data.isCreate?'Tạo': 'Cập Nhật'}}</button>
         </div>
       </ng-template>
     </nz-drawer>
   </nz-tab>
   <nz-tab nzTitle="Nhóm Người Dùng">
-    <div class="card mb-5 mb-xl-8">
-      <!-- begin::Header -->
-      <div class="card-header border-0 pt-5">
-        <h3 class="card-title align-items-start flex-column my-0">
-          <span class="card-label fw-bolder fs-3 mb-1">Danh sách Nhóm Người Dùng </span>
-          <span class="text-muted mt-1 fw-bold fs-7">Có {{data.total}} Nhóm người dùng</span>
-        </h3>
-        <div class="">
-          <!-- begin::Menu -->
-          <a (click)="open()" type="button"
-            class="btn btn-bg-primary btn-color-light btn-hover-light  btn-active-color-light btn-sm px-4">
-            <span>Thêm mới</span>
-          </a>
-          <a (click)="open()" type="button"
-            class="btn btn-bg-primary btn-color-light btn-hover-light  btn-active-color-light btn-sm px-4">
-            <span>Thêm mới Nguoi Dung</span>
-          </a>
-          <!-- begin::Menu 2 -->
-          <!-- end::Menu 2 -->
-          <!-- end::Menu -->
-        </div>
+    <h2>Comming Soon...</h2>
+    <div style="display:none">
+      <div class="card mb-5 mb-xl-8">
+        <!-- begin::Header -->
+        <div class="card-header border-0 pt-5">
+          <h3 class="card-title align-items-start flex-column my-0">
+            <span class="card-label fw-bolder fs-3 mb-1">Danh sách Nhóm Người Dùng </span>
+            <span class="text-muted mt-1 fw-bold fs-7">Có {{data.total}} Nhóm người dùng</span>
+          </h3>
+          <div class="">
+            <!-- begin::Menu -->
+            <a (click)="open()" type="button"
+              class="btn btn-bg-primary btn-color-light btn-hover-light  btn-active-color-light btn-sm px-4">
+              <span>Thêm mới</span>
+            </a>
+            <a (click)="open()" type="button"
+              class="btn btn-bg-primary btn-color-light btn-hover-light  btn-active-color-light btn-sm px-4">
+              <span>Thêm mới Nguoi Dung</span>
+            </a>
+            <!-- begin::Menu 2 -->
+            <!-- end::Menu 2 -->
+            <!-- end::Menu -->
+          </div>
 
+        </div>
+        <!-- end::Header -->
+        <!-- begin::Body -->
+        <div class="card-body py-3 pt-0">
+          <!-- begin::Table container -->
+          <!-- <div class="cart-filter mt-4 mb-6 d-flex flex-column">
+          <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+            <div nz-col class="gutter-row d-flex flex-column gap-2" [nzSpan]="6">
+              <label class="me-2">Loại xét nghiệm</label>
+              <nz-select nzPlaceHolder="Chọn loại xét nghiệm" [ngModel]="dataFilter.category"
+                (ngModelChange)="dataFilter.category=$event;onSearch()">
+                <nz-option [nzValue]="''" [nzLabel]="'Tất Cả'">
+                </nz-option>
+                <nz-option *ngFor="let category of data.listCategory" [nzValue]="category?._id" [nzLabel]="category.name">
+                </nz-option>
+              </nz-select>
+            </div>
+            <div nz-col class="gutter-row d-flex flex-column gap-2" [nzSpan]="6">
+              <label class="me-2">Gói / Nội dung Xét Nghiệm</label>
+              <input [(ngModel)]="dataFilter.searchKey" (keyup.enter)="onSearch()" (focusout)="onSearch()" nz-input
+                placeholder="Tìm kiếm xét nghiệm" />
+            </div>
+
+          </div>
+
+        </div> -->
+          <div class="table-responsive mt-2">
+            <!-- begin::Table -->
+            <table class="table align-middle gs-0 gy-4">
+              <!-- begin::Table head -->
+              <thead>
+                <tr class="fw-bolder text-muted bg-light">
+                  <th class="min-w-15px"></th>
+                  <th class="ps-4 min-w-150px">Username - Người Dùng Chủ </th>
+                  <th class="min-w-140px text-start">Username - Người Dùng Thành viên</th>
+                  <th class="min-w-140px text-start">Email</th>
+                  <th class="min-w-100px"></th>
+                  <th class="min-w-100px"></th>
+                </tr>
+              </thead>
+              <!-- end::Table head -->
+              <!-- begin::Table body -->
+              <tbody>
+                <ng-container *ngFor="let item of data.listUserPartner">
+                  <tr>
+                    <td>
+                      <a *ngIf="!item.expand" (click)="item.expand = !item.expand" nz-icon nzType="right"
+                        nzTheme="outline"></a>
+                      <a *ngIf="item.expand" (click)="item.expand = !item.expand" nz-icon nzType="down"
+                        nzTheme="outline"></a>
+                    </td>
+                    <td class="ps-4">
+                      <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                        {{item.ownerUser.name}} - {{item.ownerUser.fullName}}
+                      </span>
+
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+
+                      <span class="text-dark  fw-bolder d-block mb-1 text-end">
+                        {{item.createdAt | date: 'dd/MM/YYYY'}}
+                      </span>
+
+                    </td>
+                    <td class="text-end">
+
+                      <a (click)="edit(item)" class="
+                      btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
+                      px-4 me-3
+                    ">
+                        Edit
+                      </a>
+                      <a (click)="delete(item)" class="
+                    btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
+                    px-4
+
+                  ">
+                        Xóa
+                      </a>
+                    </td>
+
+                  </tr>
+                  <ng-container *ngIf="item.expand">
+                    <ng-container *ngFor="let user of item.partnerUser; let idx = index; let lst = last">
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td>{{user.name}} - {{user.fullName}}</td>
+                        <td>{{user.email}}</td>
+
+                      </tr>
+
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+
+
+              </tbody>
+              <!-- end::Table body -->
+            </table>
+            <!-- end::Table -->
+            <nz-pagination [(nzPageIndex)]="data.meta.pageIndex" nzShowSizeChanger [nzTotal]="data.total"
+              (nzPageIndexChange)="data.meta.pageIndex=$event;getListUserPartner()"
+              (nzPageSizeChange)="data.meta.pageIndex=1;data.meta.pageSize=$event;getListUserPartner()"
+              [(nzPageSize)]="data.meta.pageSize">
+            </nz-pagination>
+
+          </div>
+          <!-- end::Table container -->
+        </div>
+        <!-- begin::Body -->
       </div>
-      <!-- end::Header -->
-      <!-- begin::Body -->
-      <div class="card-body py-3 pt-0">
-        <!-- begin::Table container -->
-        <!-- <div class="cart-filter mt-4 mb-6 d-flex flex-column">
-        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
-          <div nz-col class="gutter-row d-flex flex-column gap-2" [nzSpan]="6">
-            <label class="me-2">Loại xét nghiệm</label>
-            <nz-select nzPlaceHolder="Chọn loại xét nghiệm" [ngModel]="dataFilter.category"
-              (ngModelChange)="dataFilter.category=$event;onSearch()">
-              <nz-option [nzValue]="''" [nzLabel]="'Tất Cả'">
-              </nz-option>
-              <nz-option *ngFor="let category of data.listCategory" [nzValue]="category?._id" [nzLabel]="category.name">
-              </nz-option>
-            </nz-select>
-          </div>
-          <div nz-col class="gutter-row d-flex flex-column gap-2" [nzSpan]="6">
-            <label class="me-2">Gói / Nội dung Xét Nghiệm</label>
-            <input [(ngModel)]="dataFilter.searchKey" (keyup.enter)="onSearch()" (focusout)="onSearch()" nz-input
-              placeholder="Tìm kiếm xét nghiệm" />
-          </div>
+      <nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzWidth]="720" [nzVisible]="data.visible"
+        [nzTitle]="data.titleDrawer" [nzFooter]="footerTpl" (nzOnClose)="close()">
+        <form nz-form [formGroup]="userPartnerForm" *nzDrawerContent>
+          <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6">Tên Người Dùng chủ</nz-form-label>
+                <nz-form-control [nzSpan]="20" [nzErrorTip]="usernameErr">
+                  <nz-select class="form-select form-select-solid form-select-lg fw-bold"
+                    nzPlaceHolder="Tìm Tên Người Dùng chủ" nzAllowClear="true" nzShowSearch="true"
+                    [class.disabled]="!data.isCreate" formControlName="ownerUser">
+                    <ng-container *ngFor="let user of data.listUserFlatten">
+                      <nz-option *ngIf="!data.isCreate || !user.isExisted" [nzValue]="user?._id"
+                        [nzLabel]="user?.fullName || ''">
+                      </nz-option>
+                    </ng-container>
 
-        </div>
+                  </nz-select>
+                  <ng-template #usernameErr let-control>
+                    <app-error-messages [control]="userPartnerFormControl['name']"
+                      [messageObject]="{labelName:'Tên gói'}">
+                    </app-error-messages>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col nzSpan="24">
+              <ng-container nz-row>
+                <ng-container nz-col [nzSpan]="6">
+                  <label>Danh sách người dùng</label>
+                </ng-container>
+                <ng-container nz-col [nzSpan]="24" nzOffset="18">
+                  <nz-input-group class="my-4" nzSearch [nzAddOnAfter]="suffixButton">
+                    <input type="text" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="dataFilter.searchKeyUserFlatten" nz-input placeholder="Nhập tên người dùng"
+                      (keyup)="onSearchUserFlatten()" />
+                  </nz-input-group>
+                  <ng-template #suffixButton>
+                    <button nz-button nzType="primary" nzSearch (click)="onSearchUserFlatten()">Search</button>
+                  </ng-template>
+                </ng-container>
+                <ng-container nz-col [nzSpan]="24">
+                  <table class="table align-middle gs-0 gy-4">
+                    <!-- begin::Table head -->
+                    <thead>
+                      <tr class="fw-bolder text-muted bg-light">
+                        <th class="ps-4 min-w-150px">Username </th>
+                        <th class="min-w-140px text-start">Họ Tên</th>
+                        <th class="min-w-140px text-start">Email</th>
+                        <th class="min-w-100px"></th>
+                      </tr>
+                    </thead>
+                    <!-- end::Table head -->
+                    <!-- begin::Table body -->
+                    <tbody>
+                      <ng-container *ngFor="let user of data.listUserFlattenDisplay; let idx=index">
+                        <tr *ngIf="!user.isExisted">
 
-      </div> -->
-        <div class="table-responsive mt-2">
-          <!-- begin::Table -->
-          <table class="table align-middle gs-0 gy-4">
-            <!-- begin::Table head -->
-            <thead>
-              <tr class="fw-bolder text-muted bg-light">
-                <th class="min-w-15px"></th>
-                <th class="ps-4 min-w-150px">Username - Người Dùng Chủ </th>
-                <th class="min-w-140px text-start">Username - Người Dùng Thành viên</th>
-                <th class="min-w-140px text-start">Email</th>
-                <th class="min-w-100px"></th>
-                <th class="min-w-100px"></th>
-              </tr>
-            </thead>
-            <!-- end::Table head -->
-            <!-- begin::Table body -->
-            <tbody>
-              <ng-container *ngFor="let item of data.listUserPartner">
-                <tr>
-                  <td>
-                    <a *ngIf="!item.expand" (click)="item.expand = !item.expand" nz-icon nzType="right"
-                      nzTheme="outline"></a>
-                    <a *ngIf="item.expand" (click)="item.expand = !item.expand" nz-icon nzType="down"
-                      nzTheme="outline"></a>
-                  </td>
-                  <td class="ps-4">
-                    <span class="text-dark  fw-bolder d-block mb-1 fs-">
-                      {{item.ownerUser.name}} - {{item.ownerUser.fullName}}
-                    </span>
+                          <td class="ps-4">
+                            <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                              {{user.name}}
+                            </span>
 
-                  </td>
-                  <td></td>
-                  <td></td>
-                  <td>
+                          </td>
+                          <td>{{user.fullName}}</td>
+                          <td>{{user.email}}</td>
 
-                    <span class="text-dark  fw-bolder d-block mb-1 text-end">
-                      {{item.createdAt | date: 'dd/MM/YYYY'}}
-                    </span>
-
-                  </td>
-                  <td class="text-end">
-
-                    <a (click)="edit(item)" class="
+                          <td class="text-end">
+                            <label class="checkbox checkbox-lg checkbox-inline">
+                              <input [ngModelOptions]="{standalone: true}" [(ngModel)]="user.checked"
+                                (change)="onCheckUserFlatten($event,user)" type="checkbox" value="1" />
+                              <span></span>
+                            </label>
+                            <!-- <a (click)="edit(item)" class="
                     btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
                     px-4 me-3
                   ">
-                      Edit
-                    </a>
-                    <a (click)="delete(item)" class="
+                    Edit
+                  </a>
+                  <a (click)="delete(item)" class="
                   btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
                   px-4
 
                 ">
-                      Xóa
-                    </a>
-                  </td>
+                    Xóa
+                  </a> -->
+                          </td>
 
-                </tr>
-                <ng-container *ngIf="item.expand">
-                  <ng-container *ngFor="let user of item.partnerUser; let idx = index; let lst = last">
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td>{{user.name}} - {{user.fullName}}</td>
-                      <td>{{user.email}}</td>
+                        </tr>
 
-                    </tr>
+                      </ng-container>
 
-                  </ng-container>
+
+                    </tbody>
+                    <!-- end::Table body -->
+                  </table>
                 </ng-container>
               </ng-container>
 
+            </div>
+            <div nz-col nzSpan="24">
+              <ng-container nz-row>
+                <ng-container nz-col [nzSpan]="6">
+                  <label>Danh sách người dùng Đã thêm</label>
+                </ng-container>
+                <ng-container nz-col [nzSpan]="24">
+                  <table class="table align-middle gs-0 gy-4">
+                    <!-- begin::Table head -->
+                    <thead>
+                      <tr class="fw-bolder text-muted bg-light">
+                        <th class="ps-4 min-w-150px">Username </th>
+                        <th class="min-w-140px text-start">Họ Tên</th>
+                        <th class="min-w-140px text-start">Email</th>
+                        <th class="min-w-100px"></th>
+                      </tr>
+                    </thead>
+                    <!-- end::Table head -->
+                    <!-- begin::Table body -->
+                    <tbody>
+                      <ng-container *ngFor="let user of data.listUserFlattenSelected; let idx=index">
+                        <tr>
 
-            </tbody>
-            <!-- end::Table body -->
-          </table>
-          <!-- end::Table -->
-          <nz-pagination [(nzPageIndex)]="data.meta.pageIndex" nzShowSizeChanger [nzTotal]="data.total"
-            (nzPageIndexChange)="data.meta.pageIndex=$event;getListUserPartner()"
-            (nzPageSizeChange)="data.meta.pageIndex=1;data.meta.pageSize=$event;getListUserPartner()"
-            [(nzPageSize)]="data.meta.pageSize">
-          </nz-pagination>
+                          <td class="ps-4">
+                            <span class="text-dark  fw-bolder d-block mb-1 fs-">
+                              {{user.name}}
+                            </span>
 
-        </div>
-        <!-- end::Table container -->
-      </div>
-      <!-- begin::Body -->
+                          </td>
+                          <td>{{user.fullName}}</td>
+                          <td>{{user.email}}</td>
+
+                          <td class="text-end">
+                            <a nz-icon nzType="delete" class="text-danger fs-4" nzTheme="outline"
+                              (click)="onDeleteSelectedUserFlatten(user,idx)"></a>
+                            <!-- <a (click)="edit(item)" class="
+                    btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
+                    px-4 me-3
+                  ">
+                    Edit
+                  </a>
+                  <a (click)="delete(item)" class="
+                  btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
+                  px-4
+
+                ">
+                    Xóa
+                  </a> -->
+                          </td>
+
+                        </tr>
+
+                      </ng-container>
+
+
+                    </tbody>
+                    <!-- end::Table body -->
+                  </table>
+                </ng-container>
+              </ng-container>
+
+            </div>
+          </div>
+
+        </form>
+
+        <ng-template #footerTpl>
+          <div style="float: right">
+            <button nz-button style="margin-right: 8px;" (click)="close()">Hủy Bỏ</button>
+            <button nz-button nzType="primary" (click)="onSubmit()">Tạo</button>
+          </div>
+        </ng-template>
+      </nz-drawer>
     </div>
-    <nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzWidth]="720" [nzVisible]="data.visible"
-      [nzTitle]="data.titleDrawer" [nzFooter]="footerTpl" (nzOnClose)="close()">
-      <form nz-form [formGroup]="userPartnerForm" *nzDrawerContent>
-        <div nz-row [nzGutter]="8">
-          <div nz-col nzSpan="24">
-            <nz-form-item>
-              <nz-form-label [nzSpan]="6">Tên Người Dùng chủ</nz-form-label>
-              <nz-form-control [nzSpan]="20" [nzErrorTip]="usernameErr">
-                <nz-select class="form-select form-select-solid form-select-lg fw-bold"
-                  nzPlaceHolder="Tìm Tên Người Dùng chủ" nzAllowClear="true" nzShowSearch="true"
-                  [class.disabled]="!data.isCreate" formControlName="ownerUser">
-                  <ng-container *ngFor="let user of data.listUserFlatten">
-                    <nz-option *ngIf="!data.isCreate || !user.isExisted" [nzValue]="user?._id"
-                      [nzLabel]="user?.fullName || ''">
-                    </nz-option>
-                  </ng-container>
 
-                </nz-select>
-                <ng-template #usernameErr let-control>
-                  <app-error-messages [control]="userPartnerFormControl['name']"
-                    [messageObject]="{labelName:'Tên gói'}">
-                  </app-error-messages>
-                </ng-template>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div nz-col nzSpan="24">
-            <ng-container nz-row>
-              <ng-container nz-col [nzSpan]="6">
-                <label>Danh sách người dùng</label>
-              </ng-container>
-              <ng-container nz-col [nzSpan]="24" nzOffset="18">
-                <nz-input-group class="my-4" nzSearch [nzAddOnAfter]="suffixButton">
-                  <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="dataFilter.searchKeyUserFlatten"
-                    nz-input placeholder="Nhập tên người dùng" (keyup)="onSearchUserFlatten()" />
-                </nz-input-group>
-                <ng-template #suffixButton>
-                  <button nz-button nzType="primary" nzSearch (click)="onSearchUserFlatten()">Search</button>
-                </ng-template>
-              </ng-container>
-              <ng-container nz-col [nzSpan]="24">
-                <table class="table align-middle gs-0 gy-4">
-                  <!-- begin::Table head -->
-                  <thead>
-                    <tr class="fw-bolder text-muted bg-light">
-                      <th class="ps-4 min-w-150px">Username </th>
-                      <th class="min-w-140px text-start">Họ Tên</th>
-                      <th class="min-w-140px text-start">Email</th>
-                      <th class="min-w-100px"></th>
-                    </tr>
-                  </thead>
-                  <!-- end::Table head -->
-                  <!-- begin::Table body -->
-                  <tbody>
-                    <ng-container *ngFor="let user of data.listUserFlattenDisplay; let idx=index">
-                      <tr *ngIf="!user.isExisted">
-
-                        <td class="ps-4">
-                          <span class="text-dark  fw-bolder d-block mb-1 fs-">
-                            {{user.name}}
-                          </span>
-
-                        </td>
-                        <td>{{user.fullName}}</td>
-                        <td>{{user.email}}</td>
-
-                        <td class="text-end">
-                          <label class="checkbox checkbox-lg checkbox-inline">
-                            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="user.checked"
-                              (change)="onCheckUserFlatten($event,user)" type="checkbox" value="1" />
-                            <span></span>
-                          </label>
-                          <!-- <a (click)="edit(item)" class="
-                  btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
-                  px-4 me-3
-                ">
-                  Edit
-                </a>
-                <a (click)="delete(item)" class="
-                btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
-                px-4
-
-              ">
-                  Xóa
-                </a> -->
-                        </td>
-
-                      </tr>
-
-                    </ng-container>
-
-
-                  </tbody>
-                  <!-- end::Table body -->
-                </table>
-              </ng-container>
-            </ng-container>
-
-          </div>
-          <div nz-col nzSpan="24">
-            <ng-container nz-row>
-              <ng-container nz-col [nzSpan]="6">
-                <label>Danh sách người dùng Đã thêm</label>
-              </ng-container>
-              <ng-container nz-col [nzSpan]="24">
-                <table class="table align-middle gs-0 gy-4">
-                  <!-- begin::Table head -->
-                  <thead>
-                    <tr class="fw-bolder text-muted bg-light">
-                      <th class="ps-4 min-w-150px">Username </th>
-                      <th class="min-w-140px text-start">Họ Tên</th>
-                      <th class="min-w-140px text-start">Email</th>
-                      <th class="min-w-100px"></th>
-                    </tr>
-                  </thead>
-                  <!-- end::Table head -->
-                  <!-- begin::Table body -->
-                  <tbody>
-                    <ng-container *ngFor="let user of data.listUserFlattenSelected; let idx=index">
-                      <tr>
-
-                        <td class="ps-4">
-                          <span class="text-dark  fw-bolder d-block mb-1 fs-">
-                            {{user.name}}
-                          </span>
-
-                        </td>
-                        <td>{{user.fullName}}</td>
-                        <td>{{user.email}}</td>
-
-                        <td class="text-end">
-                          <a nz-icon nzType="delete" class="text-danger fs-4" nzTheme="outline"
-                            (click)="onDeleteSelectedUserFlatten(user,idx)"></a>
-                          <!-- <a (click)="edit(item)" class="
-                  btn btn-bg-light btn-color-muted  btn-active-color-muted btn-sm
-                  px-4 me-3
-                ">
-                  Edit
-                </a>
-                <a (click)="delete(item)" class="
-                btn btn-bg-danger btn-color-light  btn-active-color-light btn-sm
-                px-4
-
-              ">
-                  Xóa
-                </a> -->
-                        </td>
-
-                      </tr>
-
-                    </ng-container>
-
-
-                  </tbody>
-                  <!-- end::Table body -->
-                </table>
-              </ng-container>
-            </ng-container>
-
-          </div>
-        </div>
-
-      </form>
-
-      <ng-template #footerTpl>
-        <div style="float: right">
-          <button nz-button style="margin-right: 8px;" (click)="close()">Hủy Bỏ</button>
-          <button nz-button nzType="primary" (click)="onSubmit()">Tạo</button>
-        </div>
-      </ng-template>
-    </nz-drawer>
   </nz-tab>
 </nz-tabset>

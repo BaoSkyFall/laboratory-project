@@ -7,6 +7,7 @@ import { randomBytes } from 'crypto';
 import { IUser, IUserInputDTO } from '../interfaces/IUser';
 import { EventDispatcher, EventDispatcherInterface } from '../decorators/eventDispatcher';
 import events from '../subscribers/events';
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
 @Service()
 export default class AuthService {
@@ -67,6 +68,22 @@ export default class AuthService {
       Reflect.deleteProperty(user, 'salt');
       return { user, token };
     } catch (e) {
+      if (e.code === 11000 && e.name === 'MongoError') {
+        // Duplicate key error
+        if (e.keyPattern.name) {
+          console.log('Username already exists.');
+          throw { message: 'Username already exists.' };
+        } else if (e.keyPattern.email) {
+          console.log('Email address already exists.');
+          throw { message: 'Email already exists.' };
+
+        } else {
+          console.log('Duplicate key e.');
+        }
+      } else {
+        // Other error handling
+        console.error('Error creating user:', e);
+      }
       this.logger.error(e);
       throw e;
     }
@@ -99,6 +116,84 @@ export default class AuthService {
     }
   }
 
+  public async UpdateUser(userInputDTO: IUserInputDTO): Promise<{ user: IUser }> {
+    try {
+      this.logger.silly('Edit user db record');
+      const { _id } = userInputDTO;
+      if (_id) {
+        const userRecord = await this.userModel.updateOne({
+          _id
+        }, {
+          $set: {
+            ...userInputDTO
+          }
+        })
+        if (!userRecord) {
+          throw new Error('User info cannot be update');
+        }
+        this.eventDispatcher.dispatch(events.user.edit, { user: userRecord });
+        const user = userRecord;
+        return { user } as any;
+      }
+
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
+  public async UpdateUser(userInputDTO: IUserInputDTO): Promise<{ user: IUser }> {
+    try {
+      this.logger.silly('Edit user db record');
+      const { _id } = userInputDTO;
+      if (_id) {
+        const userRecord = await this.userModel.updateOne({
+          _id
+        }, {
+          $set: {
+            ...userInputDTO
+          }
+        })
+        if (!userRecord) {
+          throw new Error('User info cannot be update');
+        }
+        this.eventDispatcher.dispatch(events.user.edit, { user: userRecord });
+        const user = userRecord;
+        return { user } as any;
+      }
+
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
+  public async ResetPassword(userInputDTO: IUserInputDTO): Promise<{ user: IUser }> {
+    try {
+      const salt = randomBytes(32);
+      this.logger.silly('Edit user db record');
+      const hashedPassword = await argon2.hash('Hello@123', { salt });
+      this.logger.silly('Creating user db record');
+      const { _id } = userInputDTO;
+      if (_id) {
+        const userRecord = await this.userModel.updateOne({
+          _id
+        }, {
+          $set: {
+            password: hashedPassword
+          }
+        })
+        if (!userRecord) {
+          throw new Error('User info cannot be update');
+        }
+        this.eventDispatcher.dispatch(events.user.edit, { user: userRecord });
+        const user = userRecord;
+        return { user } as any;
+      }
+
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
   private generateToken(user) {
     const today = new Date();
     const exp = new Date(today);

@@ -57,6 +57,52 @@ export default (app: Router) => {
       }
     },
   );
+  route.post(
+    '/update-user',
+    celebrate({
+      body: Joi.object({
+        _id: Joi.string().required(),
+        name: Joi.string().required(),
+        fullName: Joi.string().required(),
+        email: Joi.string().required(),
+        password: Joi.allow(),
+        role: Joi.string().required(),
+        confirmPassword: Joi.allow(),
+      }),
+    }),
+    async (req: Request, res: Response, next: NextFunction) => {
+      const logger: Logger = Container.get('logger');
+      logger.debug('Calling Create user endpoint with body: %o', req.body);
+      try {
+        const authServiceInstance = Container.get(AuthService);
+        const { user, token } = await authServiceInstance.UpdateUser(req.body as IUserInputDTO);
+        return res.status(201).json({ code: DEFINED_CODE.INTERACT_DATA_SUCCESS, user });
+      } catch (e) {
+        logger.error('🔥 error: %o', e);
+        return next(e);
+      }
+    },
+  );
+  route.post(
+    '/reset-password',
+    celebrate({
+      body: Joi.object({
+        _id: Joi.string().required()
+      }),
+    }),
+    async (req: Request, res: Response, next: NextFunction) => {
+      const logger: Logger = Container.get('logger');
+      logger.debug('Calling Reset Password user endpoint with body: %o', req.body);
+      try {
+        const authServiceInstance = Container.get(AuthService);
+        const { user } = await authServiceInstance.ResetPassword(req.body as IUserInputDTO);
+        return res.status(201).json({ code: DEFINED_CODE.INTERACT_DATA_SUCCESS, user });
+      } catch (e) {
+        logger.error('🔥 error: %o', e);
+        return next(e);
+      }
+    },
+  );
   //Get UserPartner List
   route.post('/list', celebrate({
     body: Joi.object({

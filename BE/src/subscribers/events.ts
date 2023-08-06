@@ -2,6 +2,7 @@ export default {
   user: {
     signUp: 'onUserSignUp',
     signIn: 'onUserSignIn',
+    edit: 'onEdit'
   },
   doctor: {
     create: 'onCreateDoctor',

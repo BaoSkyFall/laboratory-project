@@ -32,7 +32,14 @@ export class UserPartnerService {
   createUser(payload: any) {
     return this.http.post(API.URL.USER_PARTNER.CREATE_USER, payload).pipe(take(1));
   }
+  updateUser(payload: any) {
+    return this.http.post(API.URL.USER_PARTNER.UPDATE_USER, payload).pipe(take(1));
 
+  }
+  resetPassword(payload: any) {
+    return this.http.post(API.URL.USER_PARTNER.RESET_PASSWORD, payload).pipe(take(1));
+
+  }
   // getBlackList(searchModel: BlackListSearchModel) {
   //   return this.http.post(API.URL.BLACK_LIST.SEARCH, searchModel).pipe(take(1));
   // }
